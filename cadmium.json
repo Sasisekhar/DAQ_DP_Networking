@@ -1,0 +1,18 @@
+{
+    "GCC_ARM": {
+        "common": [ "-Wno-all", "-Wextra",
+                   "-Wno-unused-parameter", "-Wno-missing-field-initializers",
+                   "-fmessage-length=0", "-fno-exceptions", "-fno-builtin",
+                   "-ffunction-sections", "-fdata-sections", "-funsigned-char",
+                   "-MMD", "-fno-delete-null-pointer-checks", "-Wno-register",
+                   "-fomit-frame-pointer", "-Os", "-g1", "-DMBED_TRAP_ERRORS_ENABLED=1",
+		    "-DBOOST_NO_PLATFORM_CONFIG", "-DRT_ARM_MBED", "-fexceptions","-L/opt/homebrew/Cellar/gsl/2.6/lib"],
+        "asm": ["-c", "-x", "assembler-with-cpp"],
+        "c": ["-c", "-std=gnu99"],
+        "cxx": ["-c", "-std=gnu++17", "-g", "-Wvla","-I","../drivers", "-I", "../../cadmium/include", "-I", "../../boost_1_70_0", "-I", "../mbed-os", "-I", "../../cadmium/DESTimes/include", "-I", "/opt/homebrew/Cellar/gsl/2.6/include",  "-L/Users/rishabhjiresal/gsl_arm/lib", "-lgsl", "-lgslcblas", "-lm"],
+        "ld": ["-Wl,--gc-sections", "-Wl,--wrap,main", "-Wl,--wrap,_malloc_r",
+               "-Wl,--wrap,_free_r", "-Wl,--wrap,_realloc_r", "-Wl,--wrap,_memalign_r",
+               "-Wl,--wrap,_calloc_r", "-Wl,--wrap,exit", "-Wl,--wrap,atexit","-Wl,-verbose",
+               "-Wl,-n","-Wl,-V",  "-L/Users/rishabhjiresal/gsl_arm/lib", "-lgsl", "-lgslcblas", "-lm"]
+    }
+}
