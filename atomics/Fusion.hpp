@@ -18,7 +18,7 @@
 #include <random>
 
 #include "../drivers/Algorithm.h"
-#if RT_ARM_MBED
+#ifdef RT_ARM_MBED
 #include "../drivers/DataToStorage.h"
 #endif
 
@@ -33,9 +33,9 @@ struct Fusion_defs
   struct s3T : public in_port<double>{};
   struct s4T : public in_port<double>{};
   struct s5T : public in_port<double>{};
-  struct s6T : public in_port<double>{};
-  struct s7T : public in_port<double>{};
-  struct s8T : public in_port<double>{};
+  // struct s6T : public in_port<double>{};
+  // struct s7T : public in_port<double>{};
+  // struct s8T : public in_port<double>{};
 
   struct outT : public out_port<double> {};
 };
@@ -46,18 +46,18 @@ class Fusion
   using defs=Fusion_defs;
   	public:
       Fusion() noexcept {
-        for(int i=0;i<8;i++) {
+        for(int i=0;i<5;i++) {
           state.sT[i] = 0;
         }
         state.FusedT = 0;
         state.LastT = 0;
-        state.number_of_sensors = 8;
+        state.number_of_sensors = 5;
         state.criterion = 0.95;
         state.active = false;
       }
 
       struct state_type {
-        double sT [8];
+        double sT [5];
         double FusedT;
         double LastT;
         double criterion;
@@ -65,7 +65,7 @@ class Fusion
         bool active;
         }; state_type state;
 
-        using input_ports=std::tuple<typename defs::s1T, typename defs::s2T, typename defs::s3T, typename defs::s4T, typename defs::s5T, typename defs::s6T, typename defs::s7T, typename defs::s8T>;
+        using input_ports=std::tuple<typename defs::s1T, typename defs::s2T, typename defs::s3T, typename defs::s4T, typename defs::s5T/*, typename defs::s6T, typename defs::s7T, typename defs::s8T*/>;
       	using output_ports=std::tuple<typename defs::outT>;
 
 
@@ -90,15 +90,15 @@ class Fusion
           for(const auto &x : get_messages<typename defs::s5T>(mbs)) {
             state.sT[4] = x;
           }
-          for(const auto &x : get_messages<typename defs::s6T>(mbs)) {
-            state.sT[5] = x;
-          }
-          for(const auto &x : get_messages<typename defs::s7T>(mbs)) {
-            state.sT[6] = x;
-          }
-          for(const auto &x : get_messages<typename defs::s8T>(mbs)) {
-            state.sT[7] = x;
-          }
+          // for(const auto &x : get_messages<typename defs::s6T>(mbs)) {
+          //   state.sT[5] = x;
+          // }
+          // for(const auto &x : get_messages<typename defs::s7T>(mbs)) {
+          //   state.sT[6] = x;
+          // }
+          // for(const auto &x : get_messages<typename defs::s8T>(mbs)) {
+          //   state.sT[7] = x;
+          // }
         
          //Here goes the wrapper
          state.FusedT = 
@@ -111,7 +111,7 @@ compute_integrated_support_degree_score(state.sT,
             state.number_of_sensors), state.sT, state.criterion, state.number_of_sensors );
   
 
-          #if RT_ARM_MBED
+          #ifdef RT_ARM_MBED
           StoreData(state.sT, state.FusedT);
           #endif
           //If the values are not up to the mark, we can discard them here if that can be done.
