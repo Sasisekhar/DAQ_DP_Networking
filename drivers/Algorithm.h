@@ -2,7 +2,7 @@
 #ifndef Algorithm_h
 #define Algorithm_h
 
-#include</usr/local/include/eigen3/Eigen/Dense>
+#include "../eigen3/Eigen/Dense"
 
 using namespace Eigen;
 using namespace std;

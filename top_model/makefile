@@ -4,7 +4,6 @@ COMPILE_TARGET=NUCLEO_H743ZI2
 FLASH_TARGET=NODE_F401RE1
 EXECUTABLE_NAME=Testing_Algorithm_TOP
 
-LIBDIR=/opt/homebrew/Cellar/gsl/2.6/include
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
 INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
 INCLUDEBOOST=-I ../../boost_1_70_0
@@ -22,10 +21,10 @@ all: main fusion
 	$(CC) -g -o $(EXECUTABLE_NAME) main.o Algorithm.o
 
 main: main.cpp
-	$(CC) -g -c $(CFLAGS) -I$(LIBDIR) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o main.o
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o main.o
 
 fusion: ../drivers/Algorithm.cpp
-	$(CC) -g -c $(CFLAGS) -I$(LIBDIR) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o Algorithm.o
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o Algorithm.o
 
 clean:
 	rm -f $(EXECUTABLE_NAME) *.o *~

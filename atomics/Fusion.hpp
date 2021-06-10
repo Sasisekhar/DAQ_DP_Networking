@@ -96,12 +96,6 @@ class Fusion
           for(const auto &x : get_messages<typename defs::s8T>(mbs)) {
             state.sT[7] = x;
           }
-
-          state.FusedT = 0;
-          cout<<e<<",";
-        for(int i=0;i<8;i++) {
-          cout<<state.sT[i]<<",";
-        }
         
          //Here goes the wrapper
          state.FusedT = 
@@ -112,8 +106,6 @@ compute_integrated_support_degree_score(state.sT,
             sdm_calculator(state.sT, state.number_of_sensors),
             state.criterion, 
             state.number_of_sensors), state.sT, state.criterion, state.number_of_sensors );
-
-          cout<<state.FusedT<<endl;        
   
           //If the values are not up to the mark, we can discard them here if that can be done.
       		state.active = true;
