@@ -69,15 +69,6 @@ class Fusion
         void internal_transition (){
           state.LastT = state.FusedT;
           state.active = false;
-//   double sensors[8] = {20, 24, 18, 20, 24, 21, 22, 23};
-//   state.FusedT = 
-// faulty_sensor_and_sensor_fusion(
-// compute_integrated_support_degree_score(sensors,
-//             compute_alpha(eigen_value_calculation(sdm_calculator(sensors, state.number_of_sensors))), 
-//             compute_phi(compute_alpha(eigen_value_calculation(sdm_calculator(sensors, state.number_of_sensors))), state.number_of_sensors),
-//             sdm_calculator(sensors, state.number_of_sensors),
-//             state.criterion, 
-//             state.number_of_sensors), sensors, state.criterion, state.number_of_sensors );
          }
 
         void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs){
@@ -107,8 +98,11 @@ class Fusion
           }
 
           state.FusedT = 0;
-
-
+          cout<<e<<",";
+        for(int i=0;i<8;i++) {
+          cout<<state.sT[i]<<",";
+        }
+        
          //Here goes the wrapper
          state.FusedT = 
 faulty_sensor_and_sensor_fusion(
@@ -119,8 +113,7 @@ compute_integrated_support_degree_score(state.sT,
             state.criterion, 
             state.number_of_sensors), state.sT, state.criterion, state.number_of_sensors );
 
-//compute_phi(compute_alpha(eigen_value_calculation( sdm_calculator(state.sT,state.number_of_sensors))),state.number_of_sensors);
-        
+          cout<<state.FusedT<<endl;        
   
           //If the values are not up to the mark, we can discard them here if that can be done.
       		state.active = true;
