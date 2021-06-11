@@ -3,6 +3,6 @@
 
 using namespace std;
 
-void StoreData(double[], double);
+void StoreData(double[],int, double);
 
 #endif

@@ -43,7 +43,7 @@ using defs=Sensor_defs;
     }
 
 		Sensor(PinName TempPin) noexcept {
-      new (this) Sensor(TempPin, TIME("00:00:01:000"));
+      new (this) Sensor(TempPin, TIME("00:00:05:000"));
     		}
 
         Sensor(PinName TempPin, TIME rate) noexcept {

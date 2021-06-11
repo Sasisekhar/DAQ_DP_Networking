@@ -23,11 +23,11 @@
 #ifdef RT_ARM_MBED
   #include "../mbed.h"
 #else
-const char* D0 = "./inputs/Temperature_Sensor_Values1.txt";
-const char* D1 = "./inputs/Temperature_Sensor_Values2.txt";
-const char* D2 = "./inputs/Temperature_Sensor_Values3.txt";
-const char* D3 = "./inputs/Temperature_Sensor_Values4.txt";
-const char* D4 = "./inputs/Temperature_Sensor_Values5.txt";
+const char* D3 = "./inputs/Temperature_Sensor_Values1.txt";
+const char* D5 = "./inputs/Temperature_Sensor_Values2.txt";
+const char* D7 = "./inputs/Temperature_Sensor_Values3.txt";
+const char* D8 = "./inputs/Temperature_Sensor_Values4.txt";
+const char* D10 = "./inputs/Temperature_Sensor_Values5.txt";
 //const char* t6_IN = "./inputs/Temperature_Sensor_Values6.txt";
 //const char* t7_IN = "./inputs/Temperature_Sensor_Values7.txt";
 //const char* t8_IN = "./inputs/Temperature_Sensor_Values8.txt";
@@ -80,11 +80,11 @@ int main(int argc, char ** argv) {
   using AtomicModelPtr=std::shared_ptr<cadmium::dynamic::modeling::model>;
   using CoupledModelPtr=std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>>;
 
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D0);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D1);
-  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", D2);
-  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", D3);
-  AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", D4);
+  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D3);
+  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D5);
+  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", D7);
+  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", D8);
+  AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", D10);
   //AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", t6_IN);
   //AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", t7_IN);
   //AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", t8_IN);
