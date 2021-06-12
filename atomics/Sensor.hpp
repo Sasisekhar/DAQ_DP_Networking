@@ -25,7 +25,7 @@ using namespace std;
 #ifdef RT_ARM_MBED
 #include <cadmium/real_time/arm_mbed/embedded_error.hpp>
 #include "mbed.h"
-#include "../drivers/SensorDrivers/TempHumidity_Driver.hpp"
+#include "../drivers/SensorDrivers/Driver.hpp"
 
 struct Sensor_defs
 {
@@ -48,13 +48,13 @@ using defs=Sensor_defs;
 
         Sensor(PinName TempPin, TIME rate) noexcept {
           pollingRate = rate;
-          state.Temp = new drivers::TEMPHUMIDITY_DRIVER(TempPin);
+          state.Temp = new drivers::TEMPERATURE_HUMIDITY(TempPin);
         }
 
     		struct state_type {
     			double lastTemp;
     			double outputTemp;
-          drivers::TEMPHUMIDITY_DRIVER* Temp;
+          drivers::TEMPERATURE_HUMIDITY* Temp;
     			}; state_type state;
 
     		using input_ports=std::tuple<>;
