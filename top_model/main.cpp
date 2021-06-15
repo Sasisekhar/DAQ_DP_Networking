@@ -28,11 +28,11 @@ const char* D5 = "./inputs/Temperature_Sensor_Values2.txt";
 const char* D7 = "./inputs/Temperature_Sensor_Values3.txt";
 const char* D8 = "./inputs/Temperature_Sensor_Values4.txt";
 const char* D10 = "./inputs/Temperature_Sensor_Values5.txt";
-//const char* t6_IN = "./inputs/Temperature_Sensor_Values6.txt";
-//const char* t7_IN = "./inputs/Temperature_Sensor_Values7.txt";
-//const char* t8_IN = "./inputs/Temperature_Sensor_Values8.txt";
-//const char* t9_IN = "./inputs/Temperature_Sensor_Values9.txt";
-//const char* t10_IN = "./inputs/Temperature_Sensor_Values10.txt";
+const char* t6_IN = "./inputs/Temperature_Sensor_Values6.txt";
+const char* t7_IN = "./inputs/Temperature_Sensor_Values7.txt";
+const char* t8_IN = "./inputs/Temperature_Sensor_Values8.txt";
+const char* t9_IN = "./inputs/Temperature_Sensor_Values9.txt";
+const char* t10_IN = "./inputs/Temperature_Sensor_Values10.txt";
 #endif
 using namespace std;
 
@@ -85,17 +85,17 @@ int main(int argc, char ** argv) {
   AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", D7);
   AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", D8);
   AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", D10);
-  //AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", t6_IN);
-  //AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", t7_IN);
-  //AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", t8_IN);
-  //AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", t9_IN);
+  AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", t6_IN);
+  AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", t7_IN);
+  AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", t8_IN);
+  AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", t9_IN);
   
   AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
   
   cadmium::dynamic::modeling::Ports iports_TOP = {};
   cadmium::dynamic::modeling::Ports oports_TOP = {};
 
-  cadmium::dynamic::modeling::Models submodels_TOP = {Sensor1, Sensor2, Sensor3, Sensor4, Sensor5,/* Sensor6, Sensor7, Sensor8,*/ Fusion1};
+  cadmium::dynamic::modeling::Models submodels_TOP = {Sensor1, Sensor2, Sensor3, Sensor4, Sensor5, Sensor6, Sensor7, Sensor8, Fusion1};
 
 cadmium::dynamic::modeling::EICs eics_TOP = {};
 cadmium::dynamic::modeling::EOCs eocs_TOP = {};
@@ -109,13 +109,13 @@ cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s1T>("Sensor
 
   cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s4T>("Sensor4","Fusion1"),
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s5T>("Sensor5","Fusion1")
+  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s5T>("Sensor5","Fusion1"),
 
-  //cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s6T>("Sensor6","Fusion1"),
+  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s6T>("Sensor6","Fusion1"),
 
-  //cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s7T>("Sensor7","Fusion1"),
+  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s7T>("Sensor7","Fusion1"),
 
-  //cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s8T>("Sensor8","Fusion1")
+  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s8T>("Sensor8","Fusion1")
 
 
 };
