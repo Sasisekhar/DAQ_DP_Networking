@@ -44,7 +44,7 @@ int main(int argc, char ** argv) {
   //This will end the main thread and create a new one with more stack.
   #ifdef RT_ARM_MBED
     //Set RTC
-    set_time(1256729737);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
+    set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
       static std::ostream& sink(){
