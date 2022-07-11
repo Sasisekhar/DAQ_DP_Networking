@@ -16,23 +16,25 @@
 #ifdef RT_ARM_MBED
 #include <cadmium/real_time/arm_mbed/rt_clock.hpp>
 #endif
-#include "../atomics/Fusion.hpp"
+#include "../atomics/Packetizer.hpp"
 #include "../atomics/Sensor.hpp"
 
 #include <NDTime.hpp>
 #ifdef RT_ARM_MBED
   #include "../mbed.h"
 #else
-const char* D3 = "./inputs/Temperature_Sensor_Values1.txt";
-const char* D5 = "./inputs/Temperature_Sensor_Values2.txt";
-const char* D7 = "./inputs/Temperature_Sensor_Values3.txt";
-const char* D8 = "./inputs/Temperature_Sensor_Values4.txt";
-const char* D10 = "./inputs/Temperature_Sensor_Values5.txt";
-const char* t6_IN = "./inputs/Temperature_Sensor_Values6.txt";
-const char* t7_IN = "./inputs/Temperature_Sensor_Values7.txt";
-const char* t8_IN = "./inputs/Temperature_Sensor_Values8.txt";
-const char* t9_IN = "./inputs/Temperature_Sensor_Values9.txt";
-const char* t10_IN = "./inputs/Temperature_Sensor_Values10.txt";
+const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
+const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
+const char* t3 = "./inputs/Temperature_Sensor_Values3.txt";
+
+const char* h1 = "./inputs/Temperature_Sensor_Values4.txt";
+const char* h2 = "./inputs/Temperature_Sensor_Values5.txt";
+const char* h3 = "./inputs/Temperature_Sensor_Values6.txt";
+
+const char* c1 = "./inputs/Temperature_Sensor_Values7.txt";
+const char* c2 = "./inputs/Temperature_Sensor_Values8.txt";
+const char* c3 = "./inputs/Temperature_Sensor_Values9.txt";
+
 #endif
 using namespace std;
 
@@ -80,67 +82,84 @@ int main(int argc, char ** argv) {
   using AtomicModelPtr=std::shared_ptr<cadmium::dynamic::modeling::model>;
   using CoupledModelPtr=std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>>;
 
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D3);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D5);
-  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", D7);
-  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", D8);
-  AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", D10);
-  AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", t6_IN);
-  AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", t7_IN);
-  AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", t8_IN);
-  AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", t9_IN);
+  /*************************************************/
+  /*************** Atomic models *******************/
+  /*************************************************/
+  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
+  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
+  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", t3);
+
+  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", h1);
+  AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", h2);
+  AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", h3);
+
+  AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", c1);
+  AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", c2);
+  AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", c3);
+
   
-  AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
-  
-  cadmium::dynamic::modeling::Ports iports_TOP = {};
-  cadmium::dynamic::modeling::Ports oports_TOP = {};
+  AtomicModelPtr Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Packetizer, TIME>("Packetizer1");
 
-  cadmium::dynamic::modeling::Models submodels_TOP = {Sensor1, Sensor2, Sensor3, Sensor4, Sensor5, Sensor6, Sensor7, Sensor8, Fusion1};
+  /***********************************************/
+  /*************** DAQ Coupled *******************/
+  /***********************************************/
+  cadmium::dynamic::modeling::Ports iports_DAQ = {};
+  cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
-cadmium::dynamic::modeling::EICs eics_TOP = {};
-cadmium::dynamic::modeling::EOCs eocs_TOP = {};
+  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, Sensor3, Sensor4, Sensor5, Sensor6, Sensor7, Sensor8, Sensor9, Packetizer1};
 
-cadmium::dynamic::modeling::ICs ics_TOP = {
-cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s1T>("Sensor1","Fusion1"),
+  cadmium::dynamic::modeling::EICs eics_DAQ = {};
+  cadmium::dynamic::modeling::EOCs eocs_DAQ = {};
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s2T>("Sensor2","Fusion1"),
+  cadmium::dynamic::modeling::ICs ics_DAQ = {
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::T1>("Sensor1","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::T2>("Sensor2","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::T3>("Sensor3","Packetizer1"),
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s3T>("Sensor3","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::H1>("Sensor4","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::H2>("Sensor5","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::H3>("Sensor6","Packetizer1"),
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s4T>("Sensor4","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::C1>("Sensor7","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::C2>("Sensor8","Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Sensor_defs::out, Packetizer_defs::C3>("Sensor9","Packetizer1"),
+  };
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s5T>("Sensor5","Fusion1"),
+  CoupledModelPtr DAQ = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+    "DAQ",
+    submodels_DAQ,
+    iports_DAQ,
+    oports_DAQ,
+    eics_DAQ,
+    eocs_DAQ,
+    ics_DAQ
+  );
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s6T>("Sensor6","Fusion1"),
+  /**********************************************/
+  /*************** DP Coupled *******************/
+  /**********************************************/
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s7T>("Sensor7","Fusion1"),
+  /***************************************************/
+  /*************** Network Coupled *******************/
+  /***************************************************/
 
-  cadmium::dynamic::translate::make_IC<Sensor_defs::out, Fusion_defs::s8T>("Sensor8","Fusion1")
+  /***********************************************/
+  /*************** TOP Coupled *******************/
+  /***********************************************/
 
+  #ifdef RT_ARM_MBED
+    // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
 
-};
-CoupledModelPtr TOP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-    "TOP",
-    submodels_TOP,
-    iports_TOP,
-    oports_TOP,
-    eics_TOP,
-    eocs_TOP,
-    ics_TOP
-    );
-#ifdef RT_ARM_MBED
-   // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
+        cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(TOP, {0});
+  #else
 
-      cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(TOP, {0});
-#else
+  // cadmium::dynamic::engine::runner<NDTime, log_all> r(DAQ, {0});
+      cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
+  #endif
 
- // cadmium::dynamic::engine::runner<NDTime, log_all> r(TOP, {0});
-    cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
-#endif
-
-r.run_until(NDTime("100:00:00:000"));
-#ifndef RT_ARM_MBED
-return 0;
-#endif
+  r.run_until(NDTime("100:00:00:000"));
+  #ifndef RT_ARM_MBED
+  return 0;
+  #endif
 
 }

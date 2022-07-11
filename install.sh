@@ -57,30 +57,30 @@ sudo apt-get -y install python3 python3-pip
 echo "### Install python-tk for SVEC ###"
 sudo apt-get install python-tk python3-apt python-apt
 
-echo "### Download GCC ARM Compiler ###"
-wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2?revision=d830f9dd-cd4f-406d-8672-cca9210dd220?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,8-2018-q4-major -O gcc-arm-none-eabi-8-2018-q4-major.tar.bz2
+# echo "### Download GCC ARM Compiler ###"
+# wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2?revision=d830f9dd-cd4f-406d-8672-cca9210dd220?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,8-2018-q4-major -O gcc-arm-none-eabi-8-2018-q4-major.tar.bz2
 
-echo "### Extract GCC ARM Tarball ###"
-tar jxf $GCC_FOLDER_NAME.tar.bz2
+# echo "### Extract GCC ARM Tarball ###"
+# tar jxf $GCC_FOLDER_NAME.tar.bz2
 
-echo "### Install GCC ARM Compiler in /opt/gcc-arm-none-eabi-8-2018-q4-major ###"
-sudo mv ./$GCC_FOLDER_NAME /opt/
+# echo "### Install GCC ARM Compiler in /opt/gcc-arm-none-eabi-8-2018-q4-major ###"
+# sudo mv ./$GCC_FOLDER_NAME /opt/
 
-echo "### Cleaning Up GCC ARM Download ###"
-sudo rm $GCC_FOLDER_NAME.tar.bz2
-sudo rm -rf gcc-arm-none-eabi-8-2018-q4-major/
+# echo "### Cleaning Up GCC ARM Download ###"
+# sudo rm $GCC_FOLDER_NAME.tar.bz2
+# sudo rm -rf gcc-arm-none-eabi-8-2018-q4-major/
 
-echo "### Install MBED-CLI ###"
-python3 -m pip install mbed-cli
+# echo "### Install MBED-CLI ###"
+# python3 -m pip install mbed-cli
 
-echo "### Set MBED Compiler Path ###"
-mbed config -G GCC_ARM_PATH /opt/$GCC_FOLDER_NAME/bin
+# echo "### Set MBED Compiler Path ###"
+# mbed config -G GCC_ARM_PATH /opt/$GCC_FOLDER_NAME/bin
 
-echo "### Install Mbed-CLI dependencies ###"
-python3 -m pip install -r mbed-os/requirements.txt
+# echo "### Install Mbed-CLI dependencies ###"
+# python3 -m pip install -r mbed-os/requirements.txt
 
-echo "### Install miniterm.py ###"
-python3 -m pip install pyserial
+# echo "### Install miniterm.py ###"
+# python3 -m pip install pyserial
 
 echo "### Download Boost 1.70.0 ###"
 wget https://dl.bintray.com/boostorg/release/1.70.0/source/boost_1_70_0.tar.bz2 -O boost_1_70_0.tar.bz2
