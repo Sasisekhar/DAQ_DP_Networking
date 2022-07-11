@@ -1,5 +1,5 @@
-#ifndef BOOST_SIMULATION_FUSION_HPP
-#define BOOST_SIMULATION_FUSION_HPP
+#ifndef BOOST_SIMULATION_PACKETIZER_HPP
+#define BOOST_SIMULATION_PACKETIZER_HPP
 
 #include <stdio.h>
 #include <cadmium/modeling/ports.hpp>

@@ -18,6 +18,9 @@
 #endif
 #include "../atomics/Packetizer.hpp"
 #include "../atomics/Sensor.hpp"
+#include "../atomics/Subscriber.hpp"
+#include "../atomics/DP_Parser.hpp"
+#include "../atomics/Fusion.hpp"
 
 #include <NDTime.hpp>
 #ifdef RT_ARM_MBED
@@ -34,6 +37,10 @@ const char* h3 = "./inputs/Temperature_Sensor_Values6.txt";
 const char* c1 = "./inputs/Temperature_Sensor_Values7.txt";
 const char* c2 = "./inputs/Temperature_Sensor_Values8.txt";
 const char* c3 = "./inputs/Temperature_Sensor_Values9.txt";
+
+const char* t = "./inputs/fused_t.txt";
+const char* h = "./inputs/fused_h.txt";
+const char* c = "./inputs/fused_c.txt";
 
 #endif
 using namespace std;
@@ -97,8 +104,11 @@ int main(int argc, char ** argv) {
   AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", c2);
   AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", c3);
 
-  
   AtomicModelPtr Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Packetizer, TIME>("Packetizer1");
+
+  // AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t, h, c);
+  AtomicModelPtr DP_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DP_Parser, TIME>("DP_Parser1");
+  AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
 
   /***********************************************/
   /*************** DAQ Coupled *******************/
