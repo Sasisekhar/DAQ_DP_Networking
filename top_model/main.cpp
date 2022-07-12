@@ -19,7 +19,7 @@
 #include "../atomics/Packetizer.hpp"
 #include "../atomics/Sensor.hpp"
 #include "../atomics/Subscriber.hpp"
-#include "../atomics/DP_Parser.hpp"
+#include "../atomics/Data_Parser.hpp"
 #include "../atomics/Fusion.hpp"
 
 #include <NDTime.hpp>
@@ -95,20 +95,21 @@ int main(int argc, char ** argv) {
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
   AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
   AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor3", t3);
-
   AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor4", h1);
   AtomicModelPtr Sensor5 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor5", h2);
   AtomicModelPtr Sensor6 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor6", h3);
-
   AtomicModelPtr Sensor7 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor7", c1);
   AtomicModelPtr Sensor8 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor8", c2);
   AtomicModelPtr Sensor9 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor9", c3);
-
   AtomicModelPtr Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Packetizer, TIME>("Packetizer1");
 
-  // AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t, h, c);
-  AtomicModelPtr DP_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DP_Parser, TIME>("DP_Parser1");
+  AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t);
+  AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", h);
+  AtomicModelPtr Subscriber3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber3", c);
+  AtomicModelPtr Data_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser1");
   AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
+  AtomicModelPtr Fusion2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion2");
+  AtomicModelPtr Fusion3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion3");
 
   /***********************************************/
   /*************** DAQ Coupled *******************/
@@ -149,6 +150,42 @@ int main(int argc, char ** argv) {
   /*************** DP Coupled *******************/
   /**********************************************/
 
+  cadmium::dynamic::modeling::Ports iports_DP = {};
+  cadmium::dynamic::modeling::Ports oports_DP = {};
+
+  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Subscriber3, Data_Parser1, Fusion1, Fusion2, Fusion3};
+
+  cadmium::dynamic::modeling::EICs eics_DP = {};
+  cadmium::dynamic::modeling::EOCs eocs_DP = {};
+
+  cadmium::dynamic::modeling::ICs ics_DP = {
+    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::T>("Subscriber1","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::H>("Subscriber2","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::C>("Subscriber3","Data_Parser1"),
+
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::T1, Fusion_defs::s1T>("Data_Parser1","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::T2, Fusion_defs::s2T>("Data_Parser1","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::T3, Fusion_defs::s3T>("Data_Parser1","Fusion1"),
+
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::H1, Fusion_defs::s1T>("Data_Parser1","Fusion2"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::H2, Fusion_defs::s2T>("Data_Parser1","Fusion2"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::H3, Fusion_defs::s3T>("Data_Parser1","Fusion2"),
+
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::C1, Fusion_defs::s1T>("Data_Parser1","Fusion3"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::C2, Fusion_defs::s2T>("Data_Parser1","Fusion3"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::C3, Fusion_defs::s3T>("Data_Parser1","Fusion3"),
+  };
+
+  CoupledModelPtr DP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+    "DP",
+    submodels_DP,
+    iports_DP,
+    oports_DP,
+    eics_DP,
+    eocs_DP,
+    ics_DP
+  );
+
   /***************************************************/
   /*************** Network Coupled *******************/
   /***************************************************/
@@ -164,7 +201,7 @@ int main(int argc, char ** argv) {
   #else
 
   // cadmium::dynamic::engine::runner<NDTime, log_all> r(DAQ, {0});
-      cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
+      cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
   #endif
 
   r.run_until(NDTime("100:00:00:000"));
