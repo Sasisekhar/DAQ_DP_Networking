@@ -72,7 +72,7 @@ int main(int argc, char ** argv) {
 
     /*************** Loggers *******************/
 
-    static std::ofstream out_data("SensorFusion_Cadmium_output.txt");
+    static std::ofstream out_data("MessageOutputs.txt");
     struct oss_sink_provider{
       static std::ostream& sink(){
         return out_data;
