@@ -2,7 +2,7 @@ CC=g++-11
 CFLAGS=-std=c++17
 COMPILE_TARGET=NUCLEO_H743ZI2
 FLASH_TARGET=NODE_F401RE1
-EXECUTABLE_NAME=Testing_Algorithm_TOP
+EXECUTABLE_NAME=build/Testing_Algorithm_TOP
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
 INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
@@ -18,16 +18,19 @@ flash:
 
 
 all: main fusion
-	$(CC) -g -o $(EXECUTABLE_NAME) main.o Algorithm.o
+	$(CC) -g -o $(EXECUTABLE_NAME) build/main.o build/Algorithm.o
+	./$(EXECUTABLE_NAME)
 
 main: main.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o main.o
+	make clean
+	mkdir build
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build/main.o
 
 fusion: ../drivers/Algorithm.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o Algorithm.o
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o build/Algorithm.o
 
 clean:
-	rm -f $(EXECUTABLE_NAME) *.o *~
+	rm -rf build
 
 eclean:
 	rm -rf ../BUILD
