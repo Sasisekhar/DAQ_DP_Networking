@@ -27,22 +27,22 @@ using namespace std;
 
 
 struct Data_Parser_defs {
-  struct T : public in_port<string>{};
-  struct H : public in_port<string>{};
-  struct C : public in_port<string>{};
+  struct in : public in_port<string>{};
+  // struct H : public in_port<string>{};
+  // struct C : public in_port<string>{};
 
 
-  struct T1 : public out_port<double> {};
-  struct T2 : public out_port<double> {};
-  struct T3 : public out_port<double> {};
+  struct out1 : public out_port<double> {};
+  struct out2 : public out_port<double> {};
+  struct out3 : public out_port<double> {};
 
-  struct H1 : public out_port<double> {};
-  struct H2 : public out_port<double> {};
-  struct H3 : public out_port<double> {};
+  // struct H1 : public out_port<double> {};
+  // struct H2 : public out_port<double> {};
+  // struct H3 : public out_port<double> {};
 
-  struct C1 : public out_port<double> {};
-  struct C2 : public out_port<double> {};
-  struct C3 : public out_port<double> {};
+  // struct C1 : public out_port<double> {};
+  // struct C2 : public out_port<double> {};
+  // struct C3 : public out_port<double> {};
 };
 
 template<typename TIME>
@@ -51,20 +51,20 @@ class Data_Parser
   using defs=Data_Parser_defs;
   public:
     Data_Parser() noexcept {
-      for(int i = 0; i < 9; i++) {
+      for(int i = 0; i < 3; i++) {
         state.values[i] = 0;
       }
       state.active = false;
     }
 
     struct state_type {
-      double values[9];  //Number of inputs
-      string buffer[3];
+      double values[3];  //Number of inputs
+      string buffer;
       bool active;
     }; state_type state;
 
-    using input_ports=std::tuple<typename defs::T, typename defs::H, typename defs::C>;
-    using output_ports=std::tuple<typename defs::T1, typename defs::T2, typename defs::T3, typename defs::H1, typename defs::H2, typename defs::H3, typename defs::C1, typename defs::C2, typename defs::C3>;
+    using input_ports=std::tuple<typename defs::in>;//, typename defs::H, typename defs::C>;
+    using output_ports=std::tuple<typename defs::out1, typename defs::out2, typename defs::out3>;//3, typename defs::H1, typename defs::H2, typename defs::H3, typename defs::C1, typename defs::C2, typename defs::C3>;
 
 
     void internal_transition (){
@@ -72,50 +72,25 @@ class Data_Parser
     }
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs){
-      for(const auto &x : get_messages<typename defs::T>(mbs)) {
-        state.buffer[0] = x;
+      for(const auto &x : get_messages<typename defs::in>(mbs)) {
+        state.buffer = x;
       }
-      for(const auto &x : get_messages<typename defs::H>(mbs)) {
-        state.buffer[1] = x;
-      }
-      for(const auto &x : get_messages<typename defs::C>(mbs)) {
-        state.buffer[2] = x;
-      }
+      // for(const auto &x : get_messages<typename defs::H>(mbs)) {
+      //   state.buffer[1] = x;
+      // }
+      // for(const auto &x : get_messages<typename defs::C>(mbs)) {
+      //   state.buffer[2] = x;
+      // }
 
       int count = 0;
       string tmp = "";
 
-      //temp csv
-      for(int i = 0; i < state.buffer[0].length(); i++) {
+      for(int i = 0; i < state.buffer.length(); i++) {
 
-        if((state.buffer[0])[i] != ',') {
-          tmp += (state.buffer[0])[i];
-        } else if((state.buffer[0])[i] == ',') {
-          state.values[count++] = stoi(tmp);
-          tmp = "";
-        }
-
-      }
-
-      //hum csv
-      for(int i = 0; i < state.buffer[1].length(); i++) {
-
-        if((state.buffer[1])[i] != ',') {
-          tmp += (state.buffer[1])[i];
-        } else if((state.buffer[1])[i] == ',') {
-          state.values[count++] = stoi(tmp);
-          tmp = "";
-        }
-
-      }
-
-      //co csv
-      for(int i = 0; i < state.buffer[2].length(); i++) {
-
-        if((state.buffer[2])[i] != ',') {
-          tmp += (state.buffer[2])[i];
-        } else if((state.buffer[2])[i] == ',') {
-          state.values[count++] = stoi(tmp);
+        if(state.buffer[i] != ',') {
+          tmp += state.buffer[i];
+        } else if(state.buffer[i] == ',') {
+          state.values[count++] = stof(tmp);
           tmp = "";
         }
 
@@ -131,17 +106,17 @@ class Data_Parser
 
     typename make_message_bags<output_ports>::type output() const {
       typename make_message_bags<output_ports>::type bags;
-      get_messages<typename defs::T1>(bags).push_back(state.values[0]);
-      get_messages<typename defs::T2>(bags).push_back(state.values[1]);
-      get_messages<typename defs::T3>(bags).push_back(state.values[2]);
+      get_messages<typename defs::out1>(bags).push_back(state.values[0]);
+      get_messages<typename defs::out2>(bags).push_back(state.values[1]);
+      get_messages<typename defs::out3>(bags).push_back(state.values[2]);
 
-      get_messages<typename defs::H1>(bags).push_back(state.values[3]);
-      get_messages<typename defs::H2>(bags).push_back(state.values[4]);
-      get_messages<typename defs::H3>(bags).push_back(state.values[5]);
+      // get_messages<typename defs::H1>(bags).push_back(state.values[3]);
+      // get_messages<typename defs::H2>(bags).push_back(state.values[4]);
+      // get_messages<typename defs::H3>(bags).push_back(state.values[5]);
 
-      get_messages<typename defs::C1>(bags).push_back(state.values[6]);
-      get_messages<typename defs::C2>(bags).push_back(state.values[7]);
-      get_messages<typename defs::C3>(bags).push_back(state.values[8]);
+      // get_messages<typename defs::C1>(bags).push_back(state.values[6]);
+      // get_messages<typename defs::C2>(bags).push_back(state.values[7]);
+      // get_messages<typename defs::C3>(bags).push_back(state.values[8]);
       return bags;
     }
 
