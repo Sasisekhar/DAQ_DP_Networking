@@ -212,6 +212,26 @@ int main(int argc, char ** argv) {
   /*************** TOP Coupled *******************/
   /***********************************************/
 
+  cadmium::dynamic::modeling::Ports iports_TOP = {};
+  cadmium::dynamic::modeling::Ports oports_TOP = {};
+
+  cadmium::dynamic::modeling::Models submodels_TOP = {DAQ, DP};
+
+  cadmium::dynamic::modeling::EICs eics_TOP = {};
+  cadmium::dynamic::modeling::EOCs eocs_TOP = {};
+
+  cadmium::dynamic::modeling::ICs ics_TOP = {};
+
+  CoupledModelPtr TOP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+    "TOP",
+    submodels_TOP,
+    iports_TOP,
+    oports_TOP,
+    eics_TOP,
+    eocs_TOP,
+    ics_TOP
+  );
+
   #ifdef RT_ARM_MBED
     // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
 
@@ -219,7 +239,8 @@ int main(int argc, char ** argv) {
   #else
 
   // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
-  cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
+  // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
+  cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
   #endif
 
   r.run_until(NDTime("100:00:00:000"));
