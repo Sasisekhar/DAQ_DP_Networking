@@ -1,6 +1,6 @@
 #-------------------------- INSTALL ECADMIUM DEPENDENCIES ----------------------------
 
-GCC_FOLDER_NAME=gcc-arm-none-eabi-8-2018-q4-major
+GCC_FOLDER_NAME=gcc-arm-11.2-2022.02-x86_64-arm-none-eabi
 CADMIUM_DEPENDENCIES=0
 
 PARENT_DIR="$(dirname "$PWD")"
@@ -61,14 +61,14 @@ sudo apt-get install python-tk python3-apt python-apt
 # wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2?revision=d830f9dd-cd4f-406d-8672-cca9210dd220?product=GNU%20Arm%20Embedded%20Toolchain,64-bit,,Linux,8-2018-q4-major -O gcc-arm-none-eabi-8-2018-q4-major.tar.bz2
 
 # echo "### Extract GCC ARM Tarball ###"
-# tar jxf $GCC_FOLDER_NAME.tar.bz2
+# tar jxf $GCC_FOLDER_NAME.tar.xz
 
 # echo "### Install GCC ARM Compiler in /opt/gcc-arm-none-eabi-8-2018-q4-major ###"
 # sudo mv ./$GCC_FOLDER_NAME /opt/
 
 # echo "### Cleaning Up GCC ARM Download ###"
-# sudo rm $GCC_FOLDER_NAME.tar.bz2
-# sudo rm -rf gcc-arm-none-eabi-8-2018-q4-major/
+# sudo rm $GCC_FOLDER_NAME.tar.xz
+# sudo rm -rf gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/
 
 # echo "### Install MBED-CLI ###"
 # python3 -m pip install mbed-cli
