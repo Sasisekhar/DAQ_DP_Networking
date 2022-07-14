@@ -93,7 +93,7 @@ class Fusion
       );
 
       #ifdef RT_ARM_MBED
-      StoreData(state.sT, state.number_of_sensors, state.FusedT);
+      StoreData(state.values, state.number_of_sensors, state.Fused);
       #endif
       //If the values are not up to the mark, we can discard them here if that can be done.
       state.active = true;

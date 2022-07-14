@@ -17,14 +17,17 @@
 #include <limits>
 #include <random>
 
-
 using namespace cadmium;
 using namespace std;
 
+#ifdef RT_ARM_MBED
 
+//Begin RT_Cadmium
+
+
+
+#else
 #include <cadmium/io/oestream.hpp>
-using namespace cadmium;
-using namespace std;
 
 //Port definition
 struct Publisher_defs{
@@ -38,5 +41,5 @@ class Publisher : public oestream_output<string,TIME, Publisher_defs> {
         Publisher() = default;
         Publisher(const char* file_path) : oestream_output<string,TIME, Publisher_defs>(file_path) {}
 };
-
+#endif
 #endif
