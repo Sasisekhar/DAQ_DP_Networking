@@ -1,3 +1,5 @@
+#ifndef MQTTDRIVER_H
+#define MQTTDRIVER_H
 #include "DigitalIn.h"
 #include "DigitalOut.h"
 #include "PinNameAliases.h"
@@ -15,11 +17,13 @@ class MQTTDriver{
     private:
         MQTTclient _client;
     public:
-    bool init();
-    bool connect(const char*);
-    bool publish(const char*, char*);
-    bool receive_response(char*, char*);
-    bool subscribe(const char*);
-    bool ping();
-    void disconnect();
+        bool init();
+        bool connected();
+        bool connect(const char*);
+        bool publish(const char*, char*);
+        bool receive_response(char*, char*);
+        bool subscribe(const char*);
+        bool ping();
+        void disconnect();
 };
+#endif

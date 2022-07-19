@@ -21,8 +21,80 @@ using namespace cadmium;
 using namespace std;
 
 #ifdef RT_ARM_MBED
-
 //Begin RT_Cadmium
+
+#include "MQTTDriver.h"
+#include "mbed.h"
+
+MQTTDriver client;
+
+struct Publisher_defs {
+    struct in : public in_port<string> {};
+};
+
+template<typename TIME>
+class Publisher {
+
+    using defs=Publisher_defs;
+    public:
+
+        Publisher() noexcept {
+
+            state.message = "";
+
+            client.init();
+            printf("Connecting to the broker...\n\r");
+
+            if(client.connect("ARSLAB_DAQ")) {
+                printf("Connected!\n\r");
+            }
+
+            state.UID = rand()%50;
+            char buffer[2];
+            sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);
+
+            client.publish("ARSLAB/Register", buffer);
+        }
+
+        struct state_type {
+            string message;
+            int UID;
+        }; state_type state;
+
+        using input_ports=std::tuple<typename defs::in>;
+        using output_ports=std::tuple<>;
+
+        void internal_transition() {}
+
+        void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
+            for(const auto &x : get_messages<typename defs::in>(mbs)) {
+                state.message = x;
+            }
+
+            char topic[32];
+            sprintf(topic, "%d/DATA/ALL", state.UID);
+            client.publish((const char*) topic, (char*) state.message.c_str());
+        }
+
+        void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
+            internal_transition();
+            external_transition(TIME(), std::move(mbs));
+        }
+
+        typename make_message_bags<output_ports>::type output() const {
+            typename make_message_bags<output_ports>::type bags;
+            return bags;
+        }
+
+        TIME time_advance() const {
+        return std::numeric_limits<TIME>::infinity();
+        }
+
+        friend std::ostringstream& operator<<(std::ostringstream& os, const typename Publisher<TIME>::state_type& i) {
+        os << "";
+        return os;
+        }
+};
 
 
 

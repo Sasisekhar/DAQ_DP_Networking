@@ -1,5 +1,6 @@
 #include "MQTTDriver.h"
 #include "ESP8266Interface.h"
+#include "mbed.h"
 
 namespace global {
     ESP8266Interface _ESPclient(D1, D0);
@@ -64,4 +65,8 @@ bool MQTTDriver::ping() {
 
 void MQTTDriver::disconnect() {
     global::_ESPclient.disconnect();
+}
+
+bool MQTTDriver::connected() {
+    return _client.connected();
 }
