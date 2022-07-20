@@ -828,5 +828,4 @@
  ../../boost_1_79_0/boost/algorithm/string/detail/find_format_all.hpp \
  ../../boost_1_79_0/boost/algorithm/string/formatter.hpp \
  ../../boost_1_79_0/boost/algorithm/string/detail/formatter.hpp \
- ../../boost_1_79_0/boost/algorithm/string/erase.hpp \
- ../mbed-os/cmsis/../mbed.h
+ ../../boost_1_79_0/boost/algorithm/string/erase.hpp

@@ -22,12 +22,15 @@
 
 #include <NDTime.hpp>
 
+
 #ifdef RT_ARM_MBED
-  #include "../mbed.h"
+  #include "mbed.h"
 #else
 
 const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
 const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
+const char* D8;
+const char* D9;
 
 const char* daq_publish = "./outputs/DAQ_Publish.txt";
 
@@ -44,7 +47,7 @@ int main(int argc, char ** argv) {
   //This will end the main thread and create a new one with more stack.
   #ifdef RT_ARM_MBED
     //Set RTC
-    set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
+    set_time(1658351243);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
       static std::ostream& sink(){
@@ -86,7 +89,7 @@ int main(int argc, char ** argv) {
 
   #ifdef RT_ARM_MBED
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D9);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D8);
+  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", (PinName) D8);
   AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1");
   #else
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);

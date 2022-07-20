@@ -29,7 +29,7 @@ using namespace std;
 #include "../drivers/SensorDrivers/Driver.hpp"
 
 struct Sensor_defs {
-    struct out : public out_port<double> { };
+    struct out : public out_port<int> { };
 };
 
 template<typename TIME>
@@ -44,54 +44,50 @@ class Sensor {
     }
 
 		Sensor(PinName TempPin) noexcept {
-      new (this) Sensor(TempPin, TIME("00:00:05:000"));
+      new (this) Sensor(TempPin, TIME("00:00:10:000"));
     }
 
-      Sensor(PinName TempPin, TIME rate) noexcept {
-        pollingRate = rate;
-        state.Temp = new drivers::TEMPERATURE_HUMIDITY(TempPin);
+    Sensor(PinName TempPin, TIME rate) noexcept {
+      pollingRate = rate;
+      state.Temp = new drivers::TEMPERATURE_HUMIDITY(TempPin);
+    }
+
+    struct state_type {
+      int outputTemp;
+      drivers::TEMPERATURE_HUMIDITY *Temp;
+    }; state_type state;
+
+    using input_ports=std::tuple<>;
+    using output_ports=std::tuple<typename defs::out>;
+
+    void internal_transition() {
+      state.outputTemp = state.Temp->TempHumidity();
+      // printf("IT_Debug: %d\r\n", state.outputTemp);
+    }
+
+    void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
+      MBED_ASSERT(false);
+    }
+
+    void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
+      internal_transition();
+      external_transition(TIME(), std::move(mbs));
+    }
+
+    typename make_message_bags<output_ports>::type output() const {
+      typename make_message_bags<output_ports>::type bags;
+        get_messages<typename defs::out>(bags).push_back(state.outputTemp);
+        return bags;
       }
 
-      struct state_type {
-        double lastTemp;
-        double outputTemp;
-        drivers::TEMPERATURE_HUMIDITY* Temp;
-      }; state_type state;
+    TIME time_advance() const {
+      return pollingRate;
+    }
 
-      using input_ports=std::tuple<>;
-      using output_ports=std::tuple<typename defs::out>;
-
-      void internal_transition() {
-        //state.lastTemp = state.outputTemp;
-        //state.lastHum = state.outputHum;
-        state.Temp->TempHumidity(state.outputTemp);
-        // printf("Temp = %d \n", state.outputTemp);
-        // printf("Hum = %d \n", state.outputHum);
-      }
-
-      void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
-        MBED_ASSERT(false);
-      }
-
-      void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
-        internal_transition();
-        external_transition(TIME(), std::move(mbs));
-      }
-
-      typename make_message_bags<output_ports>::type output() const {
-        typename make_message_bags<output_ports>::type bags;
-          get_messages<typename defs::out>(bags).push_back(state.outputTemp);
-          return bags;
-        }
-
-      TIME time_advance() const {
-        return pollingRate;
-      }
-
-      friend std::ostringstream& operator<<(std::ostringstream& os, const typename Sensor<TIME>::state_type& i) {
-        os << "Temperature Output " << i.outputTemp;
-        return os;
-      }
+    friend std::ostringstream& operator<<(std::ostringstream& os, const typename Sensor<TIME>::state_type& i) {
+      os << "Temperature Output " << i.outputTemp;
+      return os;
+    }
 };
 
 #else

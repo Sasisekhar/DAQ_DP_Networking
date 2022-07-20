@@ -12,9 +12,9 @@ namespace drivers {
 
     }
 
-    void TempHumidity(double &temp) {
-        dht11.read();
-        temp = dht11.getCelsius();
+    double TempHumidity() {
+      dht11.read();
+      return dht11.getCelsius();
     }
   };
 }

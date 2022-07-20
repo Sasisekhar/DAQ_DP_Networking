@@ -22,8 +22,8 @@ using namespace std;
 
 
 struct DAQ_Packetizer_defs {
-  struct T1 : public in_port<double>{};
-  struct T2 : public in_port<double>{};
+  struct T1 : public in_port<int>{};
+  struct T2 : public in_port<int>{};
   struct T3 : public in_port<double>{};
 
   struct H1 : public in_port<double>{};
@@ -49,7 +49,7 @@ class DAQ_Packetizer {
     }
 
     struct state_type {
-      double Values[2];  //Number of inputs
+      int Values[2];  //Number of inputs
       string buffer;
       bool active;
     }; state_type state;
@@ -71,9 +71,9 @@ class DAQ_Packetizer {
 
       char tempBuff[32];
     
-      sprintf(tempBuff, "{\"Temp\":[%.2f, %.2f]}", 
-                                                  state.Values[0], 
-                                                  state.Values[1]
+      sprintf(tempBuff, "{\"Temp\":[%d, %d]}",
+                                              state.Values[0],
+                                              state.Values[1]
       );
 
       string tempStr(tempBuff);
