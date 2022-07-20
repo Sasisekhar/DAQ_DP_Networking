@@ -18,10 +18,6 @@
 #endif
 #include "../atomics/DAQ_Packetizer.hpp"
 #include "../atomics/Sensor.hpp"
-#include "../atomics/Subscriber.hpp"
-#include "../atomics/Data_Parser.hpp"
-#include "../atomics/Fusion.hpp"
-#include "../atomics/DP_Packetizer.hpp"
 #include "../atomics/Publisher.hpp"
 
 #include <NDTime.hpp>
@@ -32,29 +28,15 @@
 
 const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
 const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
-const char* t3 = "./inputs/Temperature_Sensor_Values3.txt";
 
-const char* h1 = "./inputs/Temperature_Sensor_Values4.txt";
-const char* h2 = "./inputs/Temperature_Sensor_Values5.txt";
-const char* h3 = "./inputs/Temperature_Sensor_Values6.txt";
-
-const char* c1 = "./inputs/Temperature_Sensor_Values7.txt";
-const char* c2 = "./inputs/Temperature_Sensor_Values8.txt";
-const char* c3 = "./inputs/Temperature_Sensor_Values9.txt";
-
-const char* t = "./inputs/fused_t.txt";
-const char* h = "./inputs/fused_h.txt";
-const char* c = "./inputs/fused_c.txt";
-
-const char* dp_publish = "./outputs/DP_Publish.txt";
 const char* daq_publish = "./outputs/DAQ_Publish.txt";
 
 #endif
 using namespace std;
 
-#ifndef RT_ARM_MBED
-using hclock=chrono::high_resolution_clock;
-#endif
+//#ifndef RT_ARM_MBED
+// using hclock=chrono::high_resolution_clock;
+//#endif
 using TIME = NDTime;
 
 int main(int argc, char ** argv) {
@@ -72,7 +54,7 @@ int main(int argc, char ** argv) {
   #else
     // all simulation timing and I/O streams are ommited when running embedded
 
-    auto start = hclock::now(); //to measure simulation execution time
+    auto start = chrono::high_resolution_clock::now(); //to measure simulation execution time
 
     /*************** Loggers *******************/
 
@@ -113,18 +95,6 @@ int main(int argc, char ** argv) {
   #endif
   AtomicModelPtr DAQ_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DAQ_Packetizer, TIME>("DAQ_Packetizer1");
 
-  // AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t);
-  // AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", h);
-  // AtomicModelPtr Subscriber3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber3", c);
-  // AtomicModelPtr Data_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser1");
-  // AtomicModelPtr Data_Parser2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser2");
-  // AtomicModelPtr Data_Parser3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser3");
-  // AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
-  // AtomicModelPtr Fusion2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion2");
-  // AtomicModelPtr Fusion3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion3");
-  // AtomicModelPtr DP_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DP_Packetizer, TIME>("DP_Packetizer1");
-  // AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", dp_publish);
-
   /***********************************************/
   /*************** DAQ Coupled *******************/
   /***********************************************/
@@ -153,88 +123,12 @@ int main(int argc, char ** argv) {
     ics_DAQ
   );
 
-  /**********************************************/
-  /*************** DP Coupled *******************/
-  /**********************************************/
-
-  // cadmium::dynamic::modeling::Ports iports_DP = {};
-  // cadmium::dynamic::modeling::Ports oports_DP = {};
-
-  // cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Subscriber3, Data_Parser1, Data_Parser2, Data_Parser3, Fusion1, Fusion2, Fusion3, DP_Packetizer1, Publisher2};
-
-  // cadmium::dynamic::modeling::EICs eics_DP = {};
-  // cadmium::dynamic::modeling::EOCs eocs_DP = {};
-
-  // cadmium::dynamic::modeling::ICs ics_DP = {
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber3","Data_Parser3"),
-
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser1","Fusion1"),
-
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser2","Fusion2"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser2","Fusion2"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser2","Fusion2"),
-
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser3","Fusion3"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser3","Fusion3"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser3","Fusion3"),
-
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::T>("Fusion1","DP_Packetizer1"),
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::H>("Fusion2","DP_Packetizer1"),
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::C>("Fusion3","DP_Packetizer1"),
-
-  //   cadmium::dynamic::translate::make_IC<DP_Packetizer_defs::StJSONout, Publisher_defs::in> ("DP_Packetizer1", "Publisher2")
-  // };
-
-  // CoupledModelPtr DP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-  //   "DP",
-  //   submodels_DP,
-  //   iports_DP,
-  //   oports_DP,
-  //   eics_DP,
-  //   eocs_DP,
-  //   ics_DP
-  // );
-
-  /***************************************************/
-  /*************** Network Coupled *******************/
-  /***************************************************/
-
-  /***********************************************/
-  /*************** TOP Coupled *******************/
-  /***********************************************/
-
-  // cadmium::dynamic::modeling::Ports iports_TOP = {};
-  // cadmium::dynamic::modeling::Ports oports_TOP = {};
-
-  // cadmium::dynamic::modeling::Models submodels_TOP = {DAQ, DP};
-
-  // cadmium::dynamic::modeling::EICs eics_TOP = {};
-  // cadmium::dynamic::modeling::EOCs eocs_TOP = {};
-
-  // cadmium::dynamic::modeling::ICs ics_TOP = {};
-
-  // CoupledModelPtr TOP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-  //   "TOP",
-  //   submodels_TOP,
-  //   iports_TOP,
-  //   oports_TOP,
-  //   eics_TOP,
-  //   eocs_TOP,
-  //   ics_TOP
-  // );
-
   #ifdef RT_ARM_MBED
-    // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
-    cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
+    cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
+    // cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
   #else
 
   cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
-  // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
-  // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
   #endif
 
   r.run_until(NDTime("100:00:00:000"));

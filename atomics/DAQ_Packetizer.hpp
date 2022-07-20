@@ -17,8 +17,6 @@
 #include <limits>
 #include <random>
 
-#include "../drivers/Algorithm.h"
-
 using namespace cadmium;
 using namespace std;
 
