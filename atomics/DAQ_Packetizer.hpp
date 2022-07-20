@@ -26,8 +26,8 @@ struct DAQ_Packetizer_defs {
   struct T2 : public in_port<int>{};
   struct T3 : public in_port<double>{};
 
-  struct H1 : public in_port<double>{};
-  struct H2 : public in_port<double>{};
+  struct H1 : public in_port<int>{};
+  struct H2 : public in_port<int>{};
   struct H3 : public in_port<double>{};
 
   struct C1 : public in_port<double>{};
@@ -42,19 +42,19 @@ class DAQ_Packetizer {
   using defs=DAQ_Packetizer_defs;
   public:
     DAQ_Packetizer() noexcept {
-      for(int i = 0; i < 2; i++) { //hardcoded number of inputs in the conditional
+      for(int i = 0; i < 4; i++) { //hardcoded number of inputs in the conditional
         state.Values[i] = 0;
       }
       state.active = false;
     }
 
     struct state_type {
-      int Values[2];  //Number of inputs
+      int Values[4];  //Number of inputs
       string buffer;
       bool active;
     }; state_type state;
 
-    using input_ports=std::tuple<typename defs::T1, typename defs::T2>;
+    using input_ports=std::tuple<typename defs::T1, typename defs::T2, typename defs::H1, typename defs::H2>;
     using output_ports=std::tuple<typename defs::StJSONout>;
 
 
@@ -67,13 +67,19 @@ class DAQ_Packetizer {
         state.Values[0] = x;
       } for(const auto &x : get_messages<typename defs::T2>(mbs)) {
         state.Values[1] = x;
+      } for(const auto &x : get_messages<typename defs::H1>(mbs)) {
+        state.Values[2] = x;
+      } for(const auto &x : get_messages<typename defs::H2>(mbs)) {
+        state.Values[3] = x;
       }
 
       char tempBuff[32];
     
-      sprintf(tempBuff, "{\"Temp\":[%d, %d]}",
+      sprintf(tempBuff, "{\"Temp\":[%d, %d], \"Hum\":[%d, %d]}",
                                               state.Values[0],
-                                              state.Values[1]
+                                              state.Values[1],
+                                              state.Values[2],
+                                              state.Values[3]
       );
 
       string tempStr(tempBuff);
@@ -89,9 +95,7 @@ class DAQ_Packetizer {
     typename make_message_bags<output_ports>::type output() const {
         typename make_message_bags<output_ports>::type bags;
 
-        string out;
-        out = state.buffer;
-        get_messages<typename defs::StJSONout>(bags).push_back(out);
+        get_messages<typename defs::StJSONout>(bags).push_back(state.buffer);
 
         return bags;
     }

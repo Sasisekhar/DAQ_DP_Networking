@@ -419,9 +419,10 @@
  ../../cadmium/include/cadmium/logger/tuple_to_ostream.hpp \
  ../../cadmium/include/cadmium/io/iestream.hpp \
  ../top_model/../atomics/DAQ_Packetizer.hpp \
- ../top_model/../atomics/Sensor.hpp \
+ ../top_model/../atomics/Temp_Sensor.hpp \
  ../top_model/../atomics/../drivers/SensorDrivers/Driver.hpp \
  ../top_model/../atomics/../drivers/SensorDrivers/DHT11.h \
+ ../top_model/../atomics/Hum_Sensor.hpp \
  ../top_model/../atomics/Publisher.hpp ../drivers/MQTT/MQTTDriver.h \
  ../mbed-os/drivers/include/drivers/DigitalIn.h \
  ../mbed-os/drivers/include/drivers/DigitalOut.h \

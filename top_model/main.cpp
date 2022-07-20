@@ -17,7 +17,8 @@
 #include <cadmium/real_time/arm_mbed/rt_clock.hpp>
 #endif
 #include "../atomics/DAQ_Packetizer.hpp"
-#include "../atomics/Sensor.hpp"
+#include "../atomics/Temp_Sensor.hpp"
+#include "../atomics/Hum_Sensor.hpp"
 #include "../atomics/Publisher.hpp"
 
 #include <NDTime.hpp>
@@ -29,6 +30,8 @@
 
 const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
 const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
+const char* t3 = "./inputs/Temperature_Sensor_Values3.txt";
+const char* t4 = "./inputs/Temperature_Sensor_Values4.txt";
 const char* D8;
 const char* D9;
 
@@ -88,12 +91,16 @@ int main(int argc, char ** argv) {
   /*************************************************/
 
   #ifdef RT_ARM_MBED
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D9);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", (PinName) D8);
+  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor1", D9);
+  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", D8);
+  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor3", D9);
+  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor4", D8);
   AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1");
   #else
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
+  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor1", t1);
+  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", t2);
+  AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor3", t3);
+  AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor4", t4);
   AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", daq_publish);
   #endif
   AtomicModelPtr DAQ_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DAQ_Packetizer, TIME>("DAQ_Packetizer1");
@@ -104,14 +111,16 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::Ports iports_DAQ = {};
   cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
-  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, DAQ_Packetizer1, Publisher1};
+  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, Sensor3, Sensor4, DAQ_Packetizer1, Publisher1};
 
   cadmium::dynamic::modeling::EICs eics_DAQ = {};
   cadmium::dynamic::modeling::EOCs eocs_DAQ = {};
 
   cadmium::dynamic::modeling::ICs ics_DAQ = {
-    cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T1>("Sensor1","DAQ_Packetizer1"),
-    cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T2>("Sensor2","DAQ_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<temp_sensor_defs::out, DAQ_Packetizer_defs::T1>("Sensor1","DAQ_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<temp_sensor_defs::out, DAQ_Packetizer_defs::T2>("Sensor2","DAQ_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<hum_sensor_defs::out, DAQ_Packetizer_defs::H1>("Sensor3","DAQ_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<hum_sensor_defs::out, DAQ_Packetizer_defs::H2>("Sensor4","DAQ_Packetizer1"),
     
     cadmium::dynamic::translate::make_IC<DAQ_Packetizer_defs::StJSONout, Publisher_defs::in>("DAQ_Packetizer1","Publisher1"),
   };
