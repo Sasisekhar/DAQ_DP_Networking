@@ -1,5 +1,7 @@
 {
     "flags": [
+        "-c",
+        "-x",
         "assembler-with-cpp"
     ],
     "macros": [],

@@ -7,6 +7,14 @@
  ../mbed-os/rtos/include/rtos/internal/mbed_rtos_storage.h \
  ../mbed-os/cmsis/device/rtos/include/mbed_rtx_storage.h \
  ../mbed-os/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Include/rtx_os.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/11.2.1/include/stdint.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/stdint.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/_default_types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/features.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/_newlib_version.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_intsup.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_stdint.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/11.2.1/include/stddef.h \
  ../mbed-os/cmsis/CMSIS_5/CMSIS/RTOS2/Include/cmsis_os2.h \
  ../mbed-os/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Include/rtx_def.h \
  ../mbed-os/cmsis/device/RTE/include/RTE_Components.h \
@@ -16,6 +24,44 @@
  ../mbed-os/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Config/RTX_Config.h \
  ../mbed-os/cmsis/device/rtos/include/mbed_rtx_conf.h \
  ../mbed-os/rtos/include/rtos/Kernel.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/chrono \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ratio \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/type_traits \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/c++config.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/os_defines.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/cpu_defines.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/pstl/pstl_config.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstdint \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/limits \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ctime \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/time.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/_ansi.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/newlib.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/config.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/ieeefp.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/cdefs.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/reent.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/_ansi.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/_types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/lock.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/time.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/endian.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/_endian.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/select.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_sigset.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_timeval.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/timespec.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_timespec.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_pthreadtypes.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/sched.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_locale.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/parse_numbers.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/numeric_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/cpp_type_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/type_traits.h \
  ../mbed-os/rtos/include/rtos/mbed_rtos_types.h \
  ../mbed-os/platform/include/platform/mbed_toolchain.h \
  ../mbed-os/platform/include/platform/mbed_preprocessor.h \
@@ -23,14 +69,143 @@
  ../mbed-os/rtos/include/rtos/internal/mbed_rtos1_types.h \
  ../mbed-os/cmsis/CMSIS_5/CMSIS/RTOS2/RTX/Include1/cmsis_os.h \
  ../mbed-os/platform/include/platform/Callback.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstring \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/string.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/strings.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/string.h \
  ../mbed-os/platform/cxxsupport/mstd_cstddef \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstddef \
  ../mbed-os/platform/cxxsupport/mstd_new \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/new \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/exception.h \
  ../mbed-os/platform/include/platform/mbed_assert.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/assert.h \
  ../mbed-os/platform/cxxsupport/mstd_type_traits \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/utility \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_relops.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_pair.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/move.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/initializer_list \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/functional \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_function.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/backward/binders.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tuple \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/array \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/functexcept.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/exception_defines.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_algobase.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_iterator_base_types.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_iterator_base_funcs.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/concept_check.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/debug/assertions.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_iterator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/ptr_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/debug/debug.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/predefined_ops.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/range_access.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/uses_allocator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/invoke.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/functional_hash.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/hash_bytes.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/refwrap.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/std_function.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/typeinfo \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/unordered_map \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/allocator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/c++allocator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/new_allocator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/memoryfwd.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/alloc_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/alloc_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_construct.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/aligned_buffer.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/hashtable.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/hashtable_policy.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/enable_special_members.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/node_handle.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/unordered_map.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/erase_if.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/vector \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_uninitialized.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_vector.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_bvector.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/vector.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_algo.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstdlib \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/stdlib.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/machine/stdlib.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/alloca.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/std_abs.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/algorithmfwd.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_heap.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_tempbuf.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/uniform_int_dist.h \
  ../mbed-os/platform/cxxsupport/mstd_functional \
  ../mbed-os/platform/cxxsupport/mstd_memory \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/memory \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stl_raw_storage_iter.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/align.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bit \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/unique_ptr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/shared_ptr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/iosfwd \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stringfwd.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/postypes.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cwchar \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/wchar.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/11.2.1/include/stdarg.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/shared_ptr_base.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/allocated_ptr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/atomicity.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/gthr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/gthr-default.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/atomic_word.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/concurrence.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/exception \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/exception_ptr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/cxxabi_init_exception.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/nested_exception.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/shared_ptr_atomic.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/atomic_base.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/atomic_lockfree_defines.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/backward/auto_ptr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/pstl/glue_memory_defs.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/pstl/execution_defs.h \
  ../mbed-os/platform/cxxsupport/mstd_utility \
  ../mbed-os/platform/cxxsupport/mstd_iterator \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/iterator \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/stream_iterator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/streambuf_iterator.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/streambuf \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/localefwd.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/c++locale.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/clocale \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/locale.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cctype \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/ctype.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/ios_base.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/locale_classes.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/string \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/char_traits.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/ostream_insert.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/cxxabi_forced.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/basic_string.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/string_view \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/string_view.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/ext/string_conversions.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstdio \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/stdio.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/stdio.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cerrno \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/errno.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/errno.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/charconv.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/basic_string.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/locale_classes.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/system_error \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/arm-none-eabi/thumb/v7e-m+dp/softfp/bits/error_constants.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/stdexcept \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/streambuf.tcc \
  ../mbed-os/platform/include/platform/NonCopyable.h \
  ../mbed-os/rtos/include/rtos/Semaphore.h \
  ../mbed-os/rtos/include/rtos/Mutex.h \
@@ -38,7 +213,12 @@
  ../mbed-os/rtos/include/rtos/ThisThread.h \
  ../mbed-os/rtos/include/rtos/Mail.h ../mbed-os/rtos/include/rtos/Queue.h \
  ../mbed-os/platform/include/platform/mbed_error.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/11.2.1/include/stdbool.h \
  ../mbed-os/platform/include/platform/mbed_retarget.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/fcntl.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/fcntl.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_default_fcntl.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/sys/stat.h \
  ../mbed-os/rtos/include/rtos/MemoryPool.h \
  ../mbed-os/rtos/include/rtos/EventFlags.h \
  ../mbed-os/rtos/include/rtos/ConditionVariable.h \
@@ -75,6 +255,22 @@
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc.h \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/stm32h7xx_hal_def.h \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/Legacy/stm32_hal_legacy.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/math.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cmath \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/math.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/bits/specfun.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/gamma.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/special_function_util.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/bessel_function.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/beta_function.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/ell_integral.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/exp_integral.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/hypergeometric.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/legendre_function.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/modified_bessel_func.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/poly_hermite.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/poly_laguerre.tcc \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/tr1/riemann_zeta.tcc \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/stm32h7xx_hal_rcc_ex.h \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio.h \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32H7/STM32Cube_FW/STM32H7xx_HAL_Driver/stm32h7xx_hal_gpio_ex.h \
@@ -167,6 +363,7 @@
  ../mbed-os/platform/include/platform/internal/mbed_atomic_impl.h \
  ../mbed-os/connectivity/netsocket/include/netsocket/SocketStats.h \
  ../mbed-os/platform/include/platform/SingletonPtr.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/stdlib.h \
  ../mbed-os/platform/include/platform/mbed_atomic.h \
  ../mbed-os/platform/include/platform/PlatformMutex.h \
  ../mbed-os/connectivity/netsocket/include/netsocket/SocketAddress.h \
@@ -199,6 +396,7 @@
  ../mbed-os/connectivity/mbedtls/include/mbedtls/config.h \
  ../mbed-os/connectivity/mbedtls/platform/inc/platform_mbed.h \
  ../mbed-os/connectivity/mbedtls/include/mbedtls/check_config.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/11.2.1/include-fixed/limits.h \
  ../mbed-os/connectivity/mbedtls/include/mbedtls/platform_time.h \
  ../mbed-os/connectivity/mbedtls/include/mbedtls/ssl.h \
  ../mbed-os/connectivity/mbedtls/include/mbedtls/bignum.h \
@@ -287,6 +485,8 @@
  ../mbed-os/platform/include/platform/CircularBuffer.h \
  ../mbed-os/platform/include/platform/mbed_critical.h \
  ../mbed-os/platform/include/platform/Span.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/algorithm \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/pstl/glue_algorithm_defs.h \
  ../mbed-os/platform/include/platform/Transaction.h \
  ../mbed-os/drivers/include/drivers/SPISlave.h \
  ../mbed-os/drivers/include/drivers/I2C.h \
@@ -298,6 +498,7 @@
  ../mbed-os/hal/include/hal/can_api.h \
  ../mbed-os/drivers/include/drivers/RawCAN.h \
  ../mbed-os/drivers/include/drivers/UnbufferedSerial.h \
+ /opt/gcc-arm-11.2-2022.02-x86_64-arm-none-eabi/arm-none-eabi/include/c++/11.2.1/cstdarg \
  ../mbed-os/drivers/include/drivers/SerialBase.h \
  ../mbed-os/hal/include/hal/serial_api.h \
  ../mbed-os/drivers/include/drivers/BufferedSerial.h \
