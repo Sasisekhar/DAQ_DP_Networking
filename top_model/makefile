@@ -19,7 +19,7 @@ flash:
 
 all: main fusion
 	$(CC) -g -o $(EXECUTABLE_NAME) build/main.o build/Algorithm.o
-	./$(EXECUTABLE_NAME)
+	$(info *** run ./$(EXECUTABLE_NAME) to run the simulation ***)
 
 main: main.cpp
 	make clean
