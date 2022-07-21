@@ -26,7 +26,7 @@ using namespace std;
 #include "MQTTDriver.h"
 #include "mbed.h"
 
-MQTTDriver client;
+MQTTDriver pubClient;
 
 struct Publisher_defs {
     struct in : public in_port<string> {};
@@ -42,10 +42,10 @@ class Publisher {
 
             state.message = "";
 
-            client.init();
+            pubClient.init();
             printf("Connecting to the broker...\n\r");
 
-            if(client.connect("ARSLAB_DAQ")) {
+            if(pubClient.connect("ARSLAB_DAQ")) {
                 printf("Connected!\n\r");
             }
 
@@ -53,7 +53,7 @@ class Publisher {
             char buffer[2];
             sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);
 
-            client.publish("ARSLAB/Register", buffer);
+            pubClient.publish("ARSLAB/Register", buffer);
         }
 
         struct state_type {
@@ -73,7 +73,7 @@ class Publisher {
 
             char topic[32];
             sprintf(topic, "%d/DATA/ALL", state.UID);
-            client.publish((const char*) topic, (char*) state.message.c_str());
+            pubClient.publish((const char*) topic, (char*) state.message.c_str());
         }
 
         void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {

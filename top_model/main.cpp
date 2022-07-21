@@ -169,8 +169,8 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::EOCs eocs_DP = {};
 
   cadmium::dynamic::modeling::ICs ics_DP = {
-    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
-    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
 
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),

@@ -78,7 +78,7 @@ class Fusion
       }
       
     
-      Here goes the wrapper
+      // Here goes the wrapper
       state.Fused = 
       faulty_sensor_and_sensor_fusion(
         compute_integrated_support_degree_score(state.values,
