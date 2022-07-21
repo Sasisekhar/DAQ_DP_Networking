@@ -102,102 +102,100 @@ int main(int argc, char ** argv) {
   /*************** Atomic models *******************/
   /*************************************************/
 
-  #ifdef RT_ARM_MBED
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D9);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D8);
-  AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1");
-  #else
-  AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
-  AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
-  AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", daq_publish);
-  #endif
-  AtomicModelPtr DAQ_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DAQ_Packetizer, TIME>("DAQ_Packetizer1");
+  // #ifdef RT_ARM_MBED
+  // AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", D9);
+  // AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", D8);
+  // AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1");
+  // #else
+  // AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
+  // AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
+  // AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", daq_publish);
+  // #endif
+  // AtomicModelPtr DAQ_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DAQ_Packetizer, TIME>("DAQ_Packetizer1");
 
-  // AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t);
-  // AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", h);
-  // AtomicModelPtr Subscriber3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber3", c);
-  // AtomicModelPtr Data_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser1");
-  // AtomicModelPtr Data_Parser2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser2");
-  // AtomicModelPtr Data_Parser3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser3");
-  // AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
-  // AtomicModelPtr Fusion2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion2");
-  // AtomicModelPtr Fusion3 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion3");
-  // AtomicModelPtr DP_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DP_Packetizer, TIME>("DP_Packetizer1");
-  // AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", dp_publish);
+  #ifdef RT_ARM_MBED
+  AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", "ARSLAB/DATA/TEMP");
+  AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", "ARSLAB/DATA/HUM");
+  AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2");
+  #else
+  AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t);
+  AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", h);
+  AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", dp_publish);
+  #endif
+  AtomicModelPtr Data_Parser1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser1");
+  AtomicModelPtr Data_Parser2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Data_Parser, TIME>("Data_Parser2");
+  AtomicModelPtr Fusion1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion1");
+  AtomicModelPtr Fusion2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Fusion, TIME>("Fusion2");
+  AtomicModelPtr DP_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DP_Packetizer, TIME>("DP_Packetizer1");
 
   /***********************************************/
   /*************** DAQ Coupled *******************/
   /***********************************************/
-  cadmium::dynamic::modeling::Ports iports_DAQ = {};
-  cadmium::dynamic::modeling::Ports oports_DAQ = {};
+  // cadmium::dynamic::modeling::Ports iports_DAQ = {};
+  // cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
-  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, DAQ_Packetizer1, Publisher1};
+  // cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, DAQ_Packetizer1, Publisher1};
 
-  cadmium::dynamic::modeling::EICs eics_DAQ = {};
-  cadmium::dynamic::modeling::EOCs eocs_DAQ = {};
+  // cadmium::dynamic::modeling::EICs eics_DAQ = {};
+  // cadmium::dynamic::modeling::EOCs eocs_DAQ = {};
 
-  cadmium::dynamic::modeling::ICs ics_DAQ = {
-    cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T1>("Sensor1","DAQ_Packetizer1"),
-    cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T2>("Sensor2","DAQ_Packetizer1"),
+  // cadmium::dynamic::modeling::ICs ics_DAQ = {
+  //   cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T1>("Sensor1","DAQ_Packetizer1"),
+  //   cadmium::dynamic::translate::make_IC<Sensor_defs::out, DAQ_Packetizer_defs::T2>("Sensor2","DAQ_Packetizer1"),
     
-    cadmium::dynamic::translate::make_IC<DAQ_Packetizer_defs::StJSONout, Publisher_defs::in>("DAQ_Packetizer1","Publisher1"),
-  };
+  //   cadmium::dynamic::translate::make_IC<DAQ_Packetizer_defs::StJSONout, Publisher_defs::in>("DAQ_Packetizer1","Publisher1"),
+  // };
 
-  CoupledModelPtr DAQ = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-    "DAQ",
-    submodels_DAQ,
-    iports_DAQ,
-    oports_DAQ,
-    eics_DAQ,
-    eocs_DAQ,
-    ics_DAQ
-  );
+  // CoupledModelPtr DAQ = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+  //   "DAQ",
+  //   submodels_DAQ,
+  //   iports_DAQ,
+  //   oports_DAQ,
+  //   eics_DAQ,
+  //   eocs_DAQ,
+  //   ics_DAQ
+  // );
 
   /**********************************************/
   /*************** DP Coupled *******************/
   /**********************************************/
 
-  // cadmium::dynamic::modeling::Ports iports_DP = {};
-  // cadmium::dynamic::modeling::Ports oports_DP = {};
+  cadmium::dynamic::modeling::Ports iports_DP = {};
+  cadmium::dynamic::modeling::Ports oports_DP = {};
 
-  // cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Subscriber3, Data_Parser1, Data_Parser2, Data_Parser3, Fusion1, Fusion2, Fusion3, DP_Packetizer1, Publisher2};
+  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
 
-  // cadmium::dynamic::modeling::EICs eics_DP = {};
-  // cadmium::dynamic::modeling::EOCs eocs_DP = {};
+  cadmium::dynamic::modeling::EICs eics_DP = {};
+  cadmium::dynamic::modeling::EOCs eocs_DP = {};
 
-  // cadmium::dynamic::modeling::ICs ics_DP = {
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
-  //   cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber3","Data_Parser3"),
+  cadmium::dynamic::modeling::ICs ics_DP = {
+    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<Subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
 
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser1","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),
 
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser2","Fusion2"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser2","Fusion2"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser2","Fusion2"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser2","Fusion2"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser2","Fusion2"),
 
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser3","Fusion3"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser3","Fusion3"),
-  //   cadmium::dynamic::translate::make_IC<Data_Parser_defs::out3, Fusion_defs::in3>("Data_Parser3","Fusion3"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser3","Fusion3"),
+    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser3","Fusion3"),
 
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::T>("Fusion1","DP_Packetizer1"),
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::H>("Fusion2","DP_Packetizer1"),
-  //   cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::C>("Fusion3","DP_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::T>("Fusion1","DP_Packetizer1"),
+    cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::H>("Fusion2","DP_Packetizer1"),
 
-  //   cadmium::dynamic::translate::make_IC<DP_Packetizer_defs::StJSONout, Publisher_defs::in> ("DP_Packetizer1", "Publisher2")
-  // };
+    cadmium::dynamic::translate::make_IC<DP_Packetizer_defs::StJSONout, Publisher_defs::in> ("DP_Packetizer1", "Publisher2")
+  };
 
-  // CoupledModelPtr DP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-  //   "DP",
-  //   submodels_DP,
-  //   iports_DP,
-  //   oports_DP,
-  //   eics_DP,
-  //   eocs_DP,
-  //   ics_DP
-  // );
+  CoupledModelPtr DP = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+    "DP",
+    submodels_DP,
+    iports_DP,
+    oports_DP,
+    eics_DP,
+    eocs_DP,
+    ics_DP
+  );
 
   /***************************************************/
   /*************** Network Coupled *******************/
@@ -229,11 +227,12 @@ int main(int argc, char ** argv) {
 
   #ifdef RT_ARM_MBED
     // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
-    cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
+    // cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
+    cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DP, {0});
   #else
 
-  cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
-  // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
+  // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
+  cadmium::dynamic::engine::runner<NDTime, logger_top> r(DP, {0});
   // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
   #endif
 

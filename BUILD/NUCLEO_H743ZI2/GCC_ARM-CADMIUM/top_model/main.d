@@ -859,12 +859,7 @@
  ../top_model/../atomics/Sensor.hpp \
  ../top_model/../atomics/../drivers/SensorDrivers/Driver.hpp \
  ../top_model/../atomics/../drivers/SensorDrivers/DHT11.h \
- ../top_model/../atomics/Subscriber.hpp \
- ../top_model/../atomics/Data_Parser.hpp \
- ../top_model/../atomics/../drivers/DataToStorage.h \
- ../top_model/../atomics/Fusion.hpp \
- ../top_model/../atomics/DP_Packetizer.hpp \
- ../top_model/../atomics/Publisher.hpp ../drivers/MQTT/MQTTDriver.h \
+ ../top_model/../atomics/Subscriber.hpp ../drivers/MQTT/MQTTDriver.h \
  ../mbed-os/drivers/include/drivers/DigitalIn.h \
  ../mbed-os/drivers/include/drivers/DigitalOut.h \
  ../mbed-os/hal/include/hal/PinNameAliases.h \
@@ -893,6 +888,11 @@
  ../mbed-os/platform/include/platform/mbed_toolchain.h \
  ../drivers/MQTT/MQTT.h \
  ../mbed-os/connectivity/netsocket/include/netsocket/NetworkInterface.h \
+ ../top_model/../atomics/Data_Parser.hpp \
+ ../top_model/../atomics/../drivers/DataToStorage.h \
+ ../top_model/../atomics/Fusion.hpp \
+ ../top_model/../atomics/DP_Packetizer.hpp \
+ ../top_model/../atomics/Publisher.hpp \
  ../../cadmium/DESTimes/include/NDTime.hpp \
  ../../boost_1_79_0/boost/algorithm/string.hpp \
  ../../boost_1_79_0/boost/algorithm/string/std_containers_traits.hpp \

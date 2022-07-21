@@ -28,21 +28,10 @@ using namespace std;
 
 struct Data_Parser_defs {
   struct in : public in_port<string>{};
-  // struct H : public in_port<string>{};
-  // struct C : public in_port<string>{};
 
 
   struct out1 : public out_port<double> {};
   struct out2 : public out_port<double> {};
-  struct out3 : public out_port<double> {};
-
-  // struct H1 : public out_port<double> {};
-  // struct H2 : public out_port<double> {};
-  // struct H3 : public out_port<double> {};
-
-  // struct C1 : public out_port<double> {};
-  // struct C2 : public out_port<double> {};
-  // struct C3 : public out_port<double> {};
 };
 
 template<typename TIME>
@@ -51,20 +40,20 @@ class Data_Parser
   using defs=Data_Parser_defs;
   public:
     Data_Parser() noexcept {
-      for(int i = 0; i < 3; i++) {
+      for(int i = 0; i < 2; i++) {
         state.values[i] = 0;
       }
       state.active = false;
     }
 
     struct state_type {
-      double values[3];  //Number of inputs
+      double values[2];  //Number of inputs
       string buffer;
       bool active;
     }; state_type state;
 
-    using input_ports=std::tuple<typename defs::in>;//, typename defs::H, typename defs::C>;
-    using output_ports=std::tuple<typename defs::out1, typename defs::out2, typename defs::out3>;//3, typename defs::H1, typename defs::H2, typename defs::H3, typename defs::C1, typename defs::C2, typename defs::C3>;
+    using input_ports=std::tuple<typename defs::in>;
+    using output_ports=std::tuple<typename defs::out1, typename defs::out2>;
 
 
     void internal_transition (){
@@ -75,12 +64,6 @@ class Data_Parser
       for(const auto &x : get_messages<typename defs::in>(mbs)) {
         state.buffer = x;
       }
-      // for(const auto &x : get_messages<typename defs::H>(mbs)) {
-      //   state.buffer[1] = x;
-      // }
-      // for(const auto &x : get_messages<typename defs::C>(mbs)) {
-      //   state.buffer[2] = x;
-      // }
 
       int count = 0;
       string tmp = "";
@@ -108,15 +91,6 @@ class Data_Parser
       typename make_message_bags<output_ports>::type bags;
       get_messages<typename defs::out1>(bags).push_back(state.values[0]);
       get_messages<typename defs::out2>(bags).push_back(state.values[1]);
-      get_messages<typename defs::out3>(bags).push_back(state.values[2]);
-
-      // get_messages<typename defs::H1>(bags).push_back(state.values[3]);
-      // get_messages<typename defs::H2>(bags).push_back(state.values[4]);
-      // get_messages<typename defs::H3>(bags).push_back(state.values[5]);
-
-      // get_messages<typename defs::C1>(bags).push_back(state.values[6]);
-      // get_messages<typename defs::C2>(bags).push_back(state.values[7]);
-      // get_messages<typename defs::C3>(bags).push_back(state.values[8]);
       return bags;
     }
 

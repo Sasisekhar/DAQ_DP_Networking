@@ -41,18 +41,18 @@ class Fusion
   using defs=Fusion_defs;
   public:
     Fusion() noexcept {
-      for(int i=0;i<3;i++) { //Number of inputs hardcoded here. Change if modification required
+      for(int i=0;i<2;i++) { //Number of inputs hardcoded here. Change if modification required
         state.values[i] = 0;
       }
       state.Fused  = 0;
       state.Last   = 0;
-      state.number_of_sensors = 3;
+      state.number_of_sensors = 2;
       state.criterion = 0.95;
       state.active = false;
     }
 
     struct state_type {
-      double values[3];  //Number of inputs
+      double values[2];  //Number of inputs
       double Fused;
       double Last;
       double criterion;
@@ -60,7 +60,7 @@ class Fusion
       bool active;
     }; state_type state;
 
-    using input_ports=std::tuple<typename defs::in1, typename defs::in2, typename defs::in3>;
+    using input_ports=std::tuple<typename defs::in1, typename defs::in2>;
     using output_ports=std::tuple<typename defs::out>;
 
 
@@ -76,9 +76,6 @@ class Fusion
       for(const auto &x : get_messages<typename defs::in2>(mbs)) {
         state.values[1] = x;
       }
-      for(const auto &x : get_messages<typename defs::in3>(mbs)) {
-        state.values[2] = x;
-      }
       
     
       Here goes the wrapper
@@ -92,9 +89,9 @@ class Fusion
         state.number_of_sensors), state.values, state.criterion, state.number_of_sensors
       );
 
-      #ifdef RT_ARM_MBED
-      StoreData(state.values, state.number_of_sensors, state.Fused);
-      #endif
+      // #ifdef RT_ARM_MBED
+      // StoreData(state.values, state.number_of_sensors, state.Fused);
+      // #endif
       //If the values are not up to the mark, we can discard them here if that can be done.
       state.active = true;
     }

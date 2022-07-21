@@ -30,7 +30,6 @@ struct DP_Packetizer_defs
 {
   struct T : public in_port<double>{};
   struct H : public in_port<double>{};
-  struct C : public in_port<double>{};
 
   struct StJSONout : public out_port<string> {};
 };
@@ -41,19 +40,19 @@ class DP_Packetizer
   using defs=DP_Packetizer_defs;
   	public:
         DP_Packetizer() noexcept {
-            for(int i = 0; i < 3; i++) {
+            for(int i = 0; i < 2; i++) {
                 state.values[i] = 0;
             }
             state.active = false;
         }
 
         struct state_type {
-            double values[3];
+            double values[2];
             string buffer;
             bool active;
         }; state_type state;
 
-        using input_ports=std::tuple<typename defs::T, typename defs::H, typename defs::C>;
+        using input_ports=std::tuple<typename defs::T, typename defs::H>;
       	using output_ports=std::tuple<typename defs::StJSONout>;
 
 
@@ -67,16 +66,13 @@ class DP_Packetizer
             state.values[0] = x;
             } for(const auto &x : get_messages<typename defs::H>(mbs)) {
             state.values[1] = x;
-            } for(const auto &x : get_messages<typename defs::C>(mbs)) {
-            state.values[2] = x;
             }
 
             char tempBuff[128];
           
-            sprintf(tempBuff, "{\"Temp\":%.2f, \"Hum\":%.2f, \"CO\":%.2f}", 
+            sprintf(tempBuff, "{\"Temp\":%.2f, \"Hum\":%.2f}", 
                                                                     state.values[0], 
-                                                                    state.values[1], 
-                                                                    state.values[2]
+                                                                    state.values[1]
             );
 
             string tempStr(tempBuff);

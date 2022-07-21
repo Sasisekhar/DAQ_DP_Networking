@@ -1,3 +1,6 @@
+#ifndef SUBSCRIBER_HPP
+#define SUBSCRIBER_HPP
+
 #include <stdio.h>
 #include <cadmium/modeling/ports.hpp>
 #include <cadmium/modeling/message_bag.hpp>
@@ -13,6 +16,86 @@
 #include <algorithm>
 #include <limits>
 #include <random>
+
+#ifdef RT_ARM_MBED
+//Begin RT_Cadmium
+
+#include "MQTTDriver.h"
+#include "mbed.h"
+
+MQTTDriver client;
+
+struct subscriber_defs {
+    struct out : public in_port<string> {};
+};
+
+template<typename TIME>
+class Subscriber {
+
+    using defs=subscriber_defs;
+    public:
+
+        Subscriber(string topic) noexcept {
+
+            state.message   = "";
+            state.topic     = topic;
+
+            client.init();
+            printf("Connecting to the broker...\n\r");
+
+            char clientID[16];
+
+            sprintf(clientID, "DP_SUBSCRIBER_%d", rand()%100);
+
+            if(client.connect((const char*) clientID)) {
+                printf("Connected!\n\r");
+            }
+
+            client.subscribe((const char*) state.topic.c_str());
+
+        }
+
+        struct state_type {
+            string topic;
+            string message;
+        }; state_type state;
+
+        using input_ports=std::tuple<>;
+        using output_ports=std::tuple<typename defs::out>;
+
+        void internal_transition() {
+            char tempTopic[128], tempMessage[128];
+            client.receive_response(tempTopic, tempMessage);
+            
+            string tempM(tempMessage);
+            state.message = tempMessage;
+
+        }
+
+        void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) { }
+
+        void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
+            internal_transition();
+            external_transition(TIME(), std::move(mbs));
+        }
+
+        typename make_message_bags<output_ports>::type output() const {
+            typename make_message_bags<output_ports>::type bags;
+            get_messages<typename defs::out>(bags).push_back(state.message);
+            return bags;
+        }
+
+        TIME time_advance() const {
+            return TIME("00:00:05:000");
+        }
+
+        friend std::ostringstream& operator<<(std::ostringstream& os, const typename Subscriber<TIME>::state_type& i) {
+            os << "";
+            return os;
+        }
+};
+
+#else
 
 #include <cadmium/io/iestream.hpp>
 using namespace cadmium;
@@ -30,3 +113,6 @@ class Subscriber : public iestream_input<string,TIME, Subscriber_defs>{
         Subscriber() = default;
         Subscriber(const char* filename) :   iestream_input<string, TIME, Subscriber_defs>(filename) {}
 };
+
+#endif
+#endif
