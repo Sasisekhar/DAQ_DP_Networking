@@ -30,7 +30,6 @@ struct Fusion_defs
 {
   struct in1 : public in_port<double>{};
   struct in2 : public in_port<double>{};
-  struct in3 : public in_port<double>{};
 
   struct out : public out_port<double> {};
 };
@@ -77,6 +76,11 @@ class Fusion
         state.values[1] = x;
       }
       
+      // printf("ET_DEBUG(FSN): {");
+      // for(int i = 0; i < 2; i++) {
+      //   printf("%.2f, ", state.values[i]);
+      // }
+      // printf("}\n\r");
     
       // Here goes the wrapper
       state.Fused = 
@@ -88,6 +92,8 @@ class Fusion
         state.criterion, 
         state.number_of_sensors), state.values, state.criterion, state.number_of_sensors
       );
+
+      // printf("ET_DEBUG(FSN): %.2f\r\n", state.Fused);
 
       // #ifdef RT_ARM_MBED
       // StoreData(state.values, state.number_of_sensors, state.Fused);

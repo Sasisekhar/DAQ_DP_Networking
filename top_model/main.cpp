@@ -163,7 +163,7 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::Ports iports_DP = {};
   cadmium::dynamic::modeling::Ports oports_DP = {};
 
-  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
+  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2,  Data_Parser1,  Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
 
   cadmium::dynamic::modeling::EICs eics_DP = {};
   cadmium::dynamic::modeling::EOCs eocs_DP = {};
@@ -177,9 +177,6 @@ int main(int argc, char ** argv) {
 
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser2","Fusion2"),
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser2","Fusion2"),
-
-    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser3","Fusion3"),
-    cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser3","Fusion3"),
 
     cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::T>("Fusion1","DP_Packetizer1"),
     cadmium::dynamic::translate::make_IC<Fusion_defs::out, DP_Packetizer_defs::H>("Fusion2","DP_Packetizer1"),

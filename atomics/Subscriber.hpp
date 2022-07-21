@@ -26,7 +26,7 @@
 MQTTDriver client;
 
 struct subscriber_defs {
-    struct out : public in_port<string> {};
+    struct out : public out_port<string> {};
 };
 
 template<typename TIME>
@@ -47,6 +47,8 @@ class Subscriber {
 
             sprintf(clientID, "DP_SUBSCRIBER_%d", rand()%100);
 
+            printf("Subscriber clientID: %s\r\n", clientID);
+
             if(client.connect((const char*) clientID)) {
                 printf("Connected!\n\r");
             }
@@ -58,6 +60,7 @@ class Subscriber {
         struct state_type {
             string topic;
             string message;
+            bool valid;
         }; state_type state;
 
         using input_ports=std::tuple<>;
@@ -65,8 +68,9 @@ class Subscriber {
 
         void internal_transition() {
             char tempTopic[16], tempMessage[128];
-            client.receive_response(tempTopic, tempMessage);
-            
+
+            state.valid = client.receive_response(tempTopic, tempMessage);
+            // printf("IT_DEBUG: %s\r\n", tempMessage);
             string tempM(tempMessage);
             state.message = tempMessage;
 
@@ -81,12 +85,17 @@ class Subscriber {
 
         typename make_message_bags<output_ports>::type output() const {
             typename make_message_bags<output_ports>::type bags;
-            get_messages<typename defs::out>(bags).push_back(state.message);
+
+            if(state.valid) {
+                // printf("Lambda_debug: %s\r\n",state.message.c_str());
+                get_messages<typename defs::out>(bags).push_back(state.message);
+            }
+
             return bags;
         }
 
         TIME time_advance() const {
-            return TIME("00:00:05:000");
+            return TIME("00:00:00:100");
         }
 
         friend std::ostringstream& operator<<(std::ostringstream& os, const typename Subscriber<TIME>::state_type& i) {

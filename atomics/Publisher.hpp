@@ -73,6 +73,7 @@ class Publisher {
 
             char topic[32];
             sprintf(topic, "%d/DATA/ALL", state.UID);
+            // printf("ET_DEBUG: %s\r\n", state.message);
             pubClient.publish((const char*) topic, (char*) state.message.c_str());
         }
 

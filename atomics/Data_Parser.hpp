@@ -68,16 +68,25 @@ class Data_Parser
       int count = 0;
       string tmp = "";
 
+      // printf("ET_DEBUG(DPRSR): %s\n\r", state.buffer.c_str());
+
       for(int i = 0; i < state.buffer.length(); i++) {
 
         if(state.buffer[i] != ',') {
           tmp += state.buffer[i];
         } else if(state.buffer[i] == ',') {
+          // printf("LOOP: %d, %s, %d\r\n", i, tmp.c_str(), stoi(tmp));
           state.values[count++] = stof(tmp);
           tmp = "";
         }
 
       }
+
+      printf("ET_DEBUG(DPRSR): {");
+      for(int i = 0; i < 2; i++) {
+        printf("%.2f, ", state.values[i]);
+      }
+      printf("}\n\r");
 
       state.active = true;
     }

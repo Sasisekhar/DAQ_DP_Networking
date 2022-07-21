@@ -14,7 +14,6 @@
         "../data_structures",
         "../mbed-os",
         "-DBOOST_NO_PLATFORM_CONFIG",
-        "-DMBED_MINIMAL_PRINTF",
         "-DMBED_RAM1_SIZE=0x80000",
         "-DMBED_RAM1_START=0x24000000",
         "-DMBED_RAM_SIZE=0x20000",

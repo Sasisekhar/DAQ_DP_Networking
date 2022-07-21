@@ -217,6 +217,9 @@ bool MQTTclient::receive_response(uint8_t check, char* topic, char* payload) {
         }
     } else {
         printf("received %d bytes: ", _result);
+        if(_result == 0) {
+            return false;
+        }
         for(int i = 0; i < _result; i++) {
             printf("0x%02X, ", (unsigned int) buffer[i]);
         }
@@ -269,7 +272,7 @@ bool MQTTclient::publish(const char* topic, const char* message) {
         _result = _socket.send(buffer, bytes_to_send);
 
         if(_result < 0) {
-            printf("Publish failed! Error: %d", _result);
+            // printf("Publish failed! Error: %d", _result);
             return false;
         } else {
             // printf("sent %d bytes\r\n", _result);
