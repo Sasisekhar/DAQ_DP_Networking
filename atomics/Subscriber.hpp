@@ -64,7 +64,7 @@ class Subscriber {
         using output_ports=std::tuple<typename defs::out>;
 
         void internal_transition() {
-            char tempTopic[128], tempMessage[128];
+            char tempTopic[16], tempMessage[128];
             client.receive_response(tempTopic, tempMessage);
             
             string tempM(tempMessage);
