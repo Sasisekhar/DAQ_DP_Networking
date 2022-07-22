@@ -92,7 +92,7 @@ int main(int argc, char ** argv) {
   AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", D8);
   AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor3", D9);
   AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor4", D8);
-  AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1");
+  AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL");
   #else
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor1", t1);
   AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", t2);
