@@ -44,7 +44,7 @@ class tempSensor {
     }
 
 		tempSensor(PinName pin) noexcept {
-      new (this) tempSensor(pin, TIME("00:00:10:000"));
+      new (this) tempSensor(pin, TIME("00:00:01:000"));
     }
 
     tempSensor(PinName pin, TIME rate) noexcept {

@@ -40,23 +40,20 @@ const char* daq_publish = "./outputs/DAQ_Publish.txt";
 #endif
 using namespace std;
 
-//#ifndef RT_ARM_MBED
-// using hclock=chrono::high_resolution_clock;
-//#endif
 using TIME = NDTime;
 
 int main(int argc, char ** argv) {
 
   //This will end the main thread and create a new one with more stack.
   #ifdef RT_ARM_MBED
-    //Set RTC
-    set_time(1658351243);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
+
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
       static std::ostream& sink(){
         return cout;
       }
     };
+  
   #else
     // all simulation timing and I/O streams are ommited when running embedded
 

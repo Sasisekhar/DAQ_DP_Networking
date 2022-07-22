@@ -44,7 +44,7 @@ class humSensor {
     }
 
 		humSensor(PinName pin) noexcept {
-      new (this) humSensor(pin, TIME("00:00:10:000"));
+      new (this) humSensor(pin, TIME("00:00:01:000"));
     }
 
     humSensor(PinName pin, TIME rate) noexcept {
