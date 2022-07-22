@@ -63,9 +63,9 @@ class DP_Packetizer
 
         void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs){
             for(const auto &x : get_messages<typename defs::T>(mbs)) {
-            state.values[0] = x;
+              state.values[0] = x;
             } for(const auto &x : get_messages<typename defs::H>(mbs)) {
-            state.values[1] = x;
+              state.values[1] = x;
             }
 
             // printf("ET_DEBUG(DPP): {");
@@ -75,15 +75,12 @@ class DP_Packetizer
             // printf("}\n\r");
 
             char tempBuff[128];
-
-            int h = 70;
-          
             sprintf(tempBuff, "{\"Temp\":%.2f, \"Hum\":%.2f}", 
                                                             state.values[0], 
                                                             state.values[1]
             );
 
-            printf("ET_DEBUG(DPP): %s\r\n", tempBuff);
+            // printf("ET_DEBUG(DPP): %s\r\n", tempBuff);
 
             string tempStr(tempBuff);
 
@@ -107,7 +104,7 @@ class DP_Packetizer
 
       TIME time_advance() const {
         if(state.active) {
-          return TIME("00:00:00");
+          return TIME("00:00:01");
         }
         return std::numeric_limits<TIME>::infinity();
        // return TIME("01:00:00");

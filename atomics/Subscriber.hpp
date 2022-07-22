@@ -17,16 +17,18 @@
 #include <limits>
 #include <random>
 
+using namespace std;
+using namespace cadmium;
+
 #ifdef RT_ARM_MBED
 //Begin RT_Cadmium
 
 #include "MQTTDriver.h"
 #include "mbed.h"
 
-MQTTDriver client;
-
 struct subscriber_defs {
-    struct out : public out_port<string> {};
+    struct out1 : public out_port<string> {};
+    struct out2 : public out_port<string> {};
 };
 
 template<typename TIME>
@@ -35,44 +37,40 @@ class Subscriber {
     using defs=subscriber_defs;
     public:
 
-        Subscriber(string topic) noexcept {
+        Subscriber(string* topics, MQTTDriver* client, bool debug) noexcept {
 
+            state._client = client;
             state.message   = "";
-            state.topic     = topic;
+            state.topic     = "";
+            state.debug = debug;
 
-            client.init();
-            printf("Connecting to the broker...\n\r");
-
-            char clientID[16];
-
-            sprintf(clientID, "DP_SUBSCRIBER_%d", rand()%100);
-
-            printf("Subscriber clientID: %s\r\n", clientID);
-
-            if(client.connect((const char*) clientID)) {
-                printf("Connected!\n\r");
+            for(int i = 0; i < 2; i++){
+                state.topics[i] = topics[i];
+                state._client -> subscribe(topics[i].c_str());
             }
-
-            client.subscribe((const char*) state.topic.c_str());
+            state._client -> subscribe("ARSLAB/DATA/HUM");
 
         }
 
         struct state_type {
             string topic;
+            string topics[2];
             string message;
             bool valid;
+            MQTTDriver* _client;
+            bool debug;
         }; state_type state;
 
         using input_ports=std::tuple<>;
-        using output_ports=std::tuple<typename defs::out>;
+        using output_ports=std::tuple<typename defs::out1, typename defs::out2>;
 
         void internal_transition() {
-            char tempTopic[16], tempMessage[128];
-            state.valid = client.receive_response(tempTopic, tempMessage);
-            // printf("IT_DEBUG: %s\r\n", tempMessage);
-            string tempM(tempMessage);
+            char tempTopic[17], tempMessage[128];
+            state.valid = state._client -> receive_response(tempTopic, tempMessage);
+
+            state.topic = tempTopic;
             state.message = tempMessage;
-            client.keepalive((us_ticker_read()/1000));
+            state._client -> keepalive((us_ticker_read()/1000));
         }
 
         void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) { }
@@ -87,7 +85,11 @@ class Subscriber {
 
             if(state.valid) {
                 // printf("Lambda_debug: %s\r\n",state.message.c_str());
-                get_messages<typename defs::out>(bags).push_back(state.message);
+                if(state.topic == state.topics[0]){
+                    get_messages<typename defs::out1>(bags).push_back(state.message);
+                } else if (state.topic == state.topics[1]) {
+                    get_messages<typename defs::out2>(bags).push_back(state.message);
+                }
             }
 
             return bags;
@@ -106,8 +108,6 @@ class Subscriber {
 #else
 
 #include <cadmium/io/iestream.hpp>
-using namespace cadmium;
-using namespace std;
 
 //Port definition
 struct Subscriber_defs{

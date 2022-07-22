@@ -43,20 +43,21 @@ class Data_Parser
       for(int i = 0; i < 2; i++) {
         state.values[i] = 0;
       }
+
       state.active = false;
     }
 
     struct state_type {
       double values[2];  //Number of inputs
-      string buffer;
       bool active;
+      string buffer;
     }; state_type state;
 
     using input_ports=std::tuple<typename defs::in>;
     using output_ports=std::tuple<typename defs::out1, typename defs::out2>;
 
 
-    void internal_transition (){
+    void internal_transition (){ 
       state.active = false;
     }
 
@@ -82,11 +83,11 @@ class Data_Parser
 
       }
 
-      printf("ET_DEBUG(DPRSR): {");
-      for(int i = 0; i < 2; i++) {
-        printf("%.2f, ", state.values[i]);
-      }
-      printf("}\n\r");
+      // printf("ET_DEBUG(DPRSR): {");
+      // for(int i = 0; i < 2; i++) {
+      //   printf("%.2f, ", state.values[i]);
+      // }
+      // printf("}\n\r");
 
       state.active = true;
     }
@@ -105,11 +106,9 @@ class Data_Parser
 
     TIME time_advance() const {
       if(state.active) {
-        return TIME("00:00:00");
+        return TIME("00:00:01");
       }
       return std::numeric_limits<TIME>::infinity();
-      // return TIME("01:00:00");
-
     }
 
     friend std::ostringstream& operator<<(std::ostringstream& os, const typename Data_Parser<TIME>::state_type& i) {

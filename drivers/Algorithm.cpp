@@ -1,5 +1,5 @@
 #include "Algorithm.h"
-#include<iostream>
+#include <iostream>
 
 /** \brief Calculate Support Degree Matrix.
  *
@@ -38,7 +38,8 @@ MatrixXd sdm_calculator(double sensorinputs[], int size){
         }
     }
     MatrixXd dmatrix1 = Map<MatrixXd>( dmatrix, size, size );
- //   cout<<dmatrix1<<endl;
+    free(dmatrix);
+
     return dmatrix1;
 }
 
@@ -59,9 +60,7 @@ MatrixXd eigen_value_calculation(MatrixXd dmatrix){
     EigenSolver<MatrixXd> solver(dmatrix);
     MatrixXd eigenvalues;
     eigenvalues = solver.eigenvalues().real();
-  //  cout << "The eigenvalues of dmatrix are:" << endl << eigenvalues << endl;
     return eigenvalues;
-//cout << "The eigenvectors of dmatrix are:" << endl << solver.eigenvectors() << endl;
 }
 
 
@@ -88,21 +87,17 @@ MatrixXd eigen_vector_calculation(MatrixXd dmatrix){
     EigenSolver<MatrixXd> solver(dmatrix);
     MatrixXd eigenvectors;
     eigenvectors = solver.eigenvectors().real();
-  // cout << "The eigenvectors of dmatrix are:" << endl << eigenvectors << endl;
+
     return eigenvectors;
  }
 
  MatrixXd compute_alpha(MatrixXd eigenvalues) {
-     MatrixXd list_of_alphas;
-     double sum_of_evals;
-     //cout << "in compute alpha"<<endl;
+    MatrixXd list_of_alphas;
+    double sum_of_evals;
     sum_of_evals = eigenvalues.sum();
-        //cout<< sum_of_evals;
-//     //Constructing an array of alphas a.k.a contribution rates
-     list_of_alphas = (eigenvalues / sum_of_evals)*100;
+    list_of_alphas = (eigenvalues / sum_of_evals)*100;
 
-   // cout<<"List of alphas:"<< endl << list_of_alphas << endl;
-     return list_of_alphas;
+    return list_of_alphas;
  }
 
 MatrixXd compute_phi(MatrixXd list_of_alphas, int size){
@@ -142,46 +137,33 @@ Z_final = Z.rowwise().sum();
    return Z_final;
  }
 
- double faulty_sensor_and_sensor_fusion(MatrixXd Z, double inputsensors[], double criterion,
- 		int size){
+ double faulty_sensor_and_sensor_fusion(MatrixXd Z, double inputsensors[], double criterion, int size){
 
-     int i, tempfault=0,j=0;
-     double *weight = (double *) malloc(sizeof(double)*(size));
-     int *fault = (int *) malloc(sizeof(int)*(size));
-     double average, sum=0,calculation=0,fusion_value=0;
+    int i, tempfault=0,j=0;
+    double *weight = (double *) malloc(sizeof(double)*(size));
+    int *fault = (int *) malloc(sizeof(int)*(size));
+    double average, sum=0,calculation=0,fusion_value=0;
 
     sum = Z.sum();
-    //cout<<"sum of Z = "<<sum<<endl;
 
-
-     average = fabs((sum/size))*criterion;
+    average = fabs((sum/size))*criterion;
     double *Z_array = Z.data();
-  //  cout<<"Z Matrix = "<<Z<<endl;
-    // for(i=0;i<size;i++){
-    //     cout<<"Z = "<<Z_array[i]<<endl;
-    // }
-//    // printf("Criterion: %lf",criterion);
-   // printf("Average : %lf \n", average);
+    
      for(i=0;i<size;i++){
 
      	//Identifying a faulty sensor and storing it's index in an int array called fault
         if(fabs(Z_array[i])<average){
-             tempfault = i;
-           //  printf("%d is a faulty sensor! \n",tempfault+1);
-             fault[j]=tempfault;
-             j++;
-         }
+            tempfault = i;
+            fault[j]=tempfault;
+            j++;
+        }
  	}
-//     printf("\n");
 
 	//Making the reading and score of all faulty sensors to zero
     for(i=0;i<j;i++){
         Z_array[fault[i]]=0;
         inputsensors[fault[i]]=0;
     }
-   // for(i=0;i<size;i++){
-   //     printf("Z = %lf\n",Z[i]);
-   // }
 
     //Assigning the sum of integrated support degree score of all
     //NON-FAULTY sensors to 'calculation' variable
@@ -194,17 +176,17 @@ Z_final = Z.rowwise().sum();
     for(i=0;i<size;i++){
         weight[i] = Z_array[i]/calculation;
     }
-//    for(i=0;i<size;i++){
-//        printf("Weight coefficient : %lf\n",weight[i]);
-//    }
 
     //Calculating the fused value as a summation of product of
     //weight coefficient and sensor reading
     for(i=0;i<size;i++){
         fusion_value += weight[i] * inputsensors[i];
     }
+
     free(weight);
     free(fault);
+
     //printf("Fusion Value = %lf\n", fusion_value);
-     return fusion_value;
+
+    return fusion_value;
  }

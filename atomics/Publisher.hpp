@@ -26,8 +26,6 @@ using namespace std;
 #include "MQTTDriver.h"
 #include "mbed.h"
 
-MQTTDriver pubClient;
-
 struct Publisher_defs {
     struct in : public in_port<string> {};
 };
@@ -36,34 +34,27 @@ template<typename TIME>
 class Publisher {
 
     using defs=Publisher_defs;
+
     public:
 
-        Publisher(string topic) noexcept {
+        Publisher(string topic, MQTTDriver *client) noexcept {
 
             state.topic = topic;
             state.message = "";
-
-            pubClient.init();
-            printf("Connecting to the broker...\n\r");
-
-            char clientID[24];
-
-            sprintf(clientID, "ARSLAB_PUBLISHER_%d", rand()%10);
-            if(pubClient.connect((const char*) clientID)) {
-                printf("Connected!\n\r");
-            }
+            state._client = client;
 
             state.UID = rand()%50;
             char buffer[2];
             sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);
 
-            pubClient.publish("ARSLAB/Register", buffer);
+            state._client -> publish("ARSLAB/Register", buffer);
         }
 
         struct state_type {
             string topic;
             string message;
             int UID;
+            MQTTDriver* _client;
         }; state_type state;
 
         using input_ports=std::tuple<typename defs::in>;
@@ -79,7 +70,7 @@ class Publisher {
             char topic[32];
             sprintf(topic, "%d/%s", state.UID, state.topic.c_str());
             // printf("ET_DEBUG: %s\r\n", state.message);
-            pubClient.publish((const char*) topic, (char*) state.message.c_str());
+            state._client -> publish((const char*) topic, (char*) state.message.c_str());
         }
 
         void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {

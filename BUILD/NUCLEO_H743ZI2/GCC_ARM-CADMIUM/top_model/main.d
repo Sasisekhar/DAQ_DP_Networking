@@ -418,7 +418,36 @@
  ../../cadmium/include/cadmium/real_time/arm_mbed/rt_clock.hpp \
  ../../cadmium/include/cadmium/logger/tuple_to_ostream.hpp \
  ../../cadmium/include/cadmium/io/iestream.hpp \
- ../top_model/../atomics/DAQ_Packetizer.hpp \
+ ../top_model/../atomics/Subscriber.hpp ../drivers/MQTT/MQTTDriver.h \
+ ../mbed-os/drivers/include/drivers/DigitalIn.h \
+ ../mbed-os/drivers/include/drivers/DigitalOut.h \
+ ../mbed-os/hal/include/hal/PinNameAliases.h \
+ ../mbed-os/connectivity/netsocket/include/netsocket/SocketAddress.h \
+ ../mbed-os/connectivity/netsocket/include/netsocket/TCPSocket.h \
+ ../mbed-os/rtos/include/rtos/ThisThread.h \
+ ../mbed-os/drivers/usb/include/usb/USBSerial.h \
+ ../mbed-os/drivers/usb/include/usb/USBCDC.h \
+ ../mbed-os/drivers/usb/include/usb/internal/USBDescriptor.h \
+ ../mbed-os/drivers/usb/include/usb/internal/USBDevice_Types.h \
+ ../mbed-os/drivers/usb/include/usb/internal/USBDevice.h \
+ ../mbed-os/drivers/usb/include/usb/internal/USBDevice_Types.h \
+ ../mbed-os/hal/usb/include/usb/USBPhy.h \
+ ../mbed-os/hal/usb/include/usb/USBPhyTypes.h \
+ ../mbed-os/hal/usb/include/usb/USBPhyEvents.h \
+ ../mbed-os/platform/include/platform/mbed_critical.h \
+ ../mbed-os/drivers/usb/include/usb/internal/OperationList.h \
+ ../mbed-os/drivers/usb/include/usb/internal/OperationListBase.h \
+ ../mbed-os/drivers/usb/include/usb/internal/LinkedListBase.h \
+ ../mbed-os/drivers/usb/include/usb/internal/LinkEntry.h \
+ ../mbed-os/drivers/usb/include/usb/internal/AsyncOp.h \
+ ../mbed-os/connectivity/netsocket/include/netsocket/WiFiInterface.h \
+ ../mbed-os/connectivity/drivers/wifi/esp8266-driver/ESP8266Interface.h \
+ ../mbed-os/connectivity/drivers/wifi/esp8266-driver/ESP8266/ESP8266.h \
+ ../mbed-os/platform/include/platform/mbed_chrono.h \
+ ../mbed-os/platform/include/platform/mbed_toolchain.h \
+ ../drivers/MQTT/MQTT.h \
+ ../mbed-os/connectivity/netsocket/include/netsocket/NetworkInterface.h \
+ ../top_model/../atomics/Data_Parser.hpp \
  ../top_model/../atomics/../drivers/Algorithm.h \
  ../top_model/../atomics/../drivers/../eigen3/Eigen/Dense \
  ../top_model/../atomics/../drivers/../eigen3/Eigen/Core \
@@ -604,39 +633,6 @@
  ../top_model/../atomics/../drivers/../eigen3/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  ../top_model/../atomics/../drivers/../eigen3/Eigen/src/Eigenvalues/./RealQZ.h \
  ../top_model/../atomics/../drivers/../eigen3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- ../top_model/../atomics/Sensor.hpp \
- ../top_model/../atomics/../drivers/SensorDrivers/Driver.hpp \
- ../top_model/../atomics/../drivers/SensorDrivers/DHT11.h \
- ../top_model/../atomics/Subscriber.hpp ../drivers/MQTT/MQTTDriver.h \
- ../mbed-os/drivers/include/drivers/DigitalIn.h \
- ../mbed-os/drivers/include/drivers/DigitalOut.h \
- ../mbed-os/hal/include/hal/PinNameAliases.h \
- ../mbed-os/connectivity/netsocket/include/netsocket/SocketAddress.h \
- ../mbed-os/connectivity/netsocket/include/netsocket/TCPSocket.h \
- ../mbed-os/rtos/include/rtos/ThisThread.h \
- ../mbed-os/drivers/usb/include/usb/USBSerial.h \
- ../mbed-os/drivers/usb/include/usb/USBCDC.h \
- ../mbed-os/drivers/usb/include/usb/internal/USBDescriptor.h \
- ../mbed-os/drivers/usb/include/usb/internal/USBDevice_Types.h \
- ../mbed-os/drivers/usb/include/usb/internal/USBDevice.h \
- ../mbed-os/drivers/usb/include/usb/internal/USBDevice_Types.h \
- ../mbed-os/hal/usb/include/usb/USBPhy.h \
- ../mbed-os/hal/usb/include/usb/USBPhyTypes.h \
- ../mbed-os/hal/usb/include/usb/USBPhyEvents.h \
- ../mbed-os/platform/include/platform/mbed_critical.h \
- ../mbed-os/drivers/usb/include/usb/internal/OperationList.h \
- ../mbed-os/drivers/usb/include/usb/internal/OperationListBase.h \
- ../mbed-os/drivers/usb/include/usb/internal/LinkedListBase.h \
- ../mbed-os/drivers/usb/include/usb/internal/LinkEntry.h \
- ../mbed-os/drivers/usb/include/usb/internal/AsyncOp.h \
- ../mbed-os/connectivity/netsocket/include/netsocket/WiFiInterface.h \
- ../mbed-os/connectivity/drivers/wifi/esp8266-driver/ESP8266Interface.h \
- ../mbed-os/connectivity/drivers/wifi/esp8266-driver/ESP8266/ESP8266.h \
- ../mbed-os/platform/include/platform/mbed_chrono.h \
- ../mbed-os/platform/include/platform/mbed_toolchain.h \
- ../drivers/MQTT/MQTT.h \
- ../mbed-os/connectivity/netsocket/include/netsocket/NetworkInterface.h \
- ../top_model/../atomics/Data_Parser.hpp \
  ../top_model/../atomics/../drivers/DataToStorage.h \
  ../top_model/../atomics/Fusion.hpp \
  ../top_model/../atomics/DP_Packetizer.hpp \

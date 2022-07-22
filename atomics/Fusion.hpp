@@ -20,6 +20,7 @@
 #include "../drivers/Algorithm.h"
 #ifdef RT_ARM_MBED
 #include "../drivers/DataToStorage.h"
+#define MAX_THREAD_INFO 10
 #endif
 
 using namespace cadmium;
@@ -81,6 +82,7 @@ class Fusion
       //   printf("%.2f, ", state.values[i]);
       // }
       // printf("}\n\r");
+  
     
       // Here goes the wrapper
       state.Fused = 
@@ -98,7 +100,8 @@ class Fusion
       // #ifdef RT_ARM_MBED
       // StoreData(state.values, state.number_of_sensors, state.Fused);
       // #endif
-      //If the values are not up to the mark, we can discard them here if that can be done.
+
+      // If the values are not up to the mark, we can discard them here if that can be done.
       state.active = true;
     }
 
