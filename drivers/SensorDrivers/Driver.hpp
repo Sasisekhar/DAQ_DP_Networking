@@ -10,15 +10,12 @@ namespace drivers {
   public:
     TEMPERATURE_HUMIDITY(PinName TempPin) : dht11(TempPin) { }
 
-    int getTemp() {
-      dht11.read();
-      return dht11.getCelsius();
-    }
+    void getVal(double &val1, double &val2) {
 
-    int getHum() {
       dht11.read();
-      printf("%d\r\n", dht11.getHumidity());
-      return dht11.getHumidity();
+      val1 = dht11.getCelsius();
+      val2 = dht11.getHumidity();
+
     }
   };
 }

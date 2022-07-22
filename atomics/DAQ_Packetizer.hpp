@@ -22,11 +22,11 @@ using namespace std;
 
 
 struct DAQ_Packetizer_defs {
-  struct T1 : public in_port<int>{};
-  struct T2 : public in_port<int>{};
+  struct T1 : public in_port<double>{};
+  struct T2 : public in_port<double>{};
 
-  struct H1 : public in_port<int>{};
-  struct H2 : public in_port<int>{};
+  struct H1 : public in_port<double>{};
+  struct H2 : public in_port<double>{};
 
   struct StJSONout : public out_port<string> {};
 };
@@ -37,13 +37,13 @@ class DAQ_Packetizer {
   public:
     DAQ_Packetizer() noexcept {
       for(int i = 0; i < 4; i++) { //hardcoded number of inputs in the conditional
-        state.Values[i] = 0;
+        state.values[i] = 0;
       }
       state.active = false;
     }
 
     struct state_type {
-      int Values[4];  //Number of inputs
+      double values[4];  //Number of inputs
       string buffer;
       bool active;
     }; state_type state;
@@ -58,27 +58,27 @@ class DAQ_Packetizer {
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs){
       for(const auto &x : get_messages<typename defs::T1>(mbs)) {
-        state.Values[0] = x;
+        state.values[0] = x;
       } for(const auto &x : get_messages<typename defs::T2>(mbs)) {
-        state.Values[1] = x;
+        state.values[1] = x;
       } for(const auto &x : get_messages<typename defs::H1>(mbs)) {
-        state.Values[2] = x;
+        state.values[2] = x;
       } for(const auto &x : get_messages<typename defs::H2>(mbs)) {
-        state.Values[3] = x;
+        state.values[3] = x;
       }
 
       char tempBuff[32];
     
-      sprintf(tempBuff, "{\"Temp\":[%d, %d], \"Hum\":[%d, %d]}",
-                                                                state.Values[0],
-                                                                state.Values[1],
-                                                                state.Values[2],
-                                                                state.Values[3]
+      sprintf(tempBuff, "{\"Temp\":[%.1f, %.1f], \"Hum\":[%.1f, %.1f]}",
+                                                                        state.values[0],
+                                                                        state.values[1],
+                                                                        state.values[2],
+                                                                        state.values[3]
       );
 
-      string tempStr(tempBuff);
-      state.buffer = tempStr;
+      state.buffer = tempBuff;
       state.active = true;
+
     }
 
     void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
