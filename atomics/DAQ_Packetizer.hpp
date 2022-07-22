@@ -24,15 +24,9 @@ using namespace std;
 struct DAQ_Packetizer_defs {
   struct T1 : public in_port<int>{};
   struct T2 : public in_port<int>{};
-  struct T3 : public in_port<double>{};
 
   struct H1 : public in_port<int>{};
   struct H2 : public in_port<int>{};
-  struct H3 : public in_port<double>{};
-
-  struct C1 : public in_port<double>{};
-  struct C2 : public in_port<double>{};
-  struct C3 : public in_port<double>{};
 
   struct StJSONout : public out_port<string> {};
 };
@@ -76,10 +70,10 @@ class DAQ_Packetizer {
       char tempBuff[32];
     
       sprintf(tempBuff, "{\"Temp\":[%d, %d], \"Hum\":[%d, %d]}",
-                                              state.Values[0],
-                                              state.Values[1],
-                                              state.Values[2],
-                                              state.Values[3]
+                                                                state.Values[0],
+                                                                state.Values[1],
+                                                                state.Values[2],
+                                                                state.Values[3]
       );
 
       string tempStr(tempBuff);
