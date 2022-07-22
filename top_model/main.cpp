@@ -116,7 +116,7 @@ int main(int argc, char ** argv) {
   #ifdef RT_ARM_MBED
   AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", "ARSLAB/DATA/TEMP");
   AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", "ARSLAB/DATA/HUM");
-  AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2");
+  AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", "DATA/FUSED");
   #else
   AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", t);
   AtomicModelPtr Subscriber2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber2", h);
@@ -169,8 +169,8 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::EOCs eocs_DP = {};
 
   cadmium::dynamic::modeling::ICs ics_DP = {
-    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
-    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser2"),
 
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),

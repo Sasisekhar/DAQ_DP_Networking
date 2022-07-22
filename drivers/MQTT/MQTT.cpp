@@ -216,10 +216,8 @@ bool MQTTclient::receive_response(uint8_t check, char* topic, char* payload) {
             printf("No Match");
         }
     } else {
+
         printf("received %d bytes: ", _result);
-        if(_result == 0) {
-            return false;
-        }
         for(int i = 0; i < _result; i++) {
             printf("0x%02X, ", (unsigned int) buffer[i]);
         }
@@ -356,18 +354,22 @@ bool MQTTclient::disconnect() {
 
 }
 
-uint32_t MQTTclient::ping() {
+uint32_t MQTTclient::ping(bool measure) {
     uint8_t buffer[] = {0xC0, 0x00};
     _socket.send(buffer, 2);
 
-    int time = us_ticker_read()/1000;
-    while((buffer[0] != MQTTPINGRESP) && (us_ticker_read()/1000 - time) <= 3000){
-        _result = this->_socket.recv(buffer, 2);
-    }
+    if(measure){
+        int time = us_ticker_read()/1000;
+        while((buffer[0] != MQTTPINGRESP) && (us_ticker_read()/1000 - time) <= 3000){
+            _result = this->_socket.recv(buffer, 2);
+        }
 
-    uint32_t latency = us_ticker_read()/1000 - time;
-    printf("Ping: %"PRIu32"ms\n", latency);
-    return latency;
+        uint32_t latency = us_ticker_read()/1000 - time;
+        printf("Ping: %"PRIu32"ms\n", latency);
+        return latency;
+    } else {
+        return 0;
+    }
 }
 
 MQTTclient::~MQTTclient() {

@@ -14,8 +14,6 @@ namespace arduino{
 
 bool MQTTDriver::init() {
 
-    //ESP8266Interface WiFi(D1, D0);
-
     global::_ESPclient.set_credentials((const char*)"Sx3K", (const char*)"golikuttan7577", NSAPI_SECURITY_WPA_WPA2);
     // WiFi.set_credentials((const char*)"ARS-LAB", (const char*)"3928DC6C25", NSAPI_SECURITY_WEP);
 
@@ -31,9 +29,9 @@ bool MQTTDriver::init() {
     }
 
     SocketAddress address;
-    global::_ESPclient.gethostbyname("broker.hivemq.com", &address);
+    // global::_ESPclient.gethostbyname("broker.hivemq.com", &address);
     // global::_ESPclient.gethostbyname("mqtt.flespi.io", &address);
-    // address.set_ip_address("192.168.69.46\0");  //My laptop
+    address.set_ip_address("192.168.41.46");  //My laptop
     // address.set_ip_address("172.17.23.254\0");  //My laptop
     // address.set_ip_address("134.117.52.231\0");     //My workstation
     address.set_port(1883);
@@ -44,6 +42,7 @@ bool MQTTDriver::init() {
 }
 
 bool MQTTDriver::connect(const char* clientID) {
+    _timeout = arduino::millis();
     return _client.connect(clientID);
 }
 
@@ -60,7 +59,7 @@ bool MQTTDriver::subscribe(const char* topic) {
 }
 
 bool MQTTDriver::ping() {
-    return _client.ping();
+    return _client.ping(true);
 }
 
 void MQTTDriver::disconnect() {
@@ -69,4 +68,11 @@ void MQTTDriver::disconnect() {
 
 bool MQTTDriver::connected() {
     return _client.connected();
+}
+
+void MQTTDriver::keepalive(uint64_t currTime) {
+    if((currTime - _timeout) > 30000) {
+        _client.ping(true);
+        _timeout = arduino::millis();
+    }
 }

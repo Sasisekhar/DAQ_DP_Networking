@@ -16,6 +16,7 @@
 class MQTTDriver{
     private:
         MQTTclient _client;
+        uint64_t _timeout;
     public:
         bool init();
         bool connected();
@@ -25,5 +26,6 @@ class MQTTDriver{
         bool subscribe(const char*);
         bool ping();
         void disconnect();
+        void keepalive(uint64_t);
 };
 #endif

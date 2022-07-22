@@ -68,12 +68,11 @@ class Subscriber {
 
         void internal_transition() {
             char tempTopic[16], tempMessage[128];
-
             state.valid = client.receive_response(tempTopic, tempMessage);
             // printf("IT_DEBUG: %s\r\n", tempMessage);
             string tempM(tempMessage);
             state.message = tempMessage;
-
+            client.keepalive((us_ticker_read()/1000));
         }
 
         void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) { }

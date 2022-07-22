@@ -30,6 +30,7 @@ class MQTTclient {
     TCPSocket _socket;
     SocketAddress _address;
     nsapi_size_or_error_t _result;
+
     struct Message {
         char _clientID[64];
         char _topic[64];
@@ -52,7 +53,7 @@ class MQTTclient {
     bool receive_response(uint8_t, char*, char*);
     bool publish(const char* , const char*);
     bool subscribe(const char*);
-    uint32_t ping();
+    uint32_t ping(bool);
     bool disconnect();
 };
 

@@ -48,6 +48,7 @@ class DP_Packetizer
 
         struct state_type {
             double values[2];
+            double prevVal[2];
             string buffer;
             bool active;
         }; state_type state;
