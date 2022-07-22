@@ -47,6 +47,8 @@ int main(int argc, char ** argv) {
   //This will end the main thread and create a new one with more stack.
   #ifdef RT_ARM_MBED
 
+    MQTTDriver driver;
+
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
       static std::ostream& sink(){
