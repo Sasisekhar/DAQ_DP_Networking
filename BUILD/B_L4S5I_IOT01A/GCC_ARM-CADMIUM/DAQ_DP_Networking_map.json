@@ -1,0 +1,230 @@
+[
+    {
+        "module": "[fill]",
+        "size": {
+            ".text": 236,
+            ".data": 14,
+            ".bss": 42,
+            ".text-delta": 236,
+            ".data-delta": 14,
+            ".bss-delta": 42
+        }
+    },
+    {
+        "module": "[lib]/c.a",
+        "size": {
+            ".text": 78392,
+            ".data": 2574,
+            ".bss": 127,
+            ".text-delta": 78392,
+            ".data-delta": 2574,
+            ".bss-delta": 127
+        }
+    },
+    {
+        "module": "[lib]/gcc.a",
+        "size": {
+            ".text": 7440,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 7440,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "[lib]/misc",
+        "size": {
+            ".text": 180,
+            ".data": 4,
+            ".bss": 28,
+            ".text-delta": 180,
+            ".data-delta": 4,
+            ".bss-delta": 28
+        }
+    },
+    {
+        "module": "[lib]/nosys.a",
+        "size": {
+            ".text": 32,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 32,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "[lib]/stdc++.a",
+        "size": {
+            ".text": 185408,
+            ".data": 145,
+            ".bss": 5680,
+            ".text-delta": 185408,
+            ".data-delta": 145,
+            ".bss-delta": 5680
+        }
+    },
+    {
+        "module": "drivers/Algorithm.o",
+        "size": {
+            ".text": 36,
+            ".data": 0,
+            ".bss": 1,
+            ".text-delta": 36,
+            ".data-delta": 0,
+            ".bss-delta": 1
+        }
+    },
+    {
+        "module": "drivers/DataToStorage.o",
+        "size": {
+            ".text": 36,
+            ".data": 0,
+            ".bss": 1,
+            ".text-delta": 36,
+            ".data-delta": 0,
+            ".bss-delta": 1
+        }
+    },
+    {
+        "module": "drivers/MQTT",
+        "size": {
+            ".text": 1426,
+            ".data": 0,
+            ".bss": 1568,
+            ".text-delta": 1426,
+            ".data-delta": 0,
+            ".bss-delta": 1568
+        }
+    },
+    {
+        "module": "drivers/SensorDrivers",
+        "size": {
+            ".text": 358,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 358,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os/cmsis",
+        "size": {
+            ".text": 9400,
+            ".data": 168,
+            ".bss": 6212,
+            ".text-delta": 9400,
+            ".data-delta": 168,
+            ".bss-delta": 6212
+        }
+    },
+    {
+        "module": "mbed-os/connectivity",
+        "size": {
+            ".text": 24324,
+            ".data": 99,
+            ".bss": 181,
+            ".text-delta": 24324,
+            ".data-delta": 99,
+            ".bss-delta": 181
+        }
+    },
+    {
+        "module": "mbed-os/drivers",
+        "size": {
+            ".text": 3426,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 3426,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os/events",
+        "size": {
+            ".text": 1724,
+            ".data": 0,
+            ".bss": 3104,
+            ".text-delta": 1724,
+            ".data-delta": 0,
+            ".bss-delta": 3104
+        }
+    },
+    {
+        "module": "mbed-os/hal",
+        "size": {
+            ".text": 1626,
+            ".data": 8,
+            ".bss": 114,
+            ".text-delta": 1626,
+            ".data-delta": 8,
+            ".bss-delta": 114
+        }
+    },
+    {
+        "module": "mbed-os/platform",
+        "size": {
+            ".text": 6050,
+            ".data": 260,
+            ".bss": 428,
+            ".text-delta": 6050,
+            ".data-delta": 260,
+            ".bss-delta": 428
+        }
+    },
+    {
+        "module": "mbed-os/rtos",
+        "size": {
+            ".text": 1700,
+            ".data": 0,
+            ".bss": 8,
+            ".text-delta": 1700,
+            ".data-delta": 0,
+            ".bss-delta": 8
+        }
+    },
+    {
+        "module": "mbed-os/storage",
+        "size": {
+            ".text": 36,
+            ".data": 0,
+            ".bss": 4,
+            ".text-delta": 36,
+            ".data-delta": 0,
+            ".bss-delta": 4
+        }
+    },
+    {
+        "module": "mbed-os/targets",
+        "size": {
+            ".text": 13264,
+            ".data": 8,
+            ".bss": 1152,
+            ".text-delta": 13264,
+            ".data-delta": 8,
+            ".bss-delta": 1152
+        }
+    },
+    {
+        "module": "top_model/main.o",
+        "size": {
+            ".text": 35654,
+            ".data": 0,
+            ".bss": 374,
+            ".text-delta": 35654,
+            ".data-delta": 0,
+            ".bss-delta": 374
+        }
+    },
+    {
+        "summary": {
+            "static_ram": 22304,
+            "static_ram_delta": 22304,
+            "total_flash": 374028,
+            "total_flash_delta": 374028
+        }
+    }
+]
