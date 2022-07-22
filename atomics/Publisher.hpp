@@ -46,7 +46,10 @@ class Publisher {
             pubClient.init();
             printf("Connecting to the broker...\n\r");
 
-            if(pubClient.connect("ARSLAB_DAQ")) {
+            char clientID[24];
+
+            sprintf(clientID, "ARSLAB_PUBLISHER_%d", rand()%10);
+            if(pubClient.connect((const char*) clientID)) {
                 printf("Connected!\n\r");
             }
 
