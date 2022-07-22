@@ -47,6 +47,7 @@ bool MQTTDriver::connect(const char* clientID) {
 }
 
 bool MQTTDriver::publish(const char* topic, char* message) {
+    _timeout = (us_ticker_read()/1000);
     return _client.publish(topic, message);
 }
 

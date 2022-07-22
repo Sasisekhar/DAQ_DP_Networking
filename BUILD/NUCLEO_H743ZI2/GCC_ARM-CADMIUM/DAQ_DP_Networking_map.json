@@ -2,10 +2,10 @@
     {
         "module": "[fill]",
         "size": {
-            ".text": 400,
+            ".text": 432,
             ".data": 21,
             ".bss": 46,
-            ".text-delta": -20,
+            ".text-delta": 32,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,10 +101,10 @@
     {
         "module": "drivers/MQTT",
         "size": {
-            ".text": 1852,
+            ".text": 1884,
             ".data": 0,
             ".bss": 1464,
-            ".text-delta": 0,
+            ".text-delta": 32,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -203,7 +203,7 @@
             ".text": 41274,
             ".data": 0,
             ".bss": 1,
-            ".text-delta": 212,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -212,8 +212,8 @@
         "summary": {
             "static_ram": 29904,
             "static_ram_delta": 0,
-            "total_flash": 439700,
-            "total_flash_delta": 192
+            "total_flash": 439764,
+            "total_flash_delta": 64
         }
     }
 ]
