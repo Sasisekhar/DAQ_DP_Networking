@@ -16,7 +16,19 @@
         "-Wl,--wrap,_realloc_r",
         "-Wl,--wrap,atexit",
         "-Wl,--wrap,exit",
+<<<<<<< HEAD
         "-Wl,--wrap,main",
+=======
+        "-Wl,--wrap,fprintf",
+        "-Wl,--wrap,main",
+        "-Wl,--wrap,printf",
+        "-Wl,--wrap,snprintf",
+        "-Wl,--wrap,sprintf",
+        "-Wl,--wrap,vfprintf",
+        "-Wl,--wrap,vprintf",
+        "-Wl,--wrap,vsnprintf",
+        "-Wl,--wrap,vsprintf",
+>>>>>>> RT_DAQ
         "-Wl,-n",
         "-mcpu=cortex-m7",
         "-mfloat-abi=softfp",
@@ -57,7 +69,11 @@
         "DEVICE_USTICKER=1",
         "DEVICE_WATCHDOG=1",
         "EXTRA_IDLE_STACK_REQUIRED",
+<<<<<<< HEAD
         "MBED_BUILD_TIMESTAMP=1658777971.5028644",
+=======
+        "MBED_BUILD_TIMESTAMP=1658452283.5826604",
+>>>>>>> RT_DAQ
         "MBED_TICKLESS",
         "STM32H743xx",
         "TARGET_CORTEX",

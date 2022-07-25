@@ -20,7 +20,7 @@
 using namespace cadmium;
 using namespace std;
 
-#ifdef RT_ARM_DP
+#ifdef RT_ARM_MBED
 //Begin RT_Cadmium
 
 #include "MQTTDriver.h"
@@ -43,11 +43,16 @@ class Publisher {
             state.message = "";
             state._client = client;
 
+            srand(us_ticker_read());
             state.UID = rand()%50;
             char buffer[2];
             sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);
 
             state._client -> publish("ARSLAB/Register", buffer);
+
+            state.topic = buffer;
+            state.topic = state.topic + "/" + topic;
+            printf("%s\n\r", state.topic.c_str());
         }
 
         struct state_type {
@@ -67,10 +72,9 @@ class Publisher {
                 state.message = x;
             }
 
-            char topic[32];
-            sprintf(topic, "%d/%s", state.UID, state.topic.c_str());
-            // printf("ET_DEBUG: %s\r\n", state.message);
-            state._client -> publish((const char*) topic, (char*) state.message.c_str());
+            // printf("ET_DEBUG: %s\r\n", state.message.c_str());
+
+            state._client -> publish(state.topic.c_str(), (char*) state.message.c_str());
         }
 
         void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {

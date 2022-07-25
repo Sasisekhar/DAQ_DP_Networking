@@ -1,8 +1,12 @@
 {
     "target_overrides": {
         "*": {
+<<<<<<< HEAD
             "target.printf_lib": "std",
             "platform.memory-tracing-enabled": "true"
+=======
+            "target.printf_lib": "std"
+>>>>>>> RT_DAQ
         },
         "K64F": {
             "platform.stdio-baud-rate": 9600

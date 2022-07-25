@@ -270,7 +270,10 @@ bool MQTTclient::publish(const char* topic, const char* message) {
         _result = _socket.send(buffer, bytes_to_send);
 
         if(_result < 0) {
-            // printf("Publish failed! Error: %d", _result);
+            if(_result == -3001) {
+                return false;
+            }
+            printf("Publish failed! Error: %d\n\r", _result);
             return false;
         } else {
             // printf("sent %d bytes\r\n", _result);

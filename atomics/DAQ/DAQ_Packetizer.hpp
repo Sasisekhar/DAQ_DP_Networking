@@ -17,8 +17,6 @@
 #include <limits>
 #include <random>
 
-#include "../drivers/Algorithm.h"
-
 using namespace cadmium;
 using namespace std;
 
@@ -26,15 +24,9 @@ using namespace std;
 struct DAQ_Packetizer_defs {
   struct T1 : public in_port<double>{};
   struct T2 : public in_port<double>{};
-  struct T3 : public in_port<double>{};
 
   struct H1 : public in_port<double>{};
   struct H2 : public in_port<double>{};
-  struct H3 : public in_port<double>{};
-
-  struct C1 : public in_port<double>{};
-  struct C2 : public in_port<double>{};
-  struct C3 : public in_port<double>{};
 
   struct StJSONout : public out_port<string> {};
 };
@@ -44,19 +36,19 @@ class DAQ_Packetizer {
   using defs=DAQ_Packetizer_defs;
   public:
     DAQ_Packetizer() noexcept {
-      for(int i = 0; i < 2; i++) { //hardcoded number of inputs in the conditional
-        state.Values[i] = 0;
+      for(int i = 0; i < 4; i++) { //hardcoded number of inputs in the conditional
+        state.values[i] = 0;
       }
       state.active = false;
     }
 
     struct state_type {
-      double Values[2];  //Number of inputs
+      double values[4];  //Number of inputs
       string buffer;
       bool active;
     }; state_type state;
 
-    using input_ports=std::tuple<typename defs::T1, typename defs::T2>;
+    using input_ports=std::tuple<typename defs::T1, typename defs::T2, typename defs::H1, typename defs::H2>;
     using output_ports=std::tuple<typename defs::StJSONout>;
 
 
@@ -66,21 +58,27 @@ class DAQ_Packetizer {
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs){
       for(const auto &x : get_messages<typename defs::T1>(mbs)) {
-        state.Values[0] = x;
+        state.values[0] = x;
       } for(const auto &x : get_messages<typename defs::T2>(mbs)) {
-        state.Values[1] = x;
+        state.values[1] = x;
+      } for(const auto &x : get_messages<typename defs::H1>(mbs)) {
+        state.values[2] = x;
+      } for(const auto &x : get_messages<typename defs::H2>(mbs)) {
+        state.values[3] = x;
       }
 
       char tempBuff[32];
     
-      sprintf(tempBuff, "{\"Temp\":[%.2f, %.2f]}", 
-                                                  state.Values[0], 
-                                                  state.Values[1]
+      sprintf(tempBuff, "{\"Temp\":[%.1f, %.1f], \"Hum\":[%.1f, %.1f]}",
+                                                                        state.values[0],
+                                                                        state.values[1],
+                                                                        state.values[2],
+                                                                        state.values[3]
       );
 
-      string tempStr(tempBuff);
-      state.buffer = tempStr;
+      state.buffer = tempBuff;
       state.active = true;
+
     }
 
     void confluence_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
@@ -91,9 +89,7 @@ class DAQ_Packetizer {
     typename make_message_bags<output_ports>::type output() const {
         typename make_message_bags<output_ports>::type bags;
 
-        string out;
-        out = state.buffer;
-        get_messages<typename defs::StJSONout>(bags).push_back(out);
+        get_messages<typename defs::StJSONout>(bags).push_back(state.buffer);
 
         return bags;
     }

@@ -418,7 +418,16 @@
  ../../cadmium/include/cadmium/real_time/arm_mbed/rt_clock.hpp \
  ../../cadmium/include/cadmium/logger/tuple_to_ostream.hpp \
  ../../cadmium/include/cadmium/io/iestream.hpp \
+<<<<<<< HEAD
  ../top_model/../atomics/Subscriber.hpp ../drivers/MQTT/MQTTDriver.h \
+=======
+ ../top_model/../atomics/DAQ_Packetizer.hpp \
+ ../top_model/../atomics/Temp_Sensor.hpp \
+ ../top_model/../atomics/../drivers/SensorDrivers/Driver.hpp \
+ ../top_model/../atomics/../drivers/SensorDrivers/DHT11.h \
+ ../top_model/../atomics/Hum_Sensor.hpp \
+ ../top_model/../atomics/Publisher.hpp ../drivers/MQTT/MQTTDriver.h \
+>>>>>>> RT_DAQ
  ../mbed-os/drivers/include/drivers/DigitalIn.h \
  ../mbed-os/drivers/include/drivers/DigitalOut.h \
  ../mbed-os/hal/include/hal/PinNameAliases.h \
@@ -447,6 +456,7 @@
  ../mbed-os/platform/include/platform/mbed_toolchain.h \
  ../drivers/MQTT/MQTT.h \
  ../mbed-os/connectivity/netsocket/include/netsocket/NetworkInterface.h \
+<<<<<<< HEAD
  ../top_model/../atomics/Data_Parser.hpp \
  ../top_model/../atomics/../drivers/Algorithm.h \
  ../top_model/../atomics/../drivers/../eigen3/Eigen/Dense \
@@ -637,6 +647,8 @@
  ../top_model/../atomics/Fusion.hpp \
  ../top_model/../atomics/DP_Packetizer.hpp \
  ../top_model/../atomics/Publisher.hpp \
+=======
+>>>>>>> RT_DAQ
  ../../cadmium/DESTimes/include/NDTime.hpp \
  ../../boost_1_79_0/boost/algorithm/string.hpp \
  ../../boost_1_79_0/boost/algorithm/string/std_containers_traits.hpp \
@@ -1014,5 +1026,9 @@
  ../../boost_1_79_0/boost/algorithm/string/detail/find_format_all.hpp \
  ../../boost_1_79_0/boost/algorithm/string/formatter.hpp \
  ../../boost_1_79_0/boost/algorithm/string/detail/formatter.hpp \
+<<<<<<< HEAD
  ../../boost_1_79_0/boost/algorithm/string/erase.hpp \
  ../mbed-os/cmsis/../mbed.h
+=======
+ ../../boost_1_79_0/boost/algorithm/string/erase.hpp
+>>>>>>> RT_DAQ

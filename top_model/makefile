@@ -4,6 +4,9 @@ CFLAGS=-std=c++17
 COMPILE_TARGET_DP=NUCLEO_H743ZI2
 FLASH_TARGET_DP=NOD_H743ZI2
 
+COMPILE_TARGET_DAQ=B_L4S5I_IOT01A
+FLASH_TARGET_DAQ=DIS_L4S5VI
+
 EXECUTABLE_NAME=build_sim/DP_SIM
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
@@ -12,7 +15,7 @@ INCLUDEBOOST=-I ../../boost_1_70_0
 
 
 embedded_DAQ:
-	mbed compile --target $(COMPILE_TARGET) --toolchain GCC_ARM --profile ../cadmium.json
+	mbed compile --target $(COMPILE_TARGET) --toolchain GCC_ARM --profile ../DAQ_profile.json
 
 embedded_DP:
 	mbed compile --target $(COMPILE_TARGET_DP) --toolchain GCC_ARM --profile ../DP_profile.json
