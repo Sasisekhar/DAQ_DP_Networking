@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=-std=c++17
 COMPILE_TARGET=NUCLEO_H743ZI2
 FLASH_TARGET=NOD_H743ZI2
-EXECUTABLE_NAME=build/Testing_Algorithm_TOP
+EXECUTABLE_NAME=build_sim/DP_SIM
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
 INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
@@ -18,19 +18,19 @@ flash:
 
 
 all: main fusion
-	$(CC) -g -o $(EXECUTABLE_NAME) build/main.o build/Algorithm.o
-	$(info *** run ./$(EXECUTABLE_NAME) to run the simulation ***)
+	$(CC) -g -o $(EXECUTABLE_NAME) build_sim/main.o build_sim/Algorithm.o
+	@echo "*** run ./$(EXECUTABLE_NAME) to run the simulation ***"
 
 main: main.cpp
-	make clean
-	mkdir build
-	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build/main.o
+	rm -rf build_sim
+	mkdir build_sim
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim/main.o
 
 fusion: ../drivers/Algorithm.cpp
-	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o build/Algorithm.o
+	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o build_sim/Algorithm.o
 
 clean:
-	rm -rf build
+	rm -rf build_sim
 
 eclean:
 	rm -rf ../BUILD

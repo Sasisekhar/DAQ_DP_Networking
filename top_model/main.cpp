@@ -138,14 +138,24 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::Ports iports_DP = {};
   cadmium::dynamic::modeling::Ports oports_DP = {};
 
-  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1,  Data_Parser1,  Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
+  #ifdef RT_ARM_MBED
+  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
+  #else
+  cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
+  #endif
 
   cadmium::dynamic::modeling::EICs eics_DP = {};
   cadmium::dynamic::modeling::EOCs eocs_DP = {};
 
   cadmium::dynamic::modeling::ICs ics_DP = {
+
+    #ifdef RT_ARM_MBED
     cadmium::dynamic::translate::make_IC<subscriber_defs::out1, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
     cadmium::dynamic::translate::make_IC<subscriber_defs::out2, Data_Parser_defs::in>("Subscriber1","Data_Parser2"),
+    #else
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
+    cadmium::dynamic::translate::make_IC<subscriber_defs::out, Data_Parser_defs::in>("Subscriber2","Data_Parser2"),
+    #endif
 
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out1, Fusion_defs::in1>("Data_Parser1","Fusion1"),
     cadmium::dynamic::translate::make_IC<Data_Parser_defs::out2, Fusion_defs::in2>("Data_Parser1","Fusion1"),

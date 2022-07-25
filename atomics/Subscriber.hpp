@@ -110,16 +110,16 @@ class Subscriber {
 #include <cadmium/io/iestream.hpp>
 
 //Port definition
-struct Subscriber_defs{
+struct subscriber_defs{
     struct out : public out_port<string> {};
 };
 
 
 template<typename TIME>
-class Subscriber : public iestream_input<string,TIME, Subscriber_defs>{
+class Subscriber : public iestream_input<string,TIME, subscriber_defs>{
     public:
         Subscriber() = default;
-        Subscriber(const char* filename) :   iestream_input<string, TIME, Subscriber_defs>(filename) {}
+        Subscriber(const char* filename) :   iestream_input<string, TIME, subscriber_defs>(filename) {}
 };
 
 #endif
