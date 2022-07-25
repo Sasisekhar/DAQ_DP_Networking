@@ -68,10 +68,7 @@ class dhtSensor {
 
     void internal_transition() {
       state.sensor->getVal(state.out[0], state.out[1]);
-      #ifndef RT_SASI_DEBUG
       printf("The values from the sensor are: %f, %f \n\r", state.out[0], state.out[1]);
-      #endif
-      // ThisThread::sleep_for(500ms);
     }
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
@@ -91,7 +88,7 @@ class dhtSensor {
       }
 
     TIME time_advance() const {
-      return pollingRate;
+      return TIME("99:00:00:000");
     }
 
     friend std::ostringstream& operator<<(std::ostringstream& os, const typename dhtSensor<TIME>::state_type& i) {
