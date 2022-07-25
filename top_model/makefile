@@ -29,14 +29,14 @@ flash_DP:
 	$(info *** FLASH MAKE TAKE ~10 Seconds! DO NOT RESET WHILE COM PORT LED IS FLASHING! ***)
 
 
-all: main fusion
-	$(CC) -g -o $(EXECUTABLE_NAME) build_sim/main.o build_sim/Algorithm.o
+all_DP: main_DP fusion
+	$(CC) -DDP_COUPLED -g -o $(EXECUTABLE_NAME) build_sim/main.o build_sim/Algorithm.o
 	@echo "*** run ./$(EXECUTABLE_NAME) to run the simulation ***"
 
-main: main.cpp
+main_DP: main.cpp
 	rm -rf build_sim
 	mkdir build_sim
-	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim/main.o
+	$(CC) -DDP_COUPLED -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim/main.o
 
 fusion: ../drivers/Algorithm.cpp
 	$(CC) -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) ../drivers/Algorithm.cpp -o build_sim/Algorithm.o

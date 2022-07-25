@@ -31,6 +31,11 @@
   #ifdef RT_ARM_MBED
     #include "MQTTDriver.h"
     #include "../mbed.h"
+
+  #else
+    const char* t = "./inputs/fused_t.txt";
+    const char* h = "./inputs/fused_h.txt";
+    const char* dp_publish = "./outputs/DP_Publish.txt";
   #endif
 
 #endif
@@ -84,7 +89,7 @@ int main(int argc, char ** argv) {
       printf("Connected!\n\r");
     }
 
-    //Logging is done over cout in RT_ARM_DP
+    //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
       static std::ostream& sink(){
         return cout;
@@ -159,7 +164,7 @@ int main(int argc, char ** argv) {
     cadmium::dynamic::modeling::Ports iports_DP = {};
     cadmium::dynamic::modeling::Ports oports_DP = {};
 
-    #ifdef RT_ARM_DP
+    #ifdef RT_ARM_MBED
     cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
     #else
     cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
@@ -170,7 +175,7 @@ int main(int argc, char ** argv) {
 
     cadmium::dynamic::modeling::ICs ics_DP = {
 
-      #ifdef RT_ARM_DP
+      #ifdef RT_ARM_MBED
       cadmium::dynamic::translate::make_IC<subscriber_defs::out1, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
       cadmium::dynamic::translate::make_IC<subscriber_defs::out2, Data_Parser_defs::in>("Subscriber1","Data_Parser2"),
       #else
@@ -308,7 +313,7 @@ int main(int argc, char ** argv) {
   #endif
 
   r.run_until(NDTime("100:00:00:000"));
-  #ifndef RT_ARM_DP
+  #ifndef RT_ARM_MBED
   return 0;
   #endif
 
