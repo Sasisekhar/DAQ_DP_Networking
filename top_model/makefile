@@ -1,7 +1,9 @@
 CC=g++
 CFLAGS=-std=c++17
-COMPILE_TARGET=NUCLEO_H743ZI2
-FLASH_TARGET=NOD_H743ZI2
+
+COMPILE_TARGET_DP=NUCLEO_H743ZI2
+FLASH_TARGET_DP=NOD_H743ZI2
+
 EXECUTABLE_NAME=build_sim/DP_SIM
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
@@ -9,11 +11,18 @@ INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
 INCLUDEBOOST=-I ../../boost_1_70_0
 
 
-embedded:
+embedded_DAQ:
 	mbed compile --target $(COMPILE_TARGET) --toolchain GCC_ARM --profile ../cadmium.json
 
-flash:
+embedded_DP:
+	mbed compile --target $(COMPILE_TARGET_DP) --toolchain GCC_ARM --profile ../DP_profile.json
+
+flash_DAQ:
 	sudo cp ../BUILD/$(COMPILE_TARGET)/GCC_ARM-CADMIUM/*.bin /media/$(USER)/$(FLASH_TARGET)/
+	$(info *** FLASH MAKE TAKE ~10 Seconds! DO NOT RESET WHILE COM PORT LED IS FLASHING! ***)
+
+flash_DP:
+	sudo cp ../BUILD/$(COMPILE_TARGET_DP)/GCC_ARM-CADMIUM/*.bin /media/$(USER)/$(FLASH_TARGET_DP)/
 	$(info *** FLASH MAKE TAKE ~10 Seconds! DO NOT RESET WHILE COM PORT LED IS FLASHING! ***)
 
 

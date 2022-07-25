@@ -14,18 +14,18 @@
 #include <cadmium/logger/common_loggers.hpp>
 #include <cadmium/io/iestream.hpp>
 
-#ifdef RT_ARM_MBED
+#ifdef RT_ARM_DP
 #include <cadmium/real_time/arm_mbed/rt_clock.hpp>
 #endif
-#include "../atomics/Subscriber.hpp"
-#include "../atomics/Data_Parser.hpp"
-#include "../atomics/Fusion.hpp"
-#include "../atomics/DP_Packetizer.hpp"
-#include "../atomics/Publisher.hpp"
+#include "../atomics/DP/Subscriber.hpp"
+#include "../atomics/DP/Data_Parser.hpp"
+#include "../atomics/DP/Fusion.hpp"
+#include "../atomics/DP/DP_Packetizer.hpp"
+#include "../atomics/DP/Publisher.hpp"
 
 #include <NDTime.hpp>
 
-#ifdef RT_ARM_MBED
+#ifdef RT_ARM_DP
 
 #include "MQTTDriver.h"
 #include "../mbed.h"
@@ -54,7 +54,7 @@ const char* daq_publish = "./outputs/DAQ_Publish.txt";
 #endif
 using namespace std;
 
-#ifndef RT_ARM_MBED
+#ifndef RT_ARM_DP
 using hclock=chrono::high_resolution_clock;
 #endif
 using TIME = NDTime;
@@ -62,7 +62,7 @@ using TIME = NDTime;
 int main(int argc, char ** argv) {
 
   //This will end the main thread and create a new one with more stack.
-  #ifdef RT_ARM_MBED
+  #ifdef RT_ARM_DP
 
   MQTTDriver driver;
   string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"};
@@ -78,7 +78,7 @@ int main(int argc, char ** argv) {
     printf("Connected!\n\r");
   }
 
-  //Logging is done over cout in RT_ARM_MBED
+  //Logging is done over cout in RT_ARM_DP
   struct oss_sink_provider{
     static std::ostream& sink(){
       return cout;
@@ -117,7 +117,7 @@ int main(int argc, char ** argv) {
   /*************** Atomic models *******************/
   /*************************************************/
 
-  #ifdef RT_ARM_MBED
+  #ifdef RT_ARM_DP
   AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", topics, &driver, false);
   AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", "DATA/FUSED", &driver);
   #else
@@ -138,7 +138,7 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::Ports iports_DP = {};
   cadmium::dynamic::modeling::Ports oports_DP = {};
 
-  #ifdef RT_ARM_MBED
+  #ifdef RT_ARM_DP
   cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
   #else
   cadmium::dynamic::modeling::Models submodels_DP = {Subscriber1, Subscriber2, Data_Parser1, Data_Parser2, Fusion1, Fusion2, DP_Packetizer1, Publisher2};
@@ -149,7 +149,7 @@ int main(int argc, char ** argv) {
 
   cadmium::dynamic::modeling::ICs ics_DP = {
 
-    #ifdef RT_ARM_MBED
+    #ifdef RT_ARM_DP
     cadmium::dynamic::translate::make_IC<subscriber_defs::out1, Data_Parser_defs::in>("Subscriber1","Data_Parser1"),
     cadmium::dynamic::translate::make_IC<subscriber_defs::out2, Data_Parser_defs::in>("Subscriber1","Data_Parser2"),
     #else
@@ -183,7 +183,7 @@ int main(int argc, char ** argv) {
   /******************* Runner **********************/
   /*************************************************/
 
-  #ifdef RT_ARM_MBED
+  #ifdef RT_ARM_DP
     // cadmium::dynamic::engine::runner<NDTime, logger_top> r(TOP, {0});
     // cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
     cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DP, {0});
@@ -195,7 +195,7 @@ int main(int argc, char ** argv) {
   #endif
 
   r.run_until(NDTime("100:00:00:000"));
-  #ifndef RT_ARM_MBED
+  #ifndef RT_ARM_DP
   return 0;
   #endif
 
