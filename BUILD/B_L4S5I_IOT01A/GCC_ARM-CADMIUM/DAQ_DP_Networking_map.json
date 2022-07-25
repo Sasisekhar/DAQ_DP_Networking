@@ -2,10 +2,10 @@
     {
         "module": "[fill]",
         "size": {
-            ".text": 246,
+            ".text": 226,
             ".data": 14,
             ".bss": 49,
-            ".text-delta": 6,
+            ".text-delta": -8,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -13,10 +13,10 @@
     {
         "module": "[lib]/c.a",
         "size": {
-            ".text": 78408,
+            ".text": 78292,
             ".data": 2574,
             ".bss": 127,
-            ".text-delta": 0,
+            ".text-delta": -40,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -68,7 +68,7 @@
     {
         "module": "drivers/MQTT",
         "size": {
-            ".text": 1438,
+            ".text": 72,
             ".data": 0,
             ".bss": 1568,
             ".text-delta": 0,
@@ -101,7 +101,7 @@
     {
         "module": "mbed-os/connectivity",
         "size": {
-            ".text": 24324,
+            ".text": 23046,
             ".data": 99,
             ".bss": 181,
             ".text-delta": 0,
@@ -145,9 +145,9 @@
     {
         "module": "mbed-os/platform",
         "size": {
-            ".text": 6632,
-            ".data": 276,
-            ".bss": 468,
+            ".text": 6050,
+            ".data": 260,
+            ".bss": 428,
             ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
@@ -178,9 +178,9 @@
     {
         "module": "mbed-os/targets",
         "size": {
-            ".text": 14598,
+            ".text": 13264,
             ".data": 8,
-            ".bss": 1192,
+            ".bss": 1152,
             ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
@@ -189,20 +189,20 @@
     {
         "module": "top_model/main.o",
         "size": {
-            ".text": 34568,
+            ".text": 31776,
             ".data": 0,
             ".bss": 1,
-            ".text-delta": -6,
+            ".text-delta": -16,
             ".data-delta": 0,
             ".bss-delta": 0
         }
     },
     {
         "summary": {
-            "static_ram": 22032,
+            "static_ram": 21936,
             "static_ram_delta": 0,
-            "total_flash": 374876,
-            "total_flash_delta": 0
+            "total_flash": 367372,
+            "total_flash_delta": -64
         }
     }
 ]

@@ -68,7 +68,10 @@ class dhtSensor {
 
     void internal_transition() {
       state.sensor->getVal(state.out[0], state.out[1]);
-      ThisThread::sleep_for(500ms);
+      #ifndef RT_SASI_DEBUG
+      printf("The values from the sensor are: %f, %f \n\r", state.out[0], state.out[1]);
+      #endif
+      // ThisThread::sleep_for(500ms);
     }
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {

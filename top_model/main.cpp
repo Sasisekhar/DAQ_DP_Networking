@@ -46,16 +46,16 @@ int main(int argc, char ** argv) {
   //This will end the main thread and create a new one with more stack.
   #ifdef RT_ARM_MBED
 
-  MQTTDriver driver;
+  // MQTTDriver driver;
 
-  driver.init();
-  printf("Connecting to the broker...\n\r");
-  char clientID[20];
-  srand(time(NULL));
-  sprintf(clientID, "ARSLAB_CLIENT_%d", 50);
-  if(driver.connect((const char*) clientID)) {
-    printf("Connected!\n\r");
-  }
+  // driver.init();
+  // printf("Connecting to the broker...\n\r");
+  // char clientID[20];
+  // srand(time(NULL));
+  // sprintf(clientID, "ARSLAB_CLIENT_%d", 50);
+  // if(driver.connect((const char*) clientID)) {
+  //   printf("Connected!\n\r");
+  // }
 
   //Logging is done over cout in RT_ARM_MBED
   struct oss_sink_provider{
@@ -100,7 +100,7 @@ int main(int argc, char ** argv) {
   #ifdef RT_ARM_MBED
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D9);
   AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D8);
-  AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL", &driver);
+  // AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL", &driver);
   #else
   AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor1", t1);
   AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", t2);
@@ -116,7 +116,7 @@ int main(int argc, char ** argv) {
   cadmium::dynamic::modeling::Ports iports_DAQ = {};
   cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
-  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, DAQ_Packetizer1, Publisher1};
+  cadmium::dynamic::modeling::Models submodels_DAQ = {Sensor1, Sensor2, DAQ_Packetizer1/*, Publisher1*/};
 
   cadmium::dynamic::modeling::EICs eics_DAQ = {};
   cadmium::dynamic::modeling::EOCs eocs_DAQ = {};
@@ -127,7 +127,7 @@ int main(int argc, char ** argv) {
     cadmium::dynamic::translate::make_IC<dht_sensor_defs::H, DAQ_Packetizer_defs::H1>("Sensor1","DAQ_Packetizer1"),
     cadmium::dynamic::translate::make_IC<dht_sensor_defs::H, DAQ_Packetizer_defs::H2>("Sensor2","DAQ_Packetizer1"),
     
-    cadmium::dynamic::translate::make_IC<DAQ_Packetizer_defs::StJSONout, Publisher_defs::in>("DAQ_Packetizer1","Publisher1"),
+    // cadmium::dynamic::translate::make_IC<DAQ_Packetizer_defs::StJSONout, Publisher_defs::in>("DAQ_Packetizer1","Publisher1"),
   };
 
   CoupledModelPtr DAQ = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
@@ -140,9 +140,32 @@ int main(int argc, char ** argv) {
     ics_DAQ
   );
 
+  /*************************************************/
+  /**************** Sensor Test ********************/
+  /*************************************************/
+  cadmium::dynamic::modeling::Ports iports_test = {};
+  cadmium::dynamic::modeling::Ports oports_test = {};
+
+  cadmium::dynamic::modeling::Models submodels_test = {Sensor1, Sensor2};
+
+  cadmium::dynamic::modeling::EICs eics_test = {};
+  cadmium::dynamic::modeling::EOCs eocs_test = {};
+
+  cadmium::dynamic::modeling::ICs ics_test = {};
+
+  CoupledModelPtr test = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+    "test",
+    submodels_test,
+    iports_test,
+    oports_test,
+    eics_test,
+    eocs_test,
+    ics_test
+  );
+
   #ifdef RT_ARM_MBED
     // cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
-    cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(DAQ, {0});
+    cadmium::dynamic::engine::runner<NDTime, cadmium::logger::not_logger> r(test, {0});
   #else
 
   cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
