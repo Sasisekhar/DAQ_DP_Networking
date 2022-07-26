@@ -15,7 +15,7 @@ namespace arduino{
 bool MQTTDriver::init() {
 
     global::_ESPclient.set_credentials((const char*)"Sx3K", (const char*)"golikuttan7577", NSAPI_SECURITY_WPA_WPA2);
-    // WiFi.set_credentials((const char*)"ARS-LAB", (const char*)"3928DC6C25", NSAPI_SECURITY_WEP);
+    // global::_ESPclient.set_credentials((const char*)"ARS-LAB", (const char*)"3928DC6C25", NSAPI_SECURITY_WEP);
 
     global::_ESPclient.connect();
     printf("Connecting");
@@ -32,6 +32,7 @@ bool MQTTDriver::init() {
     // global::_ESPclient.gethostbyname("broker.hivemq.com", &address);
     // global::_ESPclient.gethostbyname("mqtt.flespi.io", &address);
     address.set_ip_address("192.168.173.46\0");  //My laptop
+    // address.set_ip_address("192.168.1.124\0");  //My laptop
     // address.set_ip_address("172.17.23.254\0");  //My laptop
     // address.set_ip_address("134.117.52.231\0");     //My workstation
     address.set_port(1883);
