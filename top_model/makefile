@@ -12,7 +12,7 @@ EXECUTABLE_NAME_DAQ=bin/DAQ_SIM
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
 INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
-INCLUDEBOOST=-I ../../boost_1_70_0
+INCLUDEBOOST=-I ../../boost_1_79_0
 
 
 embedded_DAQ:
@@ -32,12 +32,16 @@ flash_DP:
 #*************************** DP ***************************#
 
 all_DP: main_DP fusion
-	[ ! -d "bin" ] && mkdir bin
+ifeq (, $(wildcard bin))
+	mkdir bin
+endif
 	$(CC) -DDP_COUPLED -g -o $(EXECUTABLE_NAME_DP) build_sim_DP/main.o build_sim_DP/Algorithm.o
 	@echo "*** run ./$(EXECUTABLE_NAME_DP) to run the simulation ***"
 
 main_DP: main.cpp
-	[ ! -d "build_sim_DP" ] && mkdir build_sim_DP
+ifeq (, $(wildcard build_sim_DP))
+	mkdir build_sim_DP
+endif
 	$(CC) -DDP_COUPLED -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim_DP/main.o
 
 fusion: ../drivers/Algorithm.cpp
@@ -49,13 +53,17 @@ fusion: ../drivers/Algorithm.cpp
 #*************************** DAQ **************************#
 
 all_DAQ: main_DAQ
+ifeq (, $(wildcard bin))
+	mkdir bin
+endif
 	$(CC) -DDAQ_COUPLED -g -o $(EXECUTABLE_NAME_DAQ) build_sim_DAQ/main.o
 	@echo "*** run ./$(EXECUTABLE_NAME_DAQ) to run the simulation ***"
 
 main_DAQ: main.cpp
-	rm -rf build_sim_DAQ
+ifeq (, $(wildcard build_sim_DAQ))
 	mkdir build_sim_DAQ
-	$(CC) -DDAQ_COUPLED -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim/main.o
+endif
+	$(CC) -DDAQ_COUPLED -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) main.cpp -o build_sim_DAQ/main.o
 
 #**********************************************************#
 

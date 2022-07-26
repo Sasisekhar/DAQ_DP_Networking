@@ -67,7 +67,7 @@ class DAQ_Packetizer {
         state.values[3] = x;
       }
 
-      char tempBuff[32];
+      char tempBuff[128];
     
       sprintf(tempBuff, "{\"Temp\":[%.1f, %.1f], \"Hum\":[%.1f, %.1f]}",
                                                                         state.values[0],
