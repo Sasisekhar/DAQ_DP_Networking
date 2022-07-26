@@ -2,11 +2,11 @@
     {
         "module": "[fill]",
         "size": {
-            ".text": 420,
+            ".text": 400,
             ".data": 21,
             ".bss": 46,
-            ".text-delta": 0,
-            ".data-delta": 0,
+            ".text-delta": 126,
+            ".data-delta": 7,
             ".bss-delta": 0
         }
     },
@@ -27,7 +27,7 @@
             ".text": 6432,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 0,
+            ".text-delta": 680,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -38,8 +38,8 @@
             ".text": 892,
             ".data": 1,
             ".bss": 0,
-            ".text-delta": 0,
-            ".data-delta": 0,
+            ".text-delta": 892,
+            ".data-delta": 1,
             ".bss-delta": 0
         }
     },
@@ -82,9 +82,9 @@
             ".text": 46574,
             ".data": 0,
             ".bss": 17,
-            ".text-delta": 0,
+            ".text-delta": 46538,
             ".data-delta": 0,
-            ".bss-delta": 0
+            ".bss-delta": 16
         }
     },
     {
@@ -189,10 +189,10 @@
     {
         "module": "top_model/main.o",
         "size": {
-            ".text": 42474,
+            ".text": 42430,
             ".data": 0,
             ".bss": 2,
-            ".text-delta": 0,
+            ".text-delta": 252,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -200,9 +200,9 @@
     {
         "summary": {
             "static_ram": 29904,
-            "static_ram_delta": 0,
-            "total_flash": 441300,
-            "total_flash_delta": 0
+            "static_ram_delta": 24,
+            "total_flash": 441236,
+            "total_flash_delta": 48496
         }
     }
 ]

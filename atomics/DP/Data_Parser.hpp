@@ -101,7 +101,7 @@ class Data_Parser
 
     TIME time_advance() const {
       if(state.active) {
-        return TIME("00:00:01");
+        return TIME("00:00:00");
       }
       return std::numeric_limits<TIME>::infinity();
     }
