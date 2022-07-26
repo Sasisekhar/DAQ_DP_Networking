@@ -26,7 +26,7 @@ using namespace std;
 
 #include <cadmium/real_time/arm_mbed/embedded_error.hpp>
 #include "mbed.h"
-#include "../drivers/SensorDrivers/Driver.hpp"
+#include "../../drivers/SensorDrivers/Driver.hpp"
 
 struct dht_sensor_defs {
   struct T : public out_port<double> { };
@@ -68,7 +68,7 @@ class dhtSensor {
 
     void internal_transition() {
       state.sensor->getVal(state.out[0], state.out[1]);
-      printf("The values from the sensor are: %f, %f \n\r", state.out[0], state.out[1]);
+      // printf("The values from the sensor are: %f, %f \n\r", state.out[0], state.out[1]);
     }
 
     void external_transition(TIME e, typename make_message_bags<input_ports>::type mbs) {
@@ -88,7 +88,7 @@ class dhtSensor {
       }
 
     TIME time_advance() const {
-      return TIME("00:00:00:100");
+      return TIME("00:00:05:000");
     }
 
     friend std::ostringstream& operator<<(std::ostringstream& os, const typename dhtSensor<TIME>::state_type& i) {

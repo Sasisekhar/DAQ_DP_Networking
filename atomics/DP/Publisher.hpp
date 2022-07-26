@@ -43,7 +43,7 @@ class Publisher {
             state.message = "";
             state._client = client;
 
-            srand(us_ticker_read());
+            // srand(NULL);
             state.UID = rand()%50;
             char buffer[2];
             sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);

@@ -20,7 +20,7 @@
 using namespace std;
 using namespace cadmium;
 
-#ifdef RT_ARM_DP
+#ifdef RT_ARM_MBED
 //Begin RT_Cadmium
 
 #include "MQTTDriver.h"
@@ -68,6 +68,10 @@ class Subscriber {
             char tempTopic[17], tempMessage[128];
             state.valid = state._client -> receive_response(tempTopic, tempMessage);
 
+            if(state.valid) {
+                printf("Received\n\r");
+            }
+
             state.topic = tempTopic;
             state.message = tempMessage;
             state._client -> keepalive((us_ticker_read()/1000));
@@ -96,11 +100,11 @@ class Subscriber {
         }
 
         TIME time_advance() const {
-            return TIME("00:00:00:100");
+            return TIME("00:00:00:050");
         }
 
         friend std::ostringstream& operator<<(std::ostringstream& os, const typename Subscriber<TIME>::state_type& i) {
-            os << "";
+            os << "Subscriber data" << i.message;
             return os;
         }
 };
