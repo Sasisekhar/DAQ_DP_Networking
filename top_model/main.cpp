@@ -43,9 +43,10 @@
 
 /***************** Includes for DAQ **********************/
 #ifdef DAQ_COUPLED
-  #include "../atomics/DAQ_Packetizer.hpp"
-  #include "../atomics/DHT_Sensor.hpp"
-  #include "../atomics/Publisher.hpp"
+  #include "../atomics/DAQ/DAQ_Packetizer.hpp"
+  #include "../atomics/DAQ/DHT_Sensor.hpp"
+  #include "../atomics/DP/Publisher.hpp"
+  #include "../atomics/DAQ/Sensor.hpp"
   #include <NDTime.hpp>
 
   #ifdef RT_ARM_MBED
@@ -75,19 +76,19 @@ int main(int argc, char ** argv) {
   /**************** Initializers required for both DAQ and DP MBED implementations ********************/
   #ifdef RT_ARM_MBED
 
-    MQTTDriver driver;
-    string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"};
-    //Set RTC
-    // set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
+    // MQTTDriver driver;
+    // string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"};
+    // //Set RTC
+    // // set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
 
-    driver.init();
-    printf("Connecting to the broker...\n\r");
-    char clientID[20];
-    srand(time(NULL));
-    sprintf(clientID, "ARSLAB_CLIENT_%d", rand()%100);
-    if(driver.connect((const char*) clientID)) {
-      printf("Connected!\n\r");
-    }
+    // driver.init();
+    // printf("Connecting to the broker...\n\r");
+    // char clientID[20];
+    // srand(time(NULL));
+    // sprintf(clientID, "ARSLAB_CLIENT_%d", rand()%100);
+    // if(driver.connect((const char*) clientID)) {
+    //   printf("Connected!\n\r");
+    // }
 
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
@@ -213,16 +214,17 @@ int main(int argc, char ** argv) {
     /*************************************************/
 
     #ifdef RT_ARM_MBED
-    AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D9);
-    AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D8);
-    // AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL", &driver);
+      AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D9);
+      AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D8);
+      // AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL", &driver);
     #else
-    AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor1", t1);
-    AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<tempSensor, TIME>("Sensor2", t2);
-    AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor3", t3);
-    AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<humSensor, TIME>("Sensor4", t4);
-    AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", daq_publish);
+      AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", t1);
+      AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", t2);
+      AtomicModelPtr Sensor3 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor3", t3);
+      AtomicModelPtr Sensor4 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor4", t4);
+      AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", daq_publish);
     #endif
+
     AtomicModelPtr DAQ_Packetizer1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DAQ_Packetizer, TIME>("DAQ_Packetizer1");
 
     /***********************************************/
