@@ -1,0 +1,1055 @@
+[
+    {
+        "id": "11342716e6de98a0",
+        "type": "tab",
+        "label": "ARSLAB",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "95839efbd50b57d0",
+        "type": "mqtt in",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4dc2c2e853be0262",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 610,
+        "y": 280,
+        "wires": [
+            [
+                "3e4912d23f37c6ff"
+            ]
+        ]
+    },
+    {
+        "id": "3280d0cda26e3862",
+        "type": "debug",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8379f91d4b4b734d",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "5170337084adf9f3",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-50",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1150,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "3e4912d23f37c6ff",
+        "type": "json",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 740,
+        "y": 280,
+        "wires": [
+            [
+                "3280d0cda26e3862",
+                "012981963548c565",
+                "871d4dae8dc2733d"
+            ]
+        ]
+    },
+    {
+        "id": "012981963548c565",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Temp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 200,
+        "wires": [
+            [
+                "8379f91d4b4b734d"
+            ]
+        ]
+    },
+    {
+        "id": "70fd46065ab74c6b",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "5170337084adf9f3",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1140,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "871d4dae8dc2733d",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Hum;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 240,
+        "wires": [
+            [
+                "70fd46065ab74c6b"
+            ]
+        ]
+    },
+    {
+        "id": "e7ebdaad2ef67b55",
+        "type": "json",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 500,
+        "wires": [
+            [
+                "60ecfe9204b1498c",
+                "4ee5ecc08998f7ce",
+                "bc3881f8cd73613f",
+                "88889a82ec35edb2",
+                "5b2763ff1de5039a",
+                "2e6747ac8fe3693f",
+                "6134eacce7df03e3"
+            ]
+        ]
+    },
+    {
+        "id": "5b2763ff1de5039a",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Hum[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 460,
+        "wires": [
+            [
+                "f66cfbfe893e740b"
+            ]
+        ]
+    },
+    {
+        "id": "88889a82ec35edb2",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Hum[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 420,
+        "wires": [
+            [
+                "c6a637c41c9c8b50"
+            ]
+        ]
+    },
+    {
+        "id": "bc3881f8cd73613f",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Temp[1];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 380,
+        "wires": [
+            [
+                "de75501173f50680"
+            ]
+        ]
+    },
+    {
+        "id": "4ee5ecc08998f7ce",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "msg.payload = msg.payload.Temp[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 340,
+        "wires": [
+            [
+                "2350ecd6d7c3fa51"
+            ]
+        ]
+    },
+    {
+        "id": "2e6747ac8fe3693f",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "let x = \"\";\nfor(let i = 0; i < msg.payload.Temp.length; i++) {\n    x += String(msg.payload.Temp[i]) + ',';\n}\n\nmsg.payload = x\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 540,
+        "wires": [
+            [
+                "d859a3b77295e2c8",
+                "9d50598ee99b2d23"
+            ]
+        ]
+    },
+    {
+        "id": "6134eacce7df03e3",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "let x = \"\";\nfor(let i = 0; i < msg.payload.Hum.length; i++) {\n    x += String(msg.payload.Hum[i]) + ',';\n}\n\nmsg.payload = x\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 960,
+        "y": 580,
+        "wires": [
+            [
+                "3e7dab29c2d5570e",
+                "ef4c4772056cdbd9"
+            ]
+        ]
+    },
+    {
+        "id": "60ecfe9204b1498c",
+        "type": "debug",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "f66cfbfe893e740b",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "57609b15052e47c5",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1160,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "c6a637c41c9c8b50",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "57609b15052e47c5",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Humidity",
+        "label": "%",
+        "format": "{{value}}",
+        "min": "0",
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1160,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "de75501173f50680",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "91f610fc23ad2f9d",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-50",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1170,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "2350ecd6d7c3fa51",
+        "type": "ui_gauge",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "91f610fc23ad2f9d",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Temperature",
+        "label": "°C",
+        "format": "{{value}}",
+        "min": "-50",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 1170,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "22f0c17fc8596564",
+        "type": "mqtt in",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "ARSLAB/Register",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4dc2c2e853be0262",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "df2ac4a93df9a51f",
+                "556c41de28cefadd"
+            ]
+        ]
+    },
+    {
+        "id": "2b8e63e4ef0f5427",
+        "type": "mqtt out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "ARSLAB/DATA/TEMP",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4dc2c2e853be0262",
+        "x": 600,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "23788e0f341d80b4",
+        "type": "inject",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "1d7d04eabef4df59"
+            ]
+        ]
+    },
+    {
+        "id": "77eb4afae53c2e04",
+        "type": "mqtt out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "ARSLAB/DATA/HUM",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4dc2c2e853be0262",
+        "x": 600,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "ec98995e547ca52d",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "let x = Math.floor((Math.random() * 100) - 50);\nlet y = Math.floor((Math.random() * 100) - 50);\n\nmsg.payload = String(x) + \",\" + String(y) + \",\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "2b8e63e4ef0f5427",
+                "be9759bf9e9e5a47"
+            ]
+        ]
+    },
+    {
+        "id": "1d7d04eabef4df59",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "let x = Math.floor((Math.random() * 100) + 1);\nlet y = Math.floor((Math.random() * 100) + 1);\n\nmsg.payload = String(x) + \",\" + String(y) + \",\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 160,
+        "wires": [
+            [
+                "77eb4afae53c2e04",
+                "f5636f5c0d8d3a23"
+            ]
+        ]
+    },
+    {
+        "id": "3fcce0457246e8a0",
+        "type": "ui_button",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "group": "92bdca80fe1efdfd",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Debug",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "1",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "ec98995e547ca52d",
+                "1d7d04eabef4df59"
+            ]
+        ]
+    },
+    {
+        "id": "d859a3b77295e2c8",
+        "type": "mqtt out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "ARSLAB/DATA/TEMP",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4dc2c2e853be0262",
+        "x": 1220,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3e7dab29c2d5570e",
+        "type": "mqtt out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "ARSLAB/DATA/HUM",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "4dc2c2e853be0262",
+        "x": 1220,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "df2ac4a93df9a51f",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "if(global.get(\"count\") == 1) {\n    msg.topic = msg.payload + \"/DATA/ALL\";\n    msg.action = \"subscribe\"\n    var inc = global.get(\"count\");\n    global.set(\"count\", inc + 1);\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 640,
+        "wires": [
+            [
+                "ea6075b778915d27",
+                "6ae26b57dcac9753"
+            ]
+        ]
+    },
+    {
+        "id": "ea6075b778915d27",
+        "type": "mqtt in",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "4dc2c2e853be0262",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 610,
+        "y": 500,
+        "wires": [
+            [
+                "e7ebdaad2ef67b55"
+            ]
+        ]
+    },
+    {
+        "id": "ef4c4772056cdbd9",
+        "type": "ui_text",
+        "z": "11342716e6de98a0",
+        "group": "92bdca80fe1efdfd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "HUM_SIM",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1210,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "9d50598ee99b2d23",
+        "type": "ui_text",
+        "z": "11342716e6de98a0",
+        "group": "92bdca80fe1efdfd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "TEMP_SIM",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1210,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "6ae26b57dcac9753",
+        "type": "debug",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "f99d3b53bbddba73",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "Initialize count",
+        "func": "global.set(\"count\", 0);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4dfa4f2e14fb2258",
+        "type": "inject",
+        "z": "11342716e6de98a0",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 380,
+        "wires": [
+            [
+                "f99d3b53bbddba73"
+            ]
+        ]
+    },
+    {
+        "id": "556c41de28cefadd",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "func": "if(global.get(\"count\") == 0) {\n    msg.topic = msg.payload + \"/DATA/FUSED\";\n    msg.action = \"subscribe\"\n    global.set(\"count\", 1);\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 560,
+        "wires": [
+            [
+                "95839efbd50b57d0",
+                "6ae26b57dcac9753"
+            ]
+        ]
+    },
+    {
+        "id": "3d110c019504acd5",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "Increment count",
+        "func": "global.set(\"count\", global.get(\"count\") + 1);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "97372714f31a4239",
+        "type": "inject",
+        "z": "11342716e6de98a0",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 420,
+        "wires": [
+            [
+                "3d110c019504acd5"
+            ]
+        ]
+    },
+    {
+        "id": "ae5a8f5709fd33ce",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "Decrement count",
+        "func": "global.set(\"count\", global.get(\"count\") - 1);",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "87a308f66ed6d9a6",
+        "type": "inject",
+        "z": "11342716e6de98a0",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "ae5a8f5709fd33ce"
+            ]
+        ]
+    },
+    {
+        "id": "59685d6439e52e39",
+        "type": "inject",
+        "z": "11342716e6de98a0",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "date",
+        "x": 430,
+        "y": 760,
+        "wires": [
+            [
+                "78a6ed958103d3b3"
+            ]
+        ]
+    },
+    {
+        "id": "78a6ed958103d3b3",
+        "type": "function",
+        "z": "11342716e6de98a0",
+        "name": "Check count",
+        "func": "msg.payload = global.get(\"count\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 760,
+        "wires": [
+            [
+                "cbcc98a6dbfdb8a8"
+            ]
+        ]
+    },
+    {
+        "id": "cbcc98a6dbfdb8a8",
+        "type": "debug",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 910,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "be9759bf9e9e5a47",
+        "type": "link out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "73c79b5ed3f1d7dc"
+        ],
+        "x": 515,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "73c79b5ed3f1d7dc",
+        "type": "link in",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "links": [
+            "be9759bf9e9e5a47"
+        ],
+        "x": 995,
+        "y": 660,
+        "wires": [
+            [
+                "9d50598ee99b2d23"
+            ]
+        ]
+    },
+    {
+        "id": "f5636f5c0d8d3a23",
+        "type": "link out",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "aa24c14b536a09b9"
+        ],
+        "x": 515,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "aa24c14b536a09b9",
+        "type": "link in",
+        "z": "11342716e6de98a0",
+        "name": "",
+        "links": [
+            "f5636f5c0d8d3a23"
+        ],
+        "x": 995,
+        "y": 700,
+        "wires": [
+            [
+                "ef4c4772056cdbd9"
+            ]
+        ]
+    },
+    {
+        "id": "4dc2c2e853be0262",
+        "type": "mqtt-broker",
+        "name": "mosquitto",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "5170337084adf9f3",
+        "type": "ui_group",
+        "name": "Sensor Fused",
+        "tab": "a2f004ed87b30614",
+        "order": 4,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "57609b15052e47c5",
+        "type": "ui_group",
+        "name": "Humidity (Raw)",
+        "tab": "a2f004ed87b30614",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "91f610fc23ad2f9d",
+        "type": "ui_group",
+        "name": "Temperature (Raw)",
+        "tab": "a2f004ed87b30614",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "92bdca80fe1efdfd",
+        "type": "ui_group",
+        "name": "DEBUG",
+        "tab": "a2f004ed87b30614",
+        "order": 5,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "a2f004ed87b30614",
+        "type": "ui_tab",
+        "name": "DEVS CPS",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
