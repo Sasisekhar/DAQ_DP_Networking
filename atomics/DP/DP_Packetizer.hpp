@@ -99,7 +99,7 @@ class DP_Packetizer
 
       TIME time_advance() const {
         if(state.active) {
-          return TIME("00:00:00");
+          return TIME("00:00:00:100");
         }
         return std::numeric_limits<TIME>::infinity();
        // return TIME("01:00:00");

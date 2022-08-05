@@ -115,9 +115,9 @@ int main(int argc, char ** argv) {
   #endif
 
 
-  /*************************************************/
-  /****************** Loggers **********************/
-  /*************************************************/
+  /***************************************************/
+  /******************* Loggers ***********************/
+  /***************************************************/
 
   using info=cadmium::logger::logger<cadmium::logger::logger_info, cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
   using debug=cadmium::logger::logger<cadmium::logger::logger_debug, cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
@@ -129,17 +129,17 @@ int main(int argc, char ** argv) {
   using log_all=cadmium::logger::multilogger<info, debug, state, log_messages, routing, global_time, local_time>;
   using logger_top=cadmium::logger::multilogger<log_messages, global_time>;
 
-  /*************************************************/
-  /*************************************************/
-  /*************************************************/
+  /***************************************************/
+  /***************************************************/
+  /***************************************************/
 
   using AtomicModelPtr=std::shared_ptr<cadmium::dynamic::modeling::model>;
   using CoupledModelPtr=std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>>;
 
   #ifdef DP_COUPLED
-    /*************************************************/
-    /************ DP Atomic models *******************/
-    /*************************************************/
+    /***************************************************/
+    /************** DP Atomic models *******************/
+    /***************************************************/
     
     #ifdef RT_ARM_MBED
       AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", topics, &driver, false);
@@ -209,9 +209,9 @@ int main(int argc, char ** argv) {
     );
     
   #endif
-  /*************************************************/
-  /*************************************************/
-  /*************************************************/
+  /***************************************************/
+  /***************************************************/
+  /***************************************************/
 
   #ifdef DAQ_COUPLED
     /*************************************************/
@@ -236,9 +236,9 @@ int main(int argc, char ** argv) {
     /*************************************************/
     /*************************************************/
 
-    /***********************************************/
-    /*************** DAQ Coupled *******************/
-    /***********************************************/
+    /*************************************************/
+    /**************** DAQ Coupled ********************/
+    /*************************************************/
     cadmium::dynamic::modeling::Ports iports_DAQ = {};
     cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
