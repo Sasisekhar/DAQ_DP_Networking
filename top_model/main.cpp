@@ -30,7 +30,7 @@
 
   #ifdef RT_ARM_MBED
     #include "../drivers/MQTT/MQTTDriver.h"
-    #include "../mbed.h"
+    #include "../mbed-os/mbed.h"
 
   #else
     const char* t = "./inputs/fused_t.txt";
@@ -50,7 +50,8 @@
   #include <NDTime.hpp>
 
   #ifdef RT_ARM_MBED
-    #include "mbed.h"
+    #include "../drivers/MQTT/MQTTDriver.h"
+    #include "../mbed-os/mbed.h"
   #else
     const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
     const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
@@ -76,17 +77,19 @@ int main(int argc, char ** argv) {
   /**************** Initializers required for both DAQ and DP MBED implementations ********************/
   #ifdef RT_ARM_MBED
 
+    //Instantiate the MQTT driver and create a client
     MQTTDriver driver;
-    string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"};
-    //Set RTC
-    // set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
 
-    driver.init();
+    #ifdef DP_COUPLED //List of topics for he DP to subscribe to
+      string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"}; //topics for fusion subscription
+    #endif
+
+    driver.init();  //initialise driver
     printf("Connecting to the broker...\n\r");
     char clientID[20];
     srand(time(NULL));
-    sprintf(clientID, "ARSLAB_CLIENT_%d", rand()%100);
-    if(driver.connect((const char*) clientID)) {
+    sprintf(clientID, "ARSLAB_CLIENT_%d", rand()%100); //create a random client ID
+    if(driver.connect((const char*) clientID)) { //Establish connection to the broker
       printf("Connected!\n\r");
     }
 
