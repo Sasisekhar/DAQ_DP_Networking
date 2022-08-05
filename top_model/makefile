@@ -18,11 +18,18 @@ INCLUDEBOOST=-I ../../boost_1_79_0
 embedded_DAQ:
 	mbed compile --target $(COMPILE_TARGET_DAQ) --toolchain GCC_ARM --profile ../DAQ_profile.json
 
+embedded_DAQ_1:
+	mbed compile --target $(COMPILE_TARGET_DP) --toolchain GCC_ARM --profile ../DAQ_profile.json
+
 embedded_DP:
 	mbed compile --target $(COMPILE_TARGET_DP) --toolchain GCC_ARM --profile ../DP_profile.json
 
 flash_DAQ:
 	sudo cp ../BUILD/$(COMPILE_TARGET_DAQ)/GCC_ARM-DAQ_PROFILE/*.bin /media/$(USER)/$(FLASH_TARGET_DAQ)/
+	$(info *** FLASH MAKE TAKE ~10 Seconds! DO NOT RESET WHILE COM PORT LED IS FLASHING! ***)
+
+flash_DAQ_1:
+	sudo cp ../BUILD/$(COMPILE_TARGET_DP)/GCC_ARM-DAQ_PROFILE/*.bin /media/$(USER)/$(FLASH_TARGET_DP)/
 	$(info *** FLASH MAKE TAKE ~10 Seconds! DO NOT RESET WHILE COM PORT LED IS FLASHING! ***)
 
 flash_DP:
