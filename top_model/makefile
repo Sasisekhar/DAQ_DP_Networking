@@ -9,10 +9,12 @@ FLASH_TARGET_DAQ=DIS_L4S5VI
 
 EXECUTABLE_NAME_DP=bin/DP_SIM
 EXECUTABLE_NAME_DAQ=bin/DAQ_SIM
+EXECUTABLE_NAME_DFC=bin/DFC_SIM
 
 INCLUDRT_ARM_MBED=-I ../../cadmium/include
 INCLUDEDESTIMES=-I ../../cadmium/DESTimes/include
 INCLUDEBOOST=-I ../../boost_1_79_0
+INCLUDE_JSON=-I ../../json/include
 
 
 embedded_DAQ:
@@ -38,7 +40,7 @@ flash_DP:
 
 #*************************** DP ***************************#
 
-all_DP: main_DP fusion
+DP_sim: main_DP fusion
 ifeq (, $(wildcard bin))
 	mkdir bin
 endif
@@ -59,7 +61,7 @@ fusion: ../drivers/Algorithm.cpp
 
 #*************************** DAQ **************************#
 
-all_DAQ: main_DAQ
+DAQ_sim: main_DAQ
 ifeq (, $(wildcard bin))
 	mkdir bin
 endif
@@ -74,9 +76,42 @@ endif
 
 #**********************************************************#
 
+#*************************** DFC **************************#
+
+network_sim: main_DFC
+ifeq (, $(wildcard bin))
+	mkdir bin
+endif
+	$(CC) -DNETWORK_COUPLED -g -o $(EXECUTABLE_NAME_DFC) build_sim_DFC/main.o
+	@echo "*** run ./$(EXECUTABLE_NAME_DFC) to run the simulation ***"
+
+main_DFC: main.cpp
+ifeq (, $(wildcard build_sim_DFC))
+	mkdir build_sim_DFC
+endif
+	$(CC) -DNETWORK_COUPLED -g -c $(CFLAGS) $(INCLUDRT_ARM_MBED) $(INCLUDEDESTIMES) $(INCLUDEBOOST) $(INCLUDE_JSON) main.cpp -o build_sim_DFC/main.o
+
+#**********************************************************#
+
+#*************************** all_simulation **************************#
+
+all:
+	make DAQ_sim
+	make network_sim
+	make DP_sim
+
+run:
+	./bin/DAQ_SIM
+	./bin/DFC_SIM
+	./bin/DP_SIM
+
+#**********************************************************#
+
+
 clean:
 	rm -rf build_sim_DAQ
 	rm -rf build_sim_DP
+	rm -rf build_sim_DFC
 
 eclean:
 	rm -rf ../BUILD

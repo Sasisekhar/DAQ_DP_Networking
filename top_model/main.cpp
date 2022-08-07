@@ -33,8 +33,8 @@
     #include "../mbed-os/mbed.h"
 
   #else
-    const char* t = "./inputs/fused_t.txt";
-    const char* h = "./inputs/fused_h.txt";
+    const char* t = "./outputs/Network_Publish1.txt";
+    const char* h = "./outputs/Network_Publish2.txt";
     const char* dp_publish = "./outputs/DP_Publish.txt";
   #endif
 
@@ -59,6 +59,20 @@
     const char* h2 = "./inputs/Temperature_Sensor_Values4.txt";
     const char* daq_publish = "./outputs/DAQ_Publish.txt";
   #endif
+
+#endif
+/*********************************************************/
+
+/*************** Includes for Network ********************/
+#ifdef NETWORK_COUPLED
+  #include "../atomics/DP/Subscriber.hpp"
+  #include "../atomics/DP/Publisher.hpp"
+  #include "../atomics/Network/DataFlowController.hpp"
+  #include <NDTime.hpp>
+
+  const char* network_subscribe = "./outputs/DAQ_Publish.txt";
+  const char* network_publish1 = "./outputs/Network_Publish1.txt";
+  const char* network_publish2 = "./outputs/Network_Publish2.txt";
 
 #endif
 /*********************************************************/
@@ -114,7 +128,7 @@ int main(int argc, char ** argv) {
 
     /*************** Loggers *******************/
 
-    static std::ofstream out_data("MessageOutputs.txt");
+    static std::ofstream out_data("logs.txt");
     struct oss_sink_provider{
       static std::ostream& sink(){
         return out_data;
@@ -295,33 +309,58 @@ int main(int argc, char ** argv) {
     /*************************************************/
     /*************************************************/
     /*************************************************/
-
-    /*************************************************/
-    /**************** Sensor Test ********************/
-    /*************************************************/
-    cadmium::dynamic::modeling::Ports iports_test = {};
-    cadmium::dynamic::modeling::Ports oports_test = {};
-
-    cadmium::dynamic::modeling::Models submodels_test = {Sensor1, Sensor2};
-
-    cadmium::dynamic::modeling::EICs eics_test = {};
-    cadmium::dynamic::modeling::EOCs eocs_test = {};
-
-    cadmium::dynamic::modeling::ICs ics_test = {};
-
-    CoupledModelPtr test = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-      "test",
-      submodels_test,
-      iports_test,
-      oports_test,
-      eics_test,
-      eocs_test,
-      ics_test
-    );
   #endif
   /*************************************************/
   /*************************************************/
   /*************************************************/
+
+  #ifdef NETWORK_COUPLED
+    /*************************************************/
+    /********* Network Atomic models *****************/
+    /*************************************************/
+
+    AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", network_publish1);
+    AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", network_publish2);
+    AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", network_subscribe);
+    AtomicModelPtr DFC1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DFC, TIME>("DFC1");
+
+    /*************************************************/
+    /*************************************************/
+    /*************************************************/
+
+    /*************************************************/
+    /************** Network Coupled ******************/
+    /*************************************************/
+    cadmium::dynamic::modeling::Ports iports_NETWORK = {};
+    cadmium::dynamic::modeling::Ports oports_NETWORK = {};
+
+    cadmium::dynamic::modeling::Models submodels_NETWORK = {Publisher1, Publisher2, Subscriber1, DFC1};
+
+    cadmium::dynamic::modeling::EICs eics_NETWORK = {};
+    cadmium::dynamic::modeling::EOCs eocs_NETWORK = {};
+
+    cadmium::dynamic::modeling::ICs ics_NETWORK = {
+
+      cadmium::dynamic::translate::make_IC<subscriber_defs::out, DFC_defs::in>("Subscriber1","DFC1"),
+      
+      cadmium::dynamic::translate::make_IC<DFC_defs::outT, Publisher_defs::in>("DFC1","Publisher1"),
+      cadmium::dynamic::translate::make_IC<DFC_defs::outH, Publisher_defs::in>("DFC1","Publisher2")
+    };
+
+    CoupledModelPtr NETWORK = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+      "NETWORK",
+      submodels_NETWORK,
+      iports_NETWORK,
+      oports_NETWORK,
+      eics_NETWORK,
+      eocs_NETWORK,
+      ics_NETWORK
+    );
+
+    /*************************************************/
+    /*************************************************/
+    /*************************************************/
+  #endif
 
 
   /*************************************************/
@@ -350,6 +389,10 @@ int main(int argc, char ** argv) {
 
     cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
     #endif
+  #endif
+
+  #ifdef NETWORK_COUPLED
+  cadmium::dynamic::engine::runner<NDTime, logger_top> r(NETWORK, {0});
   #endif
 
   /*************************************************/
