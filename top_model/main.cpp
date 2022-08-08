@@ -30,11 +30,11 @@
 
   #ifdef RT_ARM_MBED
     #include "../drivers/MQTT/MQTTDriver.h"
-    #include "../mbed.h"
+    #include "../mbed-os/mbed.h"
 
   #else
-    const char* t = "./inputs/fused_t.txt";
-    const char* h = "./inputs/fused_h.txt";
+    const char* t = "./outputs/Network_Publish1.txt";
+    const char* h = "./outputs/Network_Publish2.txt";
     const char* dp_publish = "./outputs/DP_Publish.txt";
   #endif
 
@@ -50,7 +50,8 @@
   #include <NDTime.hpp>
 
   #ifdef RT_ARM_MBED
-    #include "mbed.h"
+    #include "../drivers/MQTT/MQTTDriver.h"
+    #include "../mbed-os/mbed.h"
   #else
     const char* t1 = "./inputs/Temperature_Sensor_Values1.txt";
     const char* t2 = "./inputs/Temperature_Sensor_Values2.txt";
@@ -58,6 +59,20 @@
     const char* h2 = "./inputs/Temperature_Sensor_Values4.txt";
     const char* daq_publish = "./outputs/DAQ_Publish.txt";
   #endif
+
+#endif
+/*********************************************************/
+
+/*************** Includes for Network ********************/
+#ifdef NETWORK_COUPLED
+  #include "../atomics/DP/Subscriber.hpp"
+  #include "../atomics/DP/Publisher.hpp"
+  #include "../atomics/Network/DataFlowController.hpp"
+  #include <NDTime.hpp>
+
+  const char* network_subscribe = "./outputs/DAQ_Publish.txt";
+  const char* network_publish1 = "./outputs/Network_Publish1.txt";
+  const char* network_publish2 = "./outputs/Network_Publish2.txt";
 
 #endif
 /*********************************************************/
@@ -76,19 +91,27 @@ int main(int argc, char ** argv) {
   /**************** Initializers required for both DAQ and DP MBED implementations ********************/
   #ifdef RT_ARM_MBED
 
+    //Instantiate the MQTT driver and create a client
     MQTTDriver driver;
-    string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"};
-    //Set RTC
-    // set_time(1610538009);  // Set RTC time to Wed, 28 Oct 2009 11:35:37
+    driver.init();  //initialise driver
 
-    driver.init();
-    printf("Connecting to the broker...\n\r");
-    char clientID[20];
-    srand(time(NULL));
-    sprintf(clientID, "ARSLAB_CLIENT_%d", rand()%100);
-    if(driver.connect((const char*) clientID)) {
-      printf("Connected!\n\r");
-    }
+    #ifdef DP_COUPLED //List of topics for he DP to subscribe to
+      string topics[] = {"ARSLAB/DATA/TEMP", "ARSLAB/DATA/HUM"}; //topics for fusion subscription
+      // string ip = driver.networkInfo();
+      // printf("%s\r\n", driver.networkInfo().c_str());
+      printf("Connecting to the broker...\n\r");
+      if(driver.connect("Fusion_DP")) { //Establish connection to the broker
+        printf("Connected!\n\r");
+      }
+    #elif DAQ_COUPLED
+       string ip = driver.networkInfo();
+      printf("%s\r\n", ip.c_str());
+      printf("Connecting to the broker...\n\r");
+      if(driver.connect((char*)ip.c_str())) { //Establish connection to the broker
+        printf("Connected!\n\r");
+      }
+      string publishTopic = driver.networkInfo() + "/DATA/ALL";
+    #endif
 
     //Logging is done over cout in RT_ARM_MBED
     struct oss_sink_provider{
@@ -105,7 +128,7 @@ int main(int argc, char ** argv) {
 
     /*************** Loggers *******************/
 
-    static std::ofstream out_data("MessageOutputs.txt");
+    static std::ofstream out_data("logs.txt");
     struct oss_sink_provider{
       static std::ostream& sink(){
         return out_data;
@@ -115,9 +138,9 @@ int main(int argc, char ** argv) {
   #endif
 
 
-  /*************************************************/
-  /****************** Loggers **********************/
-  /*************************************************/
+  /***************************************************/
+  /******************* Loggers ***********************/
+  /***************************************************/
 
   using info=cadmium::logger::logger<cadmium::logger::logger_info, cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
   using debug=cadmium::logger::logger<cadmium::logger::logger_debug, cadmium::dynamic::logger::formatter<TIME>, oss_sink_provider>;
@@ -129,17 +152,17 @@ int main(int argc, char ** argv) {
   using log_all=cadmium::logger::multilogger<info, debug, state, log_messages, routing, global_time, local_time>;
   using logger_top=cadmium::logger::multilogger<log_messages, global_time>;
 
-  /*************************************************/
-  /*************************************************/
-  /*************************************************/
+  /***************************************************/
+  /***************************************************/
+  /***************************************************/
 
   using AtomicModelPtr=std::shared_ptr<cadmium::dynamic::modeling::model>;
   using CoupledModelPtr=std::shared_ptr<cadmium::dynamic::modeling::coupled<TIME>>;
 
   #ifdef DP_COUPLED
-    /*************************************************/
-    /************ DP Atomic models *******************/
-    /*************************************************/
+    /***************************************************/
+    /************** DP Atomic models *******************/
+    /***************************************************/
     
     #ifdef RT_ARM_MBED
       AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", topics, &driver, false);
@@ -209,9 +232,9 @@ int main(int argc, char ** argv) {
     );
     
   #endif
-  /*************************************************/
-  /*************************************************/
-  /*************************************************/
+  /***************************************************/
+  /***************************************************/
+  /***************************************************/
 
   #ifdef DAQ_COUPLED
     /*************************************************/
@@ -219,9 +242,14 @@ int main(int argc, char ** argv) {
     /*************************************************/
 
     #ifdef RT_ARM_MBED
-      AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D9);
-      AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D8);
-      AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", "DATA/ALL", &driver);
+    #ifdef DAQ_ETH
+      AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D3);
+      AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D5);
+    #else
+        AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor1", D9);
+        AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<dhtSensor, TIME>("Sensor2", D8);
+    #endif
+      AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", publishTopic, &driver);
     #else
       AtomicModelPtr Sensor1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor1", t1);
       AtomicModelPtr Sensor2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Sensor, TIME>("Sensor2", t2);
@@ -236,9 +264,9 @@ int main(int argc, char ** argv) {
     /*************************************************/
     /*************************************************/
 
-    /***********************************************/
-    /*************** DAQ Coupled *******************/
-    /***********************************************/
+    /*************************************************/
+    /**************** DAQ Coupled ********************/
+    /*************************************************/
     cadmium::dynamic::modeling::Ports iports_DAQ = {};
     cadmium::dynamic::modeling::Ports oports_DAQ = {};
 
@@ -281,33 +309,58 @@ int main(int argc, char ** argv) {
     /*************************************************/
     /*************************************************/
     /*************************************************/
-
-    /*************************************************/
-    /**************** Sensor Test ********************/
-    /*************************************************/
-    cadmium::dynamic::modeling::Ports iports_test = {};
-    cadmium::dynamic::modeling::Ports oports_test = {};
-
-    cadmium::dynamic::modeling::Models submodels_test = {Sensor1, Sensor2};
-
-    cadmium::dynamic::modeling::EICs eics_test = {};
-    cadmium::dynamic::modeling::EOCs eocs_test = {};
-
-    cadmium::dynamic::modeling::ICs ics_test = {};
-
-    CoupledModelPtr test = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
-      "test",
-      submodels_test,
-      iports_test,
-      oports_test,
-      eics_test,
-      eocs_test,
-      ics_test
-    );
   #endif
   /*************************************************/
   /*************************************************/
   /*************************************************/
+
+  #ifdef NETWORK_COUPLED
+    /*************************************************/
+    /********* Network Atomic models *****************/
+    /*************************************************/
+
+    AtomicModelPtr Publisher1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher1", network_publish1);
+    AtomicModelPtr Publisher2 = cadmium::dynamic::translate::make_dynamic_atomic_model<Publisher, TIME>("Publisher2", network_publish2);
+    AtomicModelPtr Subscriber1 = cadmium::dynamic::translate::make_dynamic_atomic_model<Subscriber, TIME>("Subscriber1", network_subscribe);
+    AtomicModelPtr DFC1 = cadmium::dynamic::translate::make_dynamic_atomic_model<DFC, TIME>("DFC1");
+
+    /*************************************************/
+    /*************************************************/
+    /*************************************************/
+
+    /*************************************************/
+    /************** Network Coupled ******************/
+    /*************************************************/
+    cadmium::dynamic::modeling::Ports iports_NETWORK = {};
+    cadmium::dynamic::modeling::Ports oports_NETWORK = {};
+
+    cadmium::dynamic::modeling::Models submodels_NETWORK = {Publisher1, Publisher2, Subscriber1, DFC1};
+
+    cadmium::dynamic::modeling::EICs eics_NETWORK = {};
+    cadmium::dynamic::modeling::EOCs eocs_NETWORK = {};
+
+    cadmium::dynamic::modeling::ICs ics_NETWORK = {
+
+      cadmium::dynamic::translate::make_IC<subscriber_defs::out, DFC_defs::in>("Subscriber1","DFC1"),
+      
+      cadmium::dynamic::translate::make_IC<DFC_defs::outT, Publisher_defs::in>("DFC1","Publisher1"),
+      cadmium::dynamic::translate::make_IC<DFC_defs::outH, Publisher_defs::in>("DFC1","Publisher2")
+    };
+
+    CoupledModelPtr NETWORK = std::make_shared<cadmium::dynamic::modeling::coupled<TIME>>(
+      "NETWORK",
+      submodels_NETWORK,
+      iports_NETWORK,
+      oports_NETWORK,
+      eics_NETWORK,
+      eocs_NETWORK,
+      ics_NETWORK
+    );
+
+    /*************************************************/
+    /*************************************************/
+    /*************************************************/
+  #endif
 
 
   /*************************************************/
@@ -336,6 +389,10 @@ int main(int argc, char ** argv) {
 
     cadmium::dynamic::engine::runner<NDTime, logger_top> r(DAQ, {0});
     #endif
+  #endif
+
+  #ifdef NETWORK_COUPLED
+  cadmium::dynamic::engine::runner<NDTime, logger_top> r(NETWORK, {0});
   #endif
 
   /*************************************************/

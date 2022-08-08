@@ -27,5 +27,6 @@ class MQTTDriver{
         bool ping();
         void disconnect();
         void keepalive(uint64_t);
+        string networkInfo();
 };
 #endif

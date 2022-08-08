@@ -43,22 +43,14 @@ class Publisher {
             state.message = "";
             state._client = client;
 
-            // srand(NULL);
-            state.UID = rand()%50;
-            char buffer[2];
-            sprintf(buffer, (state.UID < 10)? "0%d" : "%d", state.UID);
+            state._client -> publish("ARSLAB/Register", (char*) topic.c_str());
 
-            state._client -> publish("ARSLAB/Register", buffer);
-
-            state.topic = buffer;
-            state.topic = state.topic + "/" + topic;
             printf("%s\n\r", state.topic.c_str());
         }
 
         struct state_type {
             string topic;
             string message;
-            int UID;
             MQTTDriver* _client;
         }; state_type state;
 
